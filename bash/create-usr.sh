@@ -5,6 +5,8 @@
 
 cd /media/el-rat/USB/saves
 
+# Check if args[0] is initialised and whether the user already has a directory.
+# Otherwise, Create a directory for the user.
 if [ -z "$1" ]
 then
 	printf "No arguments provided.\n"

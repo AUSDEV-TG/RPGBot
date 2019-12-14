@@ -1,6 +1,6 @@
 {
   "name": "rpgbot",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "RPGBot is a Bot that facilitates an RPG game within the discord API.",
   "main": "RPGBot.js",
   "dependencies": {
@@ -17,5 +17,5 @@
     "Bot"
   ],
   "author": "Tom Green",
-  "license": "ISC"
+  "license": "MIT"
 }

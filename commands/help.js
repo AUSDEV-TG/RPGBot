@@ -1,7 +1,10 @@
-// Help command
-// Author: Tom Green
-// Date Created: 20/10/2019
+/*
+ * Help Command
+ * Author: Tom Green
+ * Date Created: 20/10/2019 
+ */
 
+// Help command metadata.
 module.exports = {
 	name: "help",
 	description: "Get command help.",
@@ -11,21 +14,28 @@ module.exports = {
 	],
 };
 
+// Help command definition.
 module.exports.run = (client, message, args) => {
-	var reactions = client.reactions;
+	// Define the buttons to be used to navigate the help pages.
 	const buttons = [
-		reactions.zero, reactions.one,
-		reactions.two, reactions.three,
-		reactions.four, reactions.five,
-		reactions.six, reactions.seven,
-		reactions.eight, reactions.nine,
+		client.reactions.zero, client.reactions.one,
+		client.reactions.two, client.reactions.three,
+		client.reactions.four, client.reactions.five,
+		client.reactions.six, client.reactions.seven,
+		client.reactions.eight, client.reactions.nine,
 	];
 	
+	// Define a constant integer to determine how many commands are allowed to appear on one page (in this case: 3).
 	const commandsPerPage = 3;
-	let pages;
+	let pages; // Initialise the 'pages' variable.
 
-	var commands = [];
+	// commands variable to store an array of commands.
+	var commands = []; 
 
+	/*
+	 * If the argument '-a' is used, push each command to the commands array.
+	 * otherwise, only push non-developer commands to the commands array.
+	 */
 	if (args[0] === "-a") {
 		client.commands.forEach((value, key, map) => {
 			commands.push(value);
@@ -41,6 +51,7 @@ module.exports.run = (client, message, args) => {
 		});
 	}
 	
+	// Chunk the commands array into equal arrays containing 3 commands and store them in the pages variable.
 	pages = client._.chunk(commands, commandsPerPage);
 
 	pages = pages.map((page) => {
@@ -74,7 +85,7 @@ module.exports.run = (client, message, args) => {
 			await msg.react(buttons[index]);
 		}
 	
-		// Display X button after the others
+		// Display the X button after the others.
 			
 		await msg.react(reactions.x);
 		msg.delete(90000).catch();
