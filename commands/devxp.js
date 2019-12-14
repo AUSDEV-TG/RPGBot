@@ -1,3 +1,10 @@
+/*
+ * Developer XP command.
+ * Author: Tom Green
+ * Date Created: 11/12/2019
+ */
+
+// Developer XP command metadata.
 module.exports = {
 	name: "devxp",
 	description: "Add xp to your character.",
@@ -7,10 +14,23 @@ module.exports = {
 	],
 };
 
+// Developer XP command definition.
 module.exports.run = (client, message, args) => {
+	// If the user is not the developer return a message letting the user know they are unable to use the command.
 	if (message.author.id !== client.config.devID) 
-	return message.reply("Insufficient permissions.");	
-	var val = parseInt(args);
-	client.charFuncs.addXP(client, message, val);	
+		return message.reply("Insufficient permissions.");	
+	
+	/*
+	 * Try to parse the arguments into an integer, if no errors occured, 
+	 * use the addXP function to add experience points to a character save.
+	 */
+	try {
+		var xpVal = parseInt(args);
+		client.charFuncs.addXP(client, message, xpVal);	
+	} catch (error) {
+		// If an error occurs, log the error message and notify the user that their command could not be processed.
+		console.log(error);
+		message.reply(client.config.errorMsg);
+	}
 	message.delete();
 }

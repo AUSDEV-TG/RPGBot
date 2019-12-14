@@ -1,6 +1,7 @@
 // Character Functions
 // Author: Tom Green
 // Date Created: 22/10/2019
+
 module.exports = {
 	saveCharacter: function (client, id, save) {
 		const jsonString = JSON.stringify(save);

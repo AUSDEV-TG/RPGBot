@@ -5,6 +5,8 @@
 
 cd /media/el-rat/USB/saves
 
+# Check if args[0] is initialised and whether the user has a directory.
+# Otherwise change to the user's directory and delete their save.
 if [ -z "$1" ]
 then
 	printf "No arguments provided.\n"

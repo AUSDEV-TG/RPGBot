@@ -1,6 +1,6 @@
-//KMS command
-//Author: Tom Green
-//Date Created: 9/11/2019
+// KMS command
+// Author: Tom Green
+// Date Created: 9/11/2019
 
 module.exports = {
 	name: "kms",

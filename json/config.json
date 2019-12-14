@@ -3,5 +3,6 @@
 	"prefix":"~",
 	"devID": "223062242373926912",
 	"help":	"All RPGBot commands have a prefix of tilde (~). Useful commands are listed below:\n\t\thelp: to get assistance on how to use the bot.\n\t\tnew: to create a new character with the parameters name and age (WARNING WILL OVERWRITE PREVIOUS CHARACTER).\n\t\tstats: to view your character's stats.\n\t\tinventory: to view your character's inventory.\n\t\tmap: to view the world map.\n\t\tmove: to move your character.\n\t\tkms: commit sudoku.\n\t\tgraves: to view deceased characters.",
-	"block": "```"
+	"block": "```",
+	"errorMsg": "Please try again, if the problem persists, contact the developer using the discord tag: FartyParty#7769"
 }
