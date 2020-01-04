@@ -1,6 +1,8 @@
-// KMS command
-// Author: Tom Green
-// Date Created: 9/11/2019
+/*
+ * KMS command
+ * Author: Tom Green
+ * Date Created: 9/11/2019
+ */
 
 module.exports = {
 	name: "kms",
@@ -12,6 +14,10 @@ module.exports = {
 };
 
 module.exports.run = (client, message) => {
+	/*
+	 * Send a confirmation message to the user, if they reply 'y',
+	 * their character will be killed, otherwise, simply reply 'Phew!'
+	 */
 	message.reply("Are you sure? y/n");
 	message.channel.awaitMessages(m => m.author.id === message.author.id, {
 		max: 1,
@@ -26,7 +32,8 @@ module.exports.run = (client, message) => {
 				message.reply("Phew!");
 			}
 		}).catch(collected => {
+			// If the user ran out of time, log that the command time is up.
 			console.log(collected);
-			console.log("Command time up."); //collected"Command time up.");
+			console.log("Command time up.");
 		})
 }

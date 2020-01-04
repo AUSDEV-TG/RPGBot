@@ -1,6 +1,9 @@
-// New command
-// Author: Tom Green
-// Date Created: 20/10/2019
+/*
+ * New command
+ * Author: Tom Green
+ * Date Created: 20/10/2019
+ */
+
 module.exports = {
 	name: "new",
 	syntax: `~new name age`,

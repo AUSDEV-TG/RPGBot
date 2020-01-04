@@ -1,6 +1,8 @@
-// Map command
-// Author: Tom Green
-// Date Created: 22/10/2019
+/*
+Map command
+Author: Tom Green
+Date Created: 22/10/2019
+*/
 
 module.exports = {
 	name: "map",

@@ -7,10 +7,11 @@ const Enmap = require("enmap");
 const fs = require("fs");
 const _ = require("lodash");
 
-const client = new Discord.Client();
 const config = require("./json/config.json");
 const monsters = require("./res/monsters.json");
 const items = require("./res/items.json");
+
+const client = new Discord.Client();
 
 client.charFuncs = charFuncs;
 client.gameFuncs = gameFuncs;

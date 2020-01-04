@@ -1,8 +1,17 @@
-// Character Functions
-// Author: Tom Green
-// Date Created: 22/10/2019
+/*
+ * Character Functions
+ * Author: Tom Green
+ * Date Created: 22/10/2019
+ */
 
 module.exports = {
+	/*
+	 * saveCharacter function, which is used to save a 
+	 * user's character, using the parameters: client 
+	 * (the discord.js client instance), id (the 
+	 * snowflake of a discord user) and save (the 
+	 * json character data)
+	 */
 	saveCharacter: function (client, id, save) {
 		const jsonString = JSON.stringify(save);
 		

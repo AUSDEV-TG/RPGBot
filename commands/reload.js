@@ -1,6 +1,9 @@
-// Reload command
-// Author: Tom Green
-// Date Created: 20/10/2019
+/*
+Reload command
+Author: Tom Green
+Date Created: 20/10/2019
+*/
+
 module.exports = {
 	name: "reload",
 	syntax: `~reload commandName`,
@@ -11,9 +14,19 @@ module.exports = {
 };
 
 module.exports.run = (client, message, args) => {
-	if (message.author.id !== client.config.devID) return message.reply("Insufficient Permissions.");
-	if (!args || args.length < 1) return message.reply("Must provide a command to reload.");
-
+	// If the user is not the developer return a message letting the user know they are unable to use the command.
+	if (message.author.id !== client.config.devID) 
+		return message.reply("Insufficient Permissions.");
+	// If the user didn't provide an argument.
+	if (!args || args.length < 1) 
+		return message.reply("Must provide a command to reload.");
+	/* 
+	If the argument is '-' reload all requirements by 
+	deleting them from the require cache and then 
+	requiring them again.
+	Used to reload constant definitions that may be 
+	changed in development.
+	*/
 	if (args[0] === "-") {
 		try {
 			delete require.cache[require.resolve(`../functions/character-functions.js`)];
@@ -37,6 +50,7 @@ module.exports.run = (client, message, args) => {
 			console.log(error);
 		}
 	} else {
+		// Loop through the arguments and reload each command mentioned
 		for (i = 0; i < args.length; ++i) {
 			try {
 				const commandName = args[i];
