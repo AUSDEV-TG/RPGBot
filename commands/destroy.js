@@ -1,10 +1,9 @@
 /*
- * Destroy command
- * Author: Tom Green
- * Date Created: 20/10/2019
- */
+Destroy command
+Author: Tom Green
+Date Created: 20/10/2019
+*/
 
-// Destroy command metadata
 module.exports = {
 	name: "destroy",
 	description: "Restart RPGBot.",
@@ -14,14 +13,13 @@ module.exports = {
 	],
 };
 
-// Destroy command definition.
 module.exports.run = (client, message) => {
 	/*
-	 * If the author of the command is the developer, 
-	 * destroy the instance of the bot. Otherwise, 
-	 * notify the user that they are unable to use 
-	 * the command.
-	 */
+	If the author of the command is the developer, 
+	destroy the instance of the bot. Otherwise, 
+	notify the user that they are unable to use 
+	the command.
+	*/
 	if (message.author.id !== client.config.devID) 
 		return message.reply("Insufficient Permissions.");
 	else {

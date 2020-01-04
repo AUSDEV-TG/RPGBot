@@ -1,10 +1,9 @@
 /*
- * Grave command
- * Author: Tom Green
- * Date Created: 9/11/2019
- */
+Graves command
+Author: Tom Green
+Date Created: 9/11/2019
+*/
 
-// Grave command metadata.
 module.exports = {
 	name: "graves",
 	syntax: `~graves`,
@@ -14,18 +13,19 @@ module.exports = {
 	],
 };
 
-// Grave command definition.
 module.exports.run = (client, message) => {
 	// Try to load the user's grave.json.
 	try {
 		var graves = client.charFuncs.loadGrave(client, message.author.id);
 	} catch (error) {
 		/* 
-		* Errors that occur in this block will be caused by either: 
-		* a user has never had an account, 
-		* their current character is alive.
+		Errors that occur in this block will be 
+		caused by either: 
+		a user has never had an account or
+		their only character is alive.
 		*/
 		console.log(error);
+		message.react(reactions.error);
 		message.reply("You can't use this command until a character dies.");
 		return;
 	}
@@ -50,6 +50,13 @@ module.exports.run = (client, message) => {
 	for (var i = 0; i < graves.length; i++) {
 		graves[i].date = new Date(graves[i].date);
 	}
+
+	/*
+	As with the help command, the pages definition and
+	pages.map lambda below were borrowed from KMCGamer.
+	You can see his code at: 
+	https://github.com/KMCGamer/usc_bot/blob/master/commands/help.js
+	*/
 
 	pages = client._.chunk(graves, gravesPerPage);
 	
@@ -110,7 +117,5 @@ module.exports.run = (client, message) => {
 	  		await messageReaction.remove(notbot);
 		});
 	}).catch(err => console.log(err));
-		
-	var graveMessage = client.config.block;
 	message.delete();
 }

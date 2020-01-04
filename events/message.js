@@ -1,6 +1,8 @@
-// Message Event
-// Author: Tom Green
-// Date Created: 20/10/2019
+/*
+ * Message Event
+ * Author: Tom Green
+ * Date Created: 20/10/2019
+ */
 
 module.exports = (client, message) => {
 	// Ignore messages that are not from a guild

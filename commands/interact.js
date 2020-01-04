@@ -11,7 +11,6 @@ module.exports = {
 	],
 };
 
-
 module.exports.run = (client, message) => {
 	try {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);

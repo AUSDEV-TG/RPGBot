@@ -1,10 +1,9 @@
 /*
- * Developer Combat Command
- * Author: Tom Green
- * Date Created: 14/11/2019
- */
+Developer Combat Command
+Author: Tom Green
+Date Created: 14/11/2019
+*/
 
-// DevCombat command metadata
 module.exports = {
 	name: "devcombat",
 	syntax: `~devcombat`,
@@ -14,7 +13,6 @@ module.exports = {
 	],
 };
 
-// DevCombat command definition
 module.exports.run = (client, message) => {
 	// If the user is not the developer return a message letting the user know they are unable to use the command.
 	if (message.author.id !== client.config.devID) 

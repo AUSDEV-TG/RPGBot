@@ -3,6 +3,6 @@
 # Author: Tom Green
 # Date Created: 17/11/2019
 
-str = "'$*'"
+# str = "'$*'"
 
 todo -a $*

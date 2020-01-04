@@ -1,8 +1,14 @@
-// Game functions
-// Author: Tom Green
-// Date Created: 12/11/2019
+/*
+Game Functions
+Author: Tom Green
+Date Created: 12/11/2019
+*/
 
 module.exports = {
+	/* 
+	loadItems function, which is used to load 
+	the items from the items.json file.
+	*/
 	loadItems: function (client) {
 		var path = "/home/pi/Bots/RPGBot/res/items.json";
 		let rawdata = client.fs.readFileSync(path);
@@ -10,6 +16,10 @@ module.exports = {
 		return items;
 	},
 
+	/*
+	loadMonsters function, which is used to load
+	the monsters from the monsters.json file.
+	*/
 	loadMonsters: function (client) {
 		var path = "/home/pi/Bots/RPGBot/res/monsters.json";
 		let rawdata = client.fs.readFileSync(path);
@@ -17,6 +27,10 @@ module.exports = {
 		return monsters;	
 	},
 
+	/*
+	engageCombat function, which is used to engage 
+	combat between and character and a monster.
+	*/
 	engageCombat: function (client, message, character, monster) {
 		var reactions = client.reactions;
 		const buttons = [reactions.attack, reactions.run,];

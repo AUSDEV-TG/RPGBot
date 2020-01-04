@@ -1,6 +1,9 @@
-// New command
-// Author: Tom Green
-// Date Created: 20/10/2019
+/*
+TODO command
+Author: Tom Green
+Date Created: 17/11/2019
+*/
+
 module.exports = {
 	name: "todo",
 	syntax: `~todo description.`,
@@ -11,6 +14,15 @@ module.exports = {
 };
 
 module.exports.run = (client, message, args) => {
+	/*
+	If the author of the command is the developer, 
+	return a message that the user has insufficient permissions.
+	Then check if there are no arguments to the command.
+	If the command is successful, execute the shell script 
+	'todo_creator.sh' with the command arguments as the 
+	script arguments, if the script fails for any reason, 
+	notify the user.
+	*/
 	if (message.author.id !== client.config.devID) return message.reply("Insufficient Permissions.");
 	if (args == '') return message.reply("Must have parameters todo");
 	if (client.shell.exec('./bash/todo_creator.sh ' + Array.prototype.join.call(args, ' ')).code !== 0) {

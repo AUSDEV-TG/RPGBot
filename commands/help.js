@@ -1,10 +1,9 @@
 /*
- * Help Command
- * Author: Tom Green
- * Date Created: 20/10/2019 
- */
+Help Command
+Author: Tom Green
+Date Created: 20/10/2019 
+*/
 
-// Help command metadata.
 module.exports = {
 	name: "help",
 	description: "Get command help.",
@@ -14,7 +13,6 @@ module.exports = {
 	],
 };
 
-// Help command definition.
 module.exports.run = (client, message, args) => {
 	// Define the buttons to be used to navigate the help pages.
 	const buttons = [
@@ -33,9 +31,9 @@ module.exports.run = (client, message, args) => {
 	var commands = []; 
 
 	/*
-	 * If the argument '-a' is used, push each command to the commands array.
-	 * otherwise, only push non-developer commands to the commands array.
-	 */
+	If the argument '-a' is used, push each command to the commands array.
+	otherwise, only push non-developer commands to the commands array.
+	*/
 	if (args[0] === "-a") {
 		client.commands.forEach((value, key, map) => {
 			commands.push(value);
@@ -50,6 +48,14 @@ module.exports.run = (client, message, args) => {
 			}				
 		});
 	}
+
+
+	/*
+	As with the graves command, the pages definition and
+	pages.map lambda below were borrowed from KMCGamer.
+	You can see his code at: 
+	https://github.com/KMCGamer/usc_bot/blob/master/commands/help.js
+	*/
 	
 	// Chunk the commands array into equal arrays containing 3 commands and store them in the pages variable.
 	pages = client._.chunk(commands, commandsPerPage);
@@ -76,8 +82,6 @@ module.exports.run = (client, message, args) => {
 			},
 		};
 	});
-
-	var temp = 0;
 
 	message.channel.send(pages[0]).then(async (msg) => {
 		// Display number buttons
