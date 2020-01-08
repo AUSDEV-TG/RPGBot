@@ -18,11 +18,11 @@ module.exports.run = (client, message) => {
 		console.log(error);
 		return message.reply("You must create a character to use that command.");
 	}
-	
-	message.reply(client.config.block +"ARM\n" + character.name + "\n\nLevel " + character.level
-		+ "\nXP: " + character.xp + "/" + character.xpCap  + "\nHealth: " + character.health 	+ "/" 
-		+ character.maxHealth + "\tMana: " + character.mana + "/" + character.maxMana 
-		+ "\nDamage: " + character.dam + "\nAge: " + character.age + "\nAt: " 
-		+ (character.posX + 1)+ ", "+ (character.posY + 1) + client.config.block);
+
+	message.reply(client.config.block + "ARM\n" + character.name + "\n\nLevel " + character.level
+		+ "\nXP: " + character.xp + "/" + character.xpCap + "\nHealth: " + character.health + "/"
+		+ character.maxHealth + "\tMana: " + character.mana + "/" + character.maxMana
+		+ "\nDamage: " + character.dam + "\nAge: " + character.age + "\nAt: "
+		+ (character.posX + 1) + ", " + (character.posY + 1) + client.config.block);
 	message.delete();
 }

@@ -14,57 +14,57 @@ module.exports = {
 		const buttons = [reactions.attack, reactions.run,];
 		var run = false;
 		var msg = client.config.block + "A " + monster.name
-			+ "!" + "\tHP: " + monster.hp + "\tDam:" + monster.dam  
-			+ "\nWhat will " + character.name + " do?\n" + client.reactions.attack +"-attack\t" + client.reactions.run 
+			+ "!" + "\tHP: " + monster.hp + "\tDam:" + monster.dam
+			+ "\nWhat will " + character.name + " do?\n" + client.reactions.attack + "-attack\t" + client.reactions.run
 			+ "-run\t" + client.config.block;
 
 		message.channel.send(msg).then(async (msg) => {
 			// Display number buttons
 			await msg.react(buttons[0]);
 			await msg.react(buttons[1]);
-	
+
 			msg.delete(20000).then(msg => {
 				throw new Error('Time-Out');
 			}).catch(err => {
 				console.log(err);
 				if (monster.hp > 0 && run === false) {
 					if (monster.fatal == true) {
-						message.reply(client.config.block + character.name 
-							+ " couldn't defend against the " + monster.name 
+						message.reply(client.config.block + character.name
+							+ " couldn't defend against the " + monster.name
 							+ " and was killed...\nTook " + character.health + " HP damage." + client.config.block);
 						client.charFuncs.takeDamage(client, message, message.author.id, character, character.health);
 					} else {
 						if (monster.dam != 0) {
 							var dam = monster.dam * 2.5;
-							message.reply(client.config.block + character.name 
-								+ "'s Reaction time failed them...\n" + monster.name 
-								+ " became enraged, thrashed " + character.name 
+							message.reply(client.config.block + character.name
+								+ "'s Reaction time failed them...\n" + monster.name
+								+ " became enraged, thrashed " + character.name
 								+ " and fled. Took " + dam.toFixed(2) + " HP damage." + client.config.block);
 							client.charFuncs.takeDamage(client, message, message.author.id, character, dam.toFixed(2));
 						}
 					}
-				}		
+				}
 			});
-		
+
 			// Create collector to listen for button click
 			const collector = msg.createReactionCollector((reaction, user) => user !== client.user && user === message.author);
-	
+
 			collector.on('collect', async (messageReaction) => {
 				if (messageReaction.emoji.name === reactions.attack) {
 					monster.hp -= character.dam;
 					if (monster.hp <= 0) {
 						msg.edit(client.config.block + character.name
-							+ " killed the " + monster.name + ". +" 
-						 	+ monster.xp + "XP." + client.config.block);
-						
+							+ " killed the " + monster.name + ". +"
+							+ monster.xp + "XP." + client.config.block);
+
 						// Get rewards from the monster and add them to inventory
 						var rewards = module.exports.getRewards(client, monster.rewards);
-						
+
 						var gainedXP;
 
 						if (rewards.length != 0)
 							gainedXP = monster.xp / rewards.length;
-						
+
 						rewards.forEach(reward => {
 							if (typeof reward.heal !== 'undefined') {
 								client.charFuncs.addItem(client, message, character, reward, "consumable", gainedXP);
@@ -88,47 +88,47 @@ module.exports = {
 					} else {
 						if (monster.dam != 0) {
 							monster.dam *= 0.8;
-							msg.edit(client.config.block + character.name 
-								+ " injured the " + monster.name 
-								+ " but it attacked back. Took " + monster.dam.toFixed(2) + " HP damage.\nIt now has " 
-								+ monster.hp + "HP left" 
-								+ client.reactions.attack +"-attack\t" 
-								+ client.reactions.run + "-run\t" 
+							msg.edit(client.config.block + character.name
+								+ " injured the " + monster.name
+								+ " but it attacked back. Took " + monster.dam.toFixed(2) + " HP damage.\nIt now has "
+								+ monster.hp + "HP left"
+								+ client.reactions.attack + "-attack\t"
+								+ client.reactions.run + "-run\t"
 								+ client.config.block);
 							client.charFuncs.takeDamage(client, message, message.author.id, character, monster.dam.toFixed(2));
 						} else {
-							msg.edit(client.config.block + character.name 
+							msg.edit(client.config.block + character.name
 								+ " injured the " + monster.name + ".\n"
-								+ client.reactions.attack +"-attack\t" 
-								+ client.reactions.run + "-run\t" 
+								+ client.reactions.attack + "-attack\t"
+								+ client.reactions.run + "-run\t"
 								+ client.config.block);
-						}								
+						}
 					}
 				}
 
 				if (messageReaction.emoji.name === reactions.run) {
 					run = true;
 					if (monster.dam != 0) {
-						msg.edit(client.config.block + "The " 
-							+ monster.name  + " hit you but you managed to escape. Took " 
+						msg.edit(client.config.block + "The "
+							+ monster.name + " hit you but you managed to escape. Took "
 							+ monster.dam.toFixed(2) + " HP damage." + client.config.block);
 						client.charFuncs.takeDamage(client, message, message.author.id, character, monster.dam.toFixed(2));
 					} else {
-						msg.edit(client.config.block + character.name  
+						msg.edit(client.config.block + character.name
 							+ " has escaped." + client.config.block);
 					}
 					msg.delete(2000).catch();
 					collector.stop();
 				}
-						
-			    // Get the index of the page by button pressed
-			    const pageIndex = buttons.indexOf(messageReaction.emoji.name);
+
+				// Get the index of the page by button pressed
+				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
-		   		if (pageIndex == -1) return;
-			
-		  		const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-		  		await messageReaction.remove(notbot);
-	   		});
+				if (pageIndex == -1) return;
+
+				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
+				await messageReaction.remove(notbot);
+			});
 		}).catch(err => console.log(err));
 	},
 
@@ -216,7 +216,7 @@ module.exports = {
 		message.reply("WIP... Try again later");
 	},
 
-	fish: function (client, message, character) {				
+	fish: function (client, message, character) {
 		client.charFuncs.addItem(client, message, character, client.items.consumable[2], "consumable", 5);
 		message.reply("Caught 1 " + character, client.items.consumable[2].name + ". +5XP.");
 	},

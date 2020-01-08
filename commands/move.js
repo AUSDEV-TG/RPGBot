@@ -19,16 +19,16 @@ module.exports.run = (client, message, args) => {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 		var mapSave = client.charFuncs.loadMap(client, message.author.id);
 	} catch (error) {
-        console.log(error);
+		console.log(error);
 		return message.reply("You must create a character to use that command.");
 	}
-	
+
 	var monsters;
 
 	// Parse the number argument, if it is undefined or NaN, notify the user.
-    var num = parseInt(args[1]);
-    if (num === undefined || Number.isNaN(num) == true) 
-    	return message.reply("Please specify a direction and distance.");
+	var num = parseInt(args[1]);
+	if (num === undefined || Number.isNaN(num) == true)
+		return message.reply("Please specify a direction and distance.");
 
 	// Move the character in the desired direction
 	if (args[0] == "north" && args[1] != '') {
@@ -49,12 +49,12 @@ module.exports.run = (client, message, args) => {
 		//message.reply("Arrived at a village.");
 		monsters = client.monsters.village;
 	}
-	
+
 	if (mapSave.map[character.posY][character.posX] == '^') {
 		//message.reply("Arrived at a mountain.");
 		monsters = client.monsters.mountain;
 	}
-	
+
 	if (mapSave.map[character.posY][character.posX] == '~') {
 		//message.reply("In the water.");
 		monsters = client.monsters.water;
@@ -79,9 +79,9 @@ module.exports.run = (client, message, args) => {
 	If an enemy is to be encountered, create another variable to be 
 	used to access a randomised monster from the pool of available monsters.
 	*/
-	if (Math.floor(Math.random() * 10) % 3 == 0 ) {
+	if (Math.floor(Math.random() * 10) % 3 == 0) {
 		var rand = Math.floor(Math.random() * monsters.length);
-				
+
 		client.gameFuncs.engageCombat(client, message, character, monsters[rand]);
 	}
 	message.delete();

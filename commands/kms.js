@@ -22,8 +22,8 @@ module.exports.run = (client, message) => {
 	message.channel.awaitMessages(m => m.author.id === message.author.id, {
 		max: 1,
 		time: 30000,
-		errors:['time']
-		})
+		errors: ['time']
+	})
 		.then(collected => {
 			if (collected.first().content.includes("y")) {
 				client.charFuncs.takeDamage(client, message, message.author.id, 1000);

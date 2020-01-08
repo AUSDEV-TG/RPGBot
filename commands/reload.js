@@ -15,10 +15,10 @@ module.exports = {
 
 module.exports.run = (client, message, args) => {
 	// If the user is not the developer return a message letting the user know they are unable to use the command.
-	if (message.author.id !== client.config.devID) 
+	if (message.author.id !== client.config.devID)
 		return message.reply("Insufficient Permissions.");
 	// If the user didn't provide an argument.
-	if (!args || args.length < 1) 
+	if (!args || args.length < 1)
 		return message.reply("Must provide a command to reload.");
 	/* 
 	If the argument is '-' reload all requirements by 
@@ -68,5 +68,5 @@ module.exports.run = (client, message, args) => {
 			}
 		}
 	}
-	message.delete();	
+	message.delete();
 }
