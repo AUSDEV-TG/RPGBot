@@ -40,8 +40,6 @@ module.exports = {
 			+ "\nWhat will " + character.name + " do?\n" + client.reactions.attack +"-attack\t" + client.reactions.run 
 			+ "-run\t" + client.config.block;
 
-		const filter = m => m.content.startsWith(client.config.prefix) && m.author.id === message.author.id;
-
 		message.channel.send(msg).then(async (msg) => {
 			// Display number buttons
 			await msg.react(buttons[0]);
@@ -52,7 +50,7 @@ module.exports = {
 			}).catch(err => {
 				console.log(err);
 				if (monster.hp > 0 && run === false) {
-					if (monster.fatal === true) {
+					if (monster.fatal == true) {
 						message.reply(client.config.block + character.name 
 							+ " couldn't defend against the " + monster.name 
 							+ " and was killed...\nTook " + character.health + " HP damage." + client.config.block);
@@ -84,7 +82,7 @@ module.exports = {
 						msg.delete(2000).catch();
 						collector.stop();
 					} else {
-						if (monster.dam !== 0) {
+						if (monster.dam != 0) {
 							monster.dam *= 0.8;
 							msg.edit(client.config.block + character.name 
 								+ " injured the " + monster.name 
@@ -106,7 +104,7 @@ module.exports = {
 
 				if (messageReaction.emoji.name === reactions.run) {
 					run = true;
-					if (monster.dam !== 0) {
+					if (monster.dam != 0) {
 						msg.edit(client.config.block + "The " 
 							+ monster.name  + " hit you but you managed to escape. Took " 
 							+ monster.dam.toFixed(2) + " HP damage." + client.config.block);
@@ -122,7 +120,7 @@ module.exports = {
 			    // Get the index of the page by button pressed
 			    const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
-		   		if (pageIndex === -1) return;
+		   		if (pageIndex == -1) return;
 			
 		  		const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 		  		await messageReaction.remove(notbot);

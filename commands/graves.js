@@ -108,7 +108,7 @@ module.exports.run = (client, message) => {
 		    // Get the index of the page by button pressed
 		    const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 			// Return if emoji is irrelevant or the page doesnt exist (number too high)
-	   		if (pageIndex === -1 || !pages[pageIndex]) return;
+	   		if (pageIndex == -1 || !pages[pageIndex]) return;
 			
 	   		// Edit the message to show the new page.
 	   		msg.edit(pages[pageIndex]);
