@@ -80,8 +80,8 @@ module.exports = {
 						 	+ monster.xp + "XP." + client.config.block);
 						
 						// Get rewards from the monster and add them to inventory
-						var rewards = module.exports.getRewards();
-						
+						var rewards = module.exports.getRewards(client, monster.rewards);
+
 						rewards.forEach(reward => {
 							if (typeof reward.heal !== 'undefined') {
 								client.charFuncs.addItem(client, message, reward, "consumable", 0);
