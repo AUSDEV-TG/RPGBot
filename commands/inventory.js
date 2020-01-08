@@ -167,10 +167,10 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	for (var i = 0; i < tradable.length; i++) {
 		if (selectedType === "tradable" && tradable[i].name == character.inventory.tradable[selected].name) {
 			tradableTemps += ">\t" + tradable[i].count + "\t" + tradable[i].name
-				+ "\tValue: " + tradable[i].val;
+				+ "\tValue: " + tradable[i].val + "\n";
 		} else {
 			tradableTemps += " \t" + tradable[i].count + "\t" + tradable[i].name
-				+ "\tValue: " + tradable[i].val;
+				+ "\tValue: " + tradable[i].val + "\n";
 		}
 	}
 	
