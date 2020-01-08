@@ -5,28 +5,6 @@ Date Created: 12/11/2019
 */
 
 module.exports = {
-	/* 
-	loadItems function, which is used to load 
-	the items from the items.json file.
-	*/
-	loadItems: function (client) {
-		var path = "/home/pi/Bots/RPGBot/res/items.json";
-		let rawdata = client.fs.readFileSync(path);
-		let items = JSON.parse(rawdata);
-		return items;
-	},
-
-	/*
-	loadMonsters function, which is used to load
-	the monsters from the monsters.json file.
-	*/
-	loadMonsters: function (client) {
-		var path = "/home/pi/Bots/RPGBot/res/monsters.json";
-		let rawdata = client.fs.readFileSync(path);
-		let monsters = JSON.parse(rawdata);
-		return monsters;	
-	},
-
 	/*
 	engageCombat function, which is used to engage 
 	combat between and character and a monster.
@@ -54,7 +32,7 @@ module.exports = {
 						message.reply(client.config.block + character.name 
 							+ " couldn't defend against the " + monster.name 
 							+ " and was killed...\nTook " + character.health + " HP damage." + client.config.block);
-						client.charFuncs.takeDamage(client, message, message.author.id, character.health);
+						client.charFuncs.takeDamage(client, message, message.author.id, character, character.health);
 					} else {
 						if (monster.dam != 0) {
 							var dam = monster.dam * 2.5;
@@ -62,7 +40,7 @@ module.exports = {
 								+ "'s Reaction time failed them...\n" + monster.name 
 								+ " became enraged, thrashed " + character.name 
 								+ " and fled. Took " + dam.toFixed(2) + " HP damage." + client.config.block);
-							client.charFuncs.takeDamage(client, message, message.author.id, dam.toFixed(2));
+							client.charFuncs.takeDamage(client, message, message.author.id, character, dam.toFixed(2));
 						}
 					}
 				}		
@@ -89,15 +67,15 @@ module.exports = {
 						
 						rewards.forEach(reward => {
 							if (typeof reward.heal !== 'undefined') {
-								client.charFuncs.addItem(client, message, reward, "consumable", gainedXP);
+								client.charFuncs.addItem(client, message, character, reward, "consumable", gainedXP);
 							}
 
 							if (typeof reward.dam !== 'undefined') {
-								client.charFuncs.addItem(client, message, reward, "equippable", gainedXP);
+								client.charFuncs.addItem(client, message, character, reward, "equippable", gainedXP);
 							}
 
 							if (!reward.heal && !reward.dam) {
-								client.charFuncs.addItem(client, message, reward, "tradable", gainedXP);
+								client.charFuncs.addItem(client, message, character, reward, "tradable", gainedXP);
 							}
 						});
 
@@ -117,7 +95,7 @@ module.exports = {
 								+ client.reactions.attack +"-attack\t" 
 								+ client.reactions.run + "-run\t" 
 								+ client.config.block);
-							client.charFuncs.takeDamage(client, message, message.author.id, monster.dam.toFixed(2));
+							client.charFuncs.takeDamage(client, message, message.author.id, character, monster.dam.toFixed(2));
 						} else {
 							msg.edit(client.config.block + character.name 
 								+ " injured the " + monster.name + ".\n"
@@ -134,7 +112,7 @@ module.exports = {
 						msg.edit(client.config.block + "The " 
 							+ monster.name  + " hit you but you managed to escape. Took " 
 							+ monster.dam.toFixed(2) + " HP damage." + client.config.block);
-						client.charFuncs.takeDamage(client, message, message.author.id, monster.dam.toFixed(2));
+						client.charFuncs.takeDamage(client, message, message.author.id, character, monster.dam.toFixed(2));
 					} else {
 						msg.edit(client.config.block + character.name  
 							+ " has escaped." + client.config.block);
@@ -218,53 +196,45 @@ module.exports = {
 		return rewards;
 	},
 
-	shop: function (client, message) {
+	shop: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	property: function (client, message) {
+	property: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	explore: function (client, message) {
+	explore: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	camp: function (client, message) {
+	camp: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	hike: function (client, message) {
+	hike: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	fish: function (client, message) {		
-		var consumables = client.items.consumable;
-		var fish = consumables[2];
-		
-		client.charFuncs.addItem(client, message, fish, "consumable", 5);
-		message.reply("Caught 1 " + fish.name + ". +5XP.");
+	fish: function (client, message, character) {				
+		client.charFuncs.addItem(client, message, character, client.items.consumable[2], "consumable", 5);
+		message.reply("Caught 1 " + character, client.items.consumable[2].name + ". +5XP.");
 	},
 
-	dive: function (client, message) {
+	dive: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	hunt: function (client, message) {
+	hunt: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	},
 
-	gather: function (client, message) {
-		let items = module.exports.loadItems(client);
-
-		var consumables = items.consumable;
-		var gather = consumables[0];
-		
-		client.charFuncs.addItem(client, message, gather, "consumable", 2);
-		message.reply("Gathered 1 " + gather.name + ". +2XP.");
+	gather: function (client, message, character) {
+		client.charFuncs.addItem(client, message, character, client.items.consumable[0], "consumable", 2);
+		message.reply("Gathered 1 " + client.items.consumable[0].name + ". +2XP.");
 	},
 
-	lumber: function (client, message) {
+	lumber: function (client, message, character) {
 		message.reply("WIP... Try again later");
 	}
 }

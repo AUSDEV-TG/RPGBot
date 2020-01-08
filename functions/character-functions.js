@@ -106,8 +106,7 @@ module.exports = {
 		module.exports.saveCharacter(client, id, character);
 	},
 
-	takeDamage: function (client, message, id, dam) {
-		let character = module.exports.loadCharacter(client, id);
+	takeDamage: function (client, message, id, character, dam) {
 		character.health -= dam;
 		module.exports.checkDead(client, message, id, character);
 	},
@@ -119,9 +118,7 @@ module.exports = {
 		module.exports.checkLevel(client, message, character);
 	},
 
-	addItem: function (client, message, item, type, xp) {
-		let character = module.exports.loadCharacter(client, message.author.id);
-
+	addItem: function (client, message, character, item, type, xp) {
 		var search = module.exports.searchItems(client, character, item, type);		
 	
 		if (type == "consumable") {

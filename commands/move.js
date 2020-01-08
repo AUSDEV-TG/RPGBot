@@ -18,11 +18,12 @@ module.exports.run = (client, message, args) => {
 	try {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 		var mapSave = client.charFuncs.loadMap(client, message.author.id);
-		var monsters = client.gameFuncs.loadMonsters(client);
 	} catch (error) {
         console.log(error);
 		return message.reply("You must create a character to use that command.");
-    }
+	}
+	
+	var monsters;
 
 	// Parse the number argument, if it is undefined or NaN, notify the user.
     var num = parseInt(args[1]);
@@ -46,27 +47,27 @@ module.exports.run = (client, message, args) => {
 
 	if (mapSave.map[character.posY][character.posX] == '⌂') {
 		//message.reply("Arrived at a village.");
-		monsters = monsters.village;
+		monsters = client.monsters.village;
 	}
 	
 	if (mapSave.map[character.posY][character.posX] == '^') {
 		//message.reply("Arrived at a mountain.");
-		monsters = monsters.mountain;
+		monsters = client.monsters.mountain;
 	}
 	
 	if (mapSave.map[character.posY][character.posX] == '~') {
 		//message.reply("In the water.");
-		monsters = monsters.water;
+		monsters = client.monsters.water;
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '‡') {
 		//message.reply("Arrived at a forest.");
-		monsters = monsters.forest;
+		monsters = client.monsters.forest;
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '¿') {
 		//message.reply("Arrived at ruins.")
-		monsters = monsters.ruin;
+		monsters = client.monsters.ruin;
 	}
 
 	// Save the character with their new position.
@@ -80,10 +81,8 @@ module.exports.run = (client, message, args) => {
 	*/
 	if (Math.floor(Math.random() * 10) % 3 == 0 ) {
 		var rand = Math.floor(Math.random() * monsters.length);
-
-		var monster = monsters[rand];
 				
-		client.gameFuncs.engageCombat(client, message, character, monster);
+		client.gameFuncs.engageCombat(client, message, character, monsters[rand]);
 	}
 	message.delete();
 }
