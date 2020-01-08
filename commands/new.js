@@ -49,8 +49,10 @@ module.exports.run = (client, message, args) => {
 
 		var map = client.charFuncs.generateMap(client);
 
+		var profile;
+
 		try {
-			var profile = client.charFuncs.loadProfile(client, message.author.id);
+			profile = client.charFuncs.loadProfile(client, message.author.id);
 		} catch (error) {
 			console.log(error);
 		}
