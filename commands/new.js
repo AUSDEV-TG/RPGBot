@@ -1,8 +1,8 @@
 /*
- * New command
- * Author: Tom Green
- * Date Created: 20/10/2019
- */
+New command
+Author: Tom Green
+Date Created: 20/10/2019
+*/
 
 module.exports = {
 	name: "new",
@@ -53,6 +53,17 @@ module.exports.run = (client, message, args) => {
 		};
 
 		var map = client.charFuncs.generateMap(client);
+
+		//var profile = {
+			//name:	message.author,
+			//achievements: [],
+			//bestCharacter: {
+				//
+			//},
+			//currentCharacter: {
+				//	
+			//}
+		//};
 
 		message.reply(character.name + " (Age: " + character.age + ")  has been created!");
 		client.charFuncs.saveCharacter(client, message.author.id, character);
