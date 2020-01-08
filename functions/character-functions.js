@@ -14,7 +14,7 @@ module.exports = {
 	 */
 	saveCharacter: function (client, id, save) {
 		const jsonString = JSON.stringify(save);
-		
+
 		var path = "/media/el-rat/USB/saves/" + id + "/character.json";
 
 		client.fs.writeFile(path, jsonString, err => {
@@ -33,10 +33,10 @@ module.exports = {
 	},
 
 	destroyCharacter: function (client, id) {
-		if (client.shell.exec('./bash/del-char.sh ' + id).code !== 0) 
+		if (client.shell.exec('./bash/del-char.sh ' + id).code !== 0)
 			console.log("Error deleting character.");
-		else 
-			console.log("Character deleted.");		
+		else
+			console.log("Character deleted.");
 	},
 
 	generateMap: function (client) {
@@ -48,10 +48,12 @@ module.exports = {
 				3: ['', '', '', '', '', '', ''],
 				4: ['', '', '', '', '', '', ''],
 				5: ['', '', '', '', '', '', ''],
-			    6: ['', '', '', '', '', '', ''],
-			    7: ['', '', '', '', '', '', ''],
+				6: ['', '', '', '', '', '', ''],
+				7: ['', '', '', '', '', '', ''],
 				8: ['', '', '', '', '', '', ''],
-				9: ['', '', '', '', '', '', '']}};
+				9: ['', '', '', '', '', '', '']
+			}
+		};
 		for (var x = 0; x < 10; x++) {
 			for (var y = 0; y < 10; y++) {
 				var rand = Math.floor((Math.random() * 5));
@@ -66,9 +68,9 @@ module.exports = {
 						map.map[x][y] = '^';
 						break;
 					case 3:
-						if (x * y % 2 === 0) 
+						if (x * y % 2 === 0)
 							map.map[x][y] = '⌂';
-						else 
+						else
 							map.map[x][y] = '‡';
 						break;
 					case 4:
@@ -83,7 +85,7 @@ module.exports = {
 
 	saveMap: function (client, id, map) {
 		const jsonString = JSON.stringify(map);
-				
+
 		var path = "/media/el-rat/USB/saves/" + id + "/map.json";
 		client.fs.writeFile(path, jsonString, err => {
 			if (err)
@@ -98,6 +100,25 @@ module.exports = {
 		let rawdata = client.fs.readFileSync(path);
 		let map = JSON.parse(rawdata);
 		return map;
+	},
+
+	saveProfile: function (client, id, profile) {
+		const jsonString = JSON.stringify(map);
+
+		var path = "/media/el-rat/USB/saves/" + id + "/profile.json";
+		client.fs.writeFile(path, jsonString, err => {
+			if (err)
+				console.log("Error writing profile.json", err);
+			else
+				console.log("Successfully wrote profile.json");
+		});
+	},
+
+	loadProfile: function (client, id) {
+		var path = "/media/el-rat/USB/saves/" + id + "/profile.json";
+		let rawdata = client.fs.readFileSync(path);
+		let profile = JSON.parse(rawdata);
+		return profile;
 	},
 
 	heal: function (client, id, character, heal) {
@@ -119,28 +140,28 @@ module.exports = {
 	},
 
 	addItem: function (client, message, character, item, type, xp) {
-		var search = module.exports.searchItems(client, character, item, type);		
-	
+		var search = module.exports.searchItems(client, character, item, type);
+
 		if (type == "consumable") {
-			if (Number.isNaN(search)) 
+			if (Number.isNaN(search))
 				character.inventory.consumable.push(item);
-			else 
+			else
 				character.inventory.consumable[search].count += item.count;
 		} else if (type == "equippable") {
-			if (Number.isNaN(search)) 
-				character.inventory.equippable.push(item);			
-			else 
-				character.inventory.equippable[search].count += item.count;				
+			if (Number.isNaN(search))
+				character.inventory.equippable.push(item);
+			else
+				character.inventory.equippable[search].count += item.count;
 		} else if (type == "tradable") {
-			if (Number.isNaN(search)) 
-				character.inventory.tradable.push(item);			
-			else 
-				character.inventory.tradable[search].count += item.count;				
+			if (Number.isNaN(search))
+				character.inventory.tradable.push(item);
+			else
+				character.inventory.tradable[search].count += item.count;
 		}
 
 		module.exports.saveCharacter(client, message.author.id, character);
 
-		if (!Number.isNaN(xp)) 
+		if (!Number.isNaN(xp))
 			module.exports.addXP(client, message, character, xp);
 	},
 
@@ -148,17 +169,17 @@ module.exports = {
 		if (type == "consumable") {
 			console.log(type);
 			for (var i = 0; i < character.inventory.consumable.length; i++) {
-				if (character.inventory.consumable[i].name === item.name) 
+				if (character.inventory.consumable[i].name === item.name)
 					return i;
-			}				
+			}
 		} else if (type == "equippable") {
 			for (var i = 0; i < character.inventory.equippable.length; i++) {
-				if (character.inventory.equippable[i].name === item.name) 
+				if (character.inventory.equippable[i].name === item.name)
 					return i;
 			}
 		} else if (type == "tradable") {
 			for (var i = 0; i < character.inventory.tradable.length; i++) {
-				if (character.inventory.tradable[i].name === item.name) 
+				if (character.inventory.tradable[i].name === item.name)
 					return i;
 			}
 		}
@@ -174,8 +195,8 @@ module.exports = {
 				console.log(size);
 				grave.characters[size] = {
 					name: character.name,
-					level: character.level, 
-					age: character.age, 
+					level: character.level,
+					age: character.age,
 					date: Date.now()
 				};
 				module.exports.destroyCharacter(client, id);
@@ -187,7 +208,7 @@ module.exports = {
 						{
 							name: character.name,
 							level: character.level,
-							age:  character.age,
+							age: character.age,
 							date: Date.now()
 						}
 					]
@@ -199,7 +220,7 @@ module.exports = {
 		} else {
 			module.exports.saveCharacter(client, id, character);
 		}
-		return false;	
+		return false;
 	},
 
 	checkLevel: function (client, message, character) {
@@ -220,9 +241,9 @@ module.exports = {
 	},
 
 	saveGrave: function (client, id, grave) {
-		const jsonString = JSON.stringify(grave);		
+		const jsonString = JSON.stringify(grave);
 		var path = "/media/el-rat/USB/saves/" + id + "/grave.json";
-		
+
 		client.fs.writeFile(path, jsonString, err => {
 			if (err)
 				console.log("Error writing file", err);

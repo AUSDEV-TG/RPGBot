@@ -20,7 +20,7 @@ module.exports.run = (client, message) => {
 	notify the user that they are unable to use 
 	the command.
 	*/
-	if (message.author.id !== client.config.devID) 
+	if (message.author.id !== client.config.devID)
 		return message.reply("Insufficient Permissions.");
 	else {
 		message.reply("Terminating...");

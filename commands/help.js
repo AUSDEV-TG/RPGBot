@@ -22,13 +22,13 @@ module.exports.run = (client, message, args) => {
 		client.reactions.six, client.reactions.seven,
 		client.reactions.eight, client.reactions.nine,
 	];
-	
+
 	// Define a constant integer to determine how many commands are allowed to appear on one page (in this case: 3).
 	const commandsPerPage = 3;
 	let pages; // Initialise the 'pages' variable.
 
 	// commands variable to store an array of commands.
-	var commands = []; 
+	var commands = [];
 
 	/*
 	If the argument '-a' is used, push each command to the commands array.
@@ -40,15 +40,14 @@ module.exports.run = (client, message, args) => {
 		});
 	} else {
 		client.commands.forEach((value, key, map) => {
-			if (value.name !== "destroy" && value.name !== "devcombat" 
-				&& value.name !== "devxp" && value.name !== "kms" 
+			if (value.name !== "destroy" && value.name !== "devcombat"
+				&& value.name !== "devxp" && value.name !== "kms"
 				&& value.name !== "mapgen" && value.name !== "reload"
 				&& value.name !== "todo") {
 				commands.push(value);
-			}				
+			}
 		});
 	}
-
 
 	/*
 	As with the graves command, the pages definition and
@@ -56,7 +55,7 @@ module.exports.run = (client, message, args) => {
 	You can see his code at: 
 	https://github.com/KMCGamer/usc_bot/blob/master/commands/help.js
 	*/
-	
+
 	// Chunk the commands array into equal arrays containing 3 commands and store them in the pages variable.
 	pages = client._.chunk(commands, commandsPerPage);
 
@@ -65,14 +64,14 @@ module.exports.run = (client, message, args) => {
 			name: `__${command.name}__`,
 			value: `Description: ${command.description}\nSyntax: \`${command.syntax}\``,
 		}));
-	  			  			
+
 		return {
-	 		embed: {
+			embed: {
 				title: "Help",
 				color: 12388653,
 				author: {
-	  				name: 'RPGBot',
-	   				icon_url: 'https://cdn.discordapp.com/app-icons/635414349778911242/d1c1c411ce55669c39f4992051c0a901.png',
+					name: 'RPGBot',
+					icon_url: 'https://cdn.discordapp.com/app-icons/635414349778911242/d1c1c411ce55669c39f4992051c0a901.png',
 				},
 				fields, // Here are the commands!
 				timestamp: new Date(),
@@ -88,34 +87,34 @@ module.exports.run = (client, message, args) => {
 		for (const [index, _] of pages.entries()) {
 			await msg.react(buttons[index]);
 		}
-	
+
 		// Display the X button after the others.
-			
+
 		await msg.react(client.reactions.x);
 		msg.delete(90000).catch();
-	
+
 		// Create collector to listen for button click
 		const collector = msg.createReactionCollector((reaction, user) => user !== client.user);
 
 		collector.on('collect', async (messageReaction) => {
 			// If the x button is pressed, remove the message.
-		    if (messageReaction.emoji.name === client.reactions.x) {
-		    	msg.delete(); // Delete the message
-		        collector.stop(); // Get rid of the collector.
-		        return;
+			if (messageReaction.emoji.name === client.reactions.x) {
+				msg.delete(); // Delete the message
+				collector.stop(); // Get rid of the collector.
+				return;
 			}
-				
-		    // Get the index of the page by button pressed
-		    const pageIndex = buttons.indexOf(messageReaction.emoji.name);
+
+			// Get the index of the page by button pressed
+			const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 			// Return if emoji is irrelevant or the page doesnt exist (number too high)
-	   		if (pageIndex == -1 || !pages[pageIndex]) return;
-			
-	   		// Edit the message to show the new page.
-	   		msg.edit(pages[pageIndex]);
-		
-	  		const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-	  		await messageReaction.remove(notbot);
-   		});
+			if (pageIndex == -1 || !pages[pageIndex]) return;
+
+			// Edit the message to show the new page.
+			msg.edit(pages[pageIndex]);
+
+			const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
+			await messageReaction.remove(notbot);
+		});
 	}).catch(err => console.log(err));
 	message.delete();
 };

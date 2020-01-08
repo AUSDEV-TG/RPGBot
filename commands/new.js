@@ -49,20 +49,22 @@ module.exports.run = (client, message, args) => {
 
 		var map = client.charFuncs.generateMap(client);
 
-		//var profile = {
-			//name:	message.author,
-			//achievements: [],
-			//bestCharacter: {
-				//
-			//},
-			//currentCharacter: {
-				//	
-			//}
-		//};
+		let profile = client.charFuncs.loadProfile(client, message.author.id);
+
+		if (!profile) {
+			profile = {
+				name:	message.author,
+				achievements: [],
+				currentCharacter: character
+			};
+		} else {
+			profile.currentCharacter = character;
+		}
 
 		message.reply(character.name + " (Age: " + character.age + ")  has been created!");
 		client.charFuncs.saveCharacter(client, message.author.id, character);
 		client.charFuncs.saveMap(client, message.author.id, map);
+		client.charFuncs.saveProfile(client, message.author.id, profile);
 	}
 	message.delete();
 }
