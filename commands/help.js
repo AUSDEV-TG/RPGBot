@@ -91,7 +91,7 @@ module.exports.run = (client, message, args) => {
 	
 		// Display the X button after the others.
 			
-		await msg.react(reactions.x);
+		await msg.react(client.reactions.x);
 		msg.delete(90000).catch();
 	
 		// Create collector to listen for button click
