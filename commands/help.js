@@ -99,7 +99,7 @@ module.exports.run = (client, message, args) => {
 
 		collector.on('collect', async (messageReaction) => {
 			// If the x button is pressed, remove the message.
-		    if (messageReaction.emoji.name === reactions.x) {
+		    if (messageReaction.emoji.name === client.reactions.x) {
 		    	msg.delete(); // Delete the message
 		        collector.stop(); // Get rid of the collector.
 		        return;

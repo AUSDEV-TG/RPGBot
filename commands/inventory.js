@@ -19,10 +19,9 @@ module.exports.run = (client, message) => {
 		return message.reply("You must create a character to use that command.");
 	}
 
-	var reactions = client.reactions;
 	const buttons = [
-		reactions.up, reactions.down,
-		reactions.use, reactions.equip,];
+		client.reactions.up, client.reactions.down,
+		client.reactions.use, client.reactions.equip,];
 
 	var selected = 0;
 	var selectedType = "consumable";
@@ -39,7 +38,7 @@ module.exports.run = (client, message) => {
 		
 		// Display X button after the others
 					
-		await msg.react(reactions.x);
+		await msg.react(client.reactions.x);
 		msg.delete(90000).catch();
 			
 		// Create collector to listen for button clicks
@@ -47,13 +46,13 @@ module.exports.run = (client, message) => {
 
 		collector.on('collect', async (messageReaction) => {
 			// If the x button is pressed, remove the message.
-			if (messageReaction.emoji.name === reactions.x) {
+			if (messageReaction.emoji.name === client.reactions.x) {
 		   		msg.delete(); // Delete the message
 		    	collector.stop(); // Get rid of the collector.
 		    	return;
 			}
 
-			if (messageReaction.emoji.name === reactions.up) {
+			if (messageReaction.emoji.name === client.reactions.up) {
 				selected--;
 				if (selected < 0 && selectedType == "consumable") selected = 0;
 				else if (selected < 0 && selectedType == "equippable") {
@@ -67,7 +66,7 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
-			if (messageReaction.emoji.name === reactions.down) {
+			if (messageReaction.emoji.name === client.reactions.down) {
 				selected++;
 				if (selected > character.inventory.consumable.length - 1 && selectedType == "consumable")  {
 					selected = 0;
@@ -82,7 +81,7 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 	
-			if (messageReaction.emoji.name === reactions.use) {
+			if (messageReaction.emoji.name === client.reactions.use) {
 				var found = false;
 				for (var i = 0; i < character.inventory.consumable.length; i++) {
 					var tempName = character.inventory.consumable[i].name;
@@ -104,7 +103,7 @@ module.exports.run = (client, message) => {
 				if (found == false) message.reply("You don't have " + selectedName);
 			} 
 
-				if (messageReaction.emoji.name === reactions.equip) {
+				if (messageReaction.emoji.name === client.reactions.equip) {
 					var selectedName = character.inventory.equippable[selected].name;
 					// Create code to implement equipment systen
 					var found = false;

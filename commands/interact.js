@@ -20,16 +20,15 @@ module.exports.run = (client, message) => {
 		return message.reply("You must create a character to use that command.");
     }
 
-    var reactions = client.reactions;
-
     var map = mapSave.map;
     const buttons = [
-    	reactions.shop, reactions.property, reactions.explore, 
-    	reactions.camp, reactions.hike, reactions.fish, reactions.dive, 
-    	reactions.hunt, reactions.gather, reactions.lumber];
+    	client.reactions.shop, client.reactions.property, client.reactions.explore, 
+		client.reactions.camp, client.reactions.hike, client.reactions.fish, 
+		client.reactions.dive, client.reactions.hunt, client.reactions.gather, client.reactions.lumber];
 
 	if (map[character.posY][character.posX] == '⌂') {
-		var msg = client.config.block + "Village:\n" + reactions.shop + "-Shop\t" + reactions.property + "-Property\t" 
+		var msg = client.config.block + "Village:\n" + client.reactions.shop 
+			+ "-Shop\t" + client.reactions.property + "-Property\t" 
 			+ client.config.block;
 
 		message.channel.send(msg).then(async (msg) => {
@@ -37,7 +36,7 @@ module.exports.run = (client, message) => {
 			await msg.react(buttons[0]);
 			await msg.react(buttons[1]);
 	
-			await msg.react(reactions.x);
+			await msg.react(client.reactions.x);
 			msg.delete(60000).catch();
 						
 			// Create collector to listen for button click
@@ -45,17 +44,17 @@ module.exports.run = (client, message) => {
 				
 			collector.on('collect', async (messageReaction) => {
 				// If the x button is pressed, remove the message.
-				if (messageReaction.emoji.name === reactions.x) {
+				if (messageReaction.emoji.name === client.reactions.x) {
 				   	msg.delete(); // Delete the message
 				    collector.stop(); // Get rid of the collector.
 				    return;
 				}
 
-				if (messageReaction.emoji.name === reactions.shop) {
+				if (messageReaction.emoji.name === client.reactions.shop) {
 					client.gameFuncs.shop(client, message);
 				}
 
-				if (messageReaction.emoji.name === reactions.property) {
+				if (messageReaction.emoji.name === client.reactions.property) {
 					client.gameFuncs.property(client, message);
 				}
 
@@ -75,14 +74,14 @@ module.exports.run = (client, message) => {
 	}
 
 	if (map[character.posY][character.posX] == '¿') {
-		var msg = client.config.block + "Ruin:\n" + reactions.explore + "-Explore\t"
+		var msg = client.config.block + "Ruin:\n" + client.reactions.explore + "-Explore\t"
 					+ client.config.block;
 	
 		message.channel.send(msg).then(async (msg) => {
 			// Display number buttons
 			await msg.react(buttons[2]);
 			
-			await msg.react(reactions.x);
+			await msg.react(client.reactions.x);
 			msg.delete(60000).catch();
 								
 			// Create collector to listen for button click
@@ -90,13 +89,13 @@ module.exports.run = (client, message) => {
 				
 			collector.on('collect', async (messageReaction) => {
 				// If the x button is pressed, remove the message.
-				if (messageReaction.emoji.name === reactions.x) {
+				if (messageReaction.emoji.name === client.reactions.x) {
 				   	msg.delete(); // Delete the message
 				    collector.stop(); // Get rid of the collector.
 				    return;
 				}
 		
-				if (messageReaction.emoji.name === reactions.explore) {
+				if (messageReaction.emoji.name === client.reactions.explore) {
 					client.gameFuncs.explore(client, message);
 				}
 		
@@ -116,7 +115,7 @@ module.exports.run = (client, message) => {
 	}
 	
 	if (map[character.posY][character.posX] == '^') {
-		var msg = client.config.block + "Mountain:\n" + reactions.camp + "-Camp\t" + reactions.hike + "-Hike\t"
+		var msg = client.config.block + "Mountain:\n" + client.reactions.camp + "-Camp\t" + client.reactions.hike + "-Hike\t"
 			+ client.config.block;
 
 		message.channel.send(msg).then(async (msg) => {
@@ -124,7 +123,7 @@ module.exports.run = (client, message) => {
 			await msg.react(buttons[3]);
 			await msg.react(buttons[4]);
 					
-			await msg.react(reactions.x);
+			await msg.react(client.reactions.x);
 			msg.delete(60000).catch();
 										
 			// Create collector to listen for button click
@@ -132,17 +131,17 @@ module.exports.run = (client, message) => {
 						
 			collector.on('collect', async (messageReaction) => {
 				// If the x button is pressed, remove the message.
-				if (messageReaction.emoji.name === reactions.x) {
+				if (messageReaction.emoji.name === client.reactions.x) {
 				   	msg.delete(); // Delete the message
 				    collector.stop(); // Get rid of the collector.
 				    return;
 				}
 				
-				if (messageReaction.emoji.name === reactions.camp) {
+				if (messageReaction.emoji.name === client.reactions.camp) {
 					client.gameFuncs.camp(client, message);
 				}
 
-				if (messageReaction.emoji.name === reactions.hike) {
+				if (messageReaction.emoji.name === client.reactions.hike) {
 					client.gameFuncs.hike(client, message);
 				}
 				
@@ -162,7 +161,7 @@ module.exports.run = (client, message) => {
 	}
 	
 	if (map[character.posY][character.posX] == '~') {
-		var msg = client.config.block + "Water:\n" + reactions.fish + "-Fish\t" + reactions.dive + "-Dive\t"
+		var msg = client.config.block + "Water:\n" + client.reactions.fish + "-Fish\t" + client.reactions.dive + "-Dive\t"
 			+ client.config.block;
 
 		message.channel.send(msg).then(async (msg) => {
@@ -170,7 +169,7 @@ module.exports.run = (client, message) => {
 			await msg.react(buttons[5]);
 			await msg.react(buttons[6]);
 							
-			await msg.react(reactions.x);
+			await msg.react(client.reactions.x);
 			msg.delete(60000).catch();
 												
 			// Create collector to listen for button click
@@ -184,11 +183,11 @@ module.exports.run = (client, message) => {
 				    return;
 				}
 					
-				if (messageReaction.emoji.name === reactions.fish) {
+				if (messageReaction.emoji.name === client.reactions.fish) {
 					client.gameFuncs.fish(client, message);
 				}
 		
-				if (messageReaction.emoji.name === reactions.dive) {
+				if (messageReaction.emoji.name === client.reactions.dive) {
 					client.gameFuncs.dive(client, message);
 				}
 						
@@ -208,8 +207,8 @@ module.exports.run = (client, message) => {
 	}
 	
 	if (map[character.posY][character.posX] == '‡') {
-		var msg = client.config.block + "Forest:\n" + reactions.hunt + "-Hunt\t" + reactions.gather  
-			+ "-Gather\t" + reactions.lumber + "-Lumber\t"
+		var msg = client.config.block + "Forest:\n" + client.reactions.hunt + "-Hunt\t" + client.reactions.gather  
+			+ "-Gather\t" + client.reactions.lumber + "-Lumber\t"
 			+ client.config.block;	
 
 		message.channel.send(msg).then(async (msg) => {
@@ -218,7 +217,7 @@ module.exports.run = (client, message) => {
 			await msg.react(buttons[8]);
 			await msg.react(buttons[9]);
 									
-			await msg.react(reactions.x);
+			await msg.react(client.reactions.x);
 			msg.delete(60000).catch();
 														
 			// Create collector to listen for button click
@@ -226,21 +225,21 @@ module.exports.run = (client, message) => {
 										
 			collector.on('collect', async (messageReaction) => {
 				// If the x button is pressed, remove the message.
-				if (messageReaction.emoji.name === reactions.x) {
+				if (messageReaction.emoji.name === client.reactions.x) {
 				   	msg.delete(); // Delete the message
 				    collector.stop(); // Get rid of the collector.
 				    return;
 				}
 							
-				if (messageReaction.emoji.name === reactions.hunt) {
+				if (messageReaction.emoji.name === client.reactions.hunt) {
 					client.gameFuncs.hunt(client, message);
 				}
 				
-				if (messageReaction.emoji.name === reactions.gather) {
+				if (messageReaction.emoji.name === client.reactions.gather) {
 					client.gameFuncs.gather(client, message);
 				}
 
-				if (messageReaction.emoji.name === reactions.lumber) {
+				if (messageReaction.emoji.name === client.reactions.lumber) {
 					client.gameFuncs.lumber(client, message);
 				}
 								
