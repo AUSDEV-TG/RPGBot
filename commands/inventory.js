@@ -94,6 +94,7 @@ module.exports.run = (client, message) => {
 						if (character.inventory.consumable[i].count <= 0) {
 							character.inventory.consumable.splice(i, 1);
 						}
+						selected--;
 										
 						client.charFuncs.heal(client, message.author.id, character, tempHeal);
 						message.reply("Used " + tempName + ".");
@@ -133,7 +134,7 @@ module.exports.run = (client, message) => {
 	message.delete();
 }
 
-module.exports.getInvent = (client, character, selected, selectedType) => {	
+module.exports.getInvent = (client, character, selected, selectedType) => {
 	var consumable = character.inventory.consumable;
 	var equippable = character.inventory.equippable;
 	var tradable = character.inventory.tradable;
@@ -141,6 +142,8 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	var consumableTemps = "";
 	var equippableTemps = "";
 	var tradableTemps = "";
+
+	if (selected < 0) selected = 0;
 
 	for (var i = 0; i < consumable.length; i++) {
 		if (selectedType === "consumable" && consumable[i].name == character.inventory.consumable[selected].name) {
