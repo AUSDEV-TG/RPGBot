@@ -74,7 +74,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 
-	if (map[character.posY][character.posX] === '¿') {
+	if (map[character.posY][character.posX] == '¿') {
 		var msg = client.config.block + "Ruin:\n" + reactions.explore + "-Explore\t"
 					+ client.config.block;
 	

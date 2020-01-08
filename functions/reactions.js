@@ -61,5 +61,5 @@ module.exports = {
   dive: '🥽',
   hunt: '🏹',
   gather: '🧺',
-  lumber: '🪓'
+  lumber: '🌲'
 };
