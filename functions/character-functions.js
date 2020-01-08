@@ -103,7 +103,7 @@ module.exports = {
 	},
 
 	saveProfile: function (client, id, profile) {
-		const jsonString = JSON.stringify(map);
+		const jsonString = JSON.stringify(profile);
 
 		var path = "/media/el-rat/USB/saves/" + id + "/profile.json";
 		client.fs.writeFile(path, jsonString, err => {
