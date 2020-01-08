@@ -22,9 +22,8 @@ module.exports.run = (client, message) => {
 		return message.reply("You must create a character to use that command.");
 	}
 
-	var reactions = client.reactions;
-
-	const buttons = [reactions.left, reactions.right, reactions.up, reactions.down, reactions.interact];
+	const buttons = [client.reactions.left, client.reactions.right, 
+		client.reactions.up, client.reactions.down, client.reactions.interact];
 
 	var map = mapSave.map;
 	var temp = map[character.posY][character.posX];
@@ -53,7 +52,7 @@ module.exports.run = (client, message) => {
 				await msg.react(buttons[3]);
 				await msg.react(buttons[4]);
 
-				await msg.react(reactions.x);
+				await msg.react(client.reactions.x);
 				msg.delete(60000).catch();
 			
 				// Create collector to listen for button click
@@ -61,13 +60,13 @@ module.exports.run = (client, message) => {
 		
 				collector.on('collect', async (messageReaction) => {
 					// If the x button is pressed, remove the message.
-					if (messageReaction.emoji.name === reactions.x) {
+					if (messageReaction.emoji.name === client.reactions.x) {
 					   	msg.delete(); // Delete the message
 					    collector.stop(); // Get rid of the collector.
 					    return;
 					}
 				
-					if (messageReaction.emoji.name === reactions.left) {
+					if (messageReaction.emoji.name === client.reactions.left) {
 						client.commands.get('move').run(client, message, ["west", 1]);
 						map[character.posY][character.posX] = temp;
 						character.posX--;
@@ -85,7 +84,7 @@ module.exports.run = (client, message) => {
 						msg.edit(newMap);
 					}
 	
-					if (messageReaction.emoji.name === reactions.right) {
+					if (messageReaction.emoji.name === client.reactions.right) {
 						client.commands.get('move').run(client, message, ["east", 1]);
 						map[character.posY][character.posX] = temp;
 						character.posX++;
@@ -103,7 +102,7 @@ module.exports.run = (client, message) => {
 						msg.edit(newMap);
 					}
 
-					if (messageReaction.emoji.name === reactions.up) {
+					if (messageReaction.emoji.name === client.reactions.up) {
 						client.commands.get('move').run(client, message, ["north", 1]);
 						map[character.posY][character.posX] = temp;
 						character.posY++;
@@ -121,7 +120,7 @@ module.exports.run = (client, message) => {
 						msg.edit(newMap);					
 					}
 
-					if (messageReaction.emoji.name === reactions.down) {
+					if (messageReaction.emoji.name === client.reactions.down) {
 						client.commands.get('move').run(client, message, ["south", 1]);
 						map[character.posY][character.posX] = temp;
 						character.posY--;
@@ -139,7 +138,7 @@ module.exports.run = (client, message) => {
 						msg.edit(newMap);					
 					}
 
-					if (messageReaction.emoji.name === reactions.interact) {
+					if (messageReaction.emoji.name === client.reactions.interact) {
 						client.commands.get('interact').run(client, message);
 					}
 							
