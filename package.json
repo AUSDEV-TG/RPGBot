@@ -5,7 +5,7 @@
   "main": "RPGBot.js",
   "dependencies": {
     "discord.js": "^11.5.1",
-    "enmap": "^5.2.1",
+    "enmap": "^5.2.4",
     "lodash": "^4.17.15",
     "shelljs": "^0.8.3"
   },

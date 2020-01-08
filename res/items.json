@@ -1,8 +1,10 @@
 {
 	"consumable": [
 		{"name": "Apple", "heal": 1, "val": 2, "count": 1},
+		{"name": "Blood-Sack", "heal": 5, "val": 3, "count": 1},
 		{"name": "Fish", "heal": 5, "val": 4, "count": 1},
 		{"name": "Steak", "heal": 5, "val": 5, "count": 1},
+		{"name": "Spaghetti", "heal": 10, "val": 10, "count": 1},
 		{"name": "Potion", "heal": 10, "val": 10, "count": 1},
 		{"name": "Potion+", "heal": 20, "val": 15, "count": 1},
 		{"name": "Tonic", "mana": 10, "val": 10, "count": 1},
@@ -12,16 +14,24 @@
 	"equippable": [
 		{"name": "Knife", "dam": 2, "equipped": false, "val": 5, "count": 1},
 		{"name": "Dagger", "dam": 5, "equipped": false, "val": 15, "count": 1},
+		{"name": "Bone Club", "dam": 10, "equipped": false, "val": 20, "count": 1},
 		{"name": "Mace", "dam": 10, "equipped": false, "val": 30, "count": 1},
 		{"name": "Short Sword", "dam": 10, "equipped": false, "val": 30, "count": 1},
-		{"name": "Greatsword", "dam": 15, "equipped": false, "val": 50, "count": 1}		
+		{"name": "Greatsword", "dam": 15, "equipped": false, "val": 50, "count": 1},
+		{"name": "Occult Staff", "dam": 18, "equipped": false, "val": 80, "count": 1},
+		{"name": "Demon Blade", "dam": 20, "equipped": false, "val": 100, "count": 1}
 	],
 
 	"tradable": [
 		{"name": "Money" , "val": 1, "count": 1},
+		{"name": "Squirrel Pelt", "val": 10, "count": 1},
+		{"name": "Wolf Pelt", "val": 15, "count": 1},
+		{"name": "Goat Horn", "val": 15, "count": 1},
+		{"name": "Shark Tooth", "val": 25, "count": 1},
+		{"name": "Pearl" , "val": 50, "count": 1},
+		{"name": "Silver Bar" , "val": 75, "count": 1},
 		{"name": "Gold Bar" , "val": 100, "count": 1},
 		{"name": "Diamond" , "val": 1000, "count": 1},
-		{"name": "Pearl" , "val": 50, "count": 1},
-		{"name": "Silver Bar" , "val": 75, "count": 1}
+		{"name": "Ectoplasm", "val": 2000, "count": 1}
 	]
 }

@@ -78,6 +78,24 @@ module.exports = {
 						msg.edit(client.config.block + character.name
 							+ " killed the " + monster.name + ". +" 
 						 	+ monster.xp + "XP." + client.config.block);
+						
+						// Get rewards from the monster and add them to inventory
+						var rewards = module.exports.getRewards();
+						
+						rewards.forEach(reward => {
+							if (typeof reward.heal !== 'undefined') {
+								client.charFuncs.addItem(client, message, reward, "consumable", 0);
+							}
+
+							if (typeof reward.dam !== 'undefined') {
+								client.charFuncs.addItem(client, message, reward, "equippable", 0);
+							}
+
+							if (!reward.heal && !reward.dam) {
+								client.charFuncs.addItem(client, message, reward, "tradable", 0);
+							}
+						});
+
 						client.charFuncs.addXP(client, message, character, monster.xp);
 						msg.delete(2000).catch();
 						collector.stop();
@@ -128,6 +146,54 @@ module.exports = {
 		}).catch(err => console.log(err));
 	},
 
+	getRewards: function (client, rewardType) {
+		var rewards = [];
+		if (rewardType == "squirrel") {
+			rewards[0] = client.items.consumable[3]; // Steak
+			rewards[1] = client.items.tradable[1]; // Squirrel Pelt
+		} else if (rewardType == "wolf") {
+			rewards[0] = client.items.consumable[3]; // Steak
+			rewards[1] = client.items.tradable[2]; // Wolf Pelt
+		} else if (rewardType == "bandit") {
+			rewards[0] = client.items.consumable[5]; // Potion
+			rewards[1] = client.items.equippable[1]; // Dagger
+			rewards[2] = client.items.tradable[0]; // Money
+		} else if (rewardType == "fish") {
+			rewards[0] = client.items.consumable[2]; // Fish
+		} else if (rewardType == "leech") {
+			rewards[0] = client.items.consumable[1]; // Blood Sack
+		} else if (rewardType == "shark") {
+			rewards[0] = client.items.consumable[2]; // Fish
+			rewards[1] = client.items.tradable[4]; // Shark Tooth
+		} else if (rewardType == "goat") {
+			rewards[0] = client.items.consumable[3]; // Steak
+			rewards[1] = client.items.tradable[3]; // Goat Horn
+		} else if (rewardType == "golem") {
+			rewards[0] = client.items.tradable[5]; // Pearl
+			rewards[1] = client.items.tradable[6]; // Silver Bar
+			rewards[2] = client.items.tradable[7]; // Gold Bar
+			rewards[3] = client.items.tradable[8]; // Diamond Bar
+		} else if (rewardType == "fruit") {
+			rewards[0] = client.items.consumable[0]; // Apple
+		} else if (rewardType == "skeleton") {
+			rewards[0] = client.items.equippable[2]; // Bone Club
+		} else if (rewardType == "spectre") {
+			rewards[0] = client.items.tradable[9]; // Ectoplasm
+		} else if (rewardType == "chicken") {
+			rewards[0] = client.items.consumable[3]; // Steak
+		} else if (rewardType == "spaghetti") {
+			rewards[0] = client.items.consumable[4]; // Spaghetti
+		} else if (rewardType == "cultist") {
+			rewards[0] = client.items.equippable[6]; // Occult Staff
+		} else if (rewardType == "demon") {
+			rewards[0] = client.items.consumable[7]; // Demon Blade
+		} else if (rewardType == "mutant") {
+			rewards[0] = client.items.consumable[3]; // Steak
+		}
+
+		return rewards;
+	},
+
 	shop: function (client, message) {
 		message.reply("WIP... Try again later");
 	},
@@ -150,7 +216,7 @@ module.exports = {
 
 	fish: function (client, message) {		
 		var consumables = client.items.consumable;
-		var fish = consumables[1];
+		var fish = consumables[2];
 		
 		client.charFuncs.addItem(client, message, fish, "consumable", 5);
 		message.reply("Caught 1 " + fish.name + ". +5XP.");

@@ -1,42 +1,42 @@
 {
 	"forest": [
-		{"name": "Rabid Squirrel", "hp": 2, "dam": 8, "fatal": false, "rewards": "fruit",  "xp": 5},
-		{"name": "Wolf", "hp": 20, "dam": 8, "fatal": true, "rewards": "meat", "xp": 15},
-		{"name": "Bandit", "hp": 50 , "dam": 8, "fatal": true, "rewards": "consumable equippable tradable", "xp": 20}
+		{"name": "Rabid Squirrel", "hp": 2, "dam": 8, "fatal": false, "rewards": "squirrel",  "xp": 5},
+		{"name": "Wolf", "hp": 20, "dam": 8, "fatal": true, "rewards": "wolf", "xp": 15},
+		{"name": "Bandit", "hp": 50 , "dam": 8, "fatal": true, "rewards": "bandit", "xp": 20}
 	],
 
 	"water": [
-		{"name": "Fishman", "hp": 20, "dam": 15, "fatal": true, "rewards": "fish tradable", "xp": 50},
-		{"name": "Leech", "hp": 5, "dam": 5, "fatal": false, "rewards": "fish", "xp": 5},
-		{"name": "Shark", "hp": 20, "dam": 25, "fatal": true, "rewards": "fish", "xp": 30}
+		{"name": "Fishman", "hp": 20, "dam": 15, "fatal": true, "rewards": "fish", "xp": 50},
+		{"name": "Leech", "hp": 5, "dam": 5, "fatal": false, "rewards": "leech", "xp": 5},
+		{"name": "Shark", "hp": 20, "dam": 25, "fatal": true, "rewards": "shark", "xp": 30}
 	],
 
 	"mountain": [
-		{"name": "Goat", "hp": 10, "dam": 5, "fatal": false, "rewards": "meat", "xp": 10},
-		{"name": "Rock Golem", "hp": 40, "dam": 10, "fatal": true, "rewards": "tradable", "xp": 50}
+		{"name": "Goat", "hp": 10, "dam": 5, "fatal": false, "rewards": "goat", "xp": 10},
+		{"name": "Rock Golem", "hp": 40, "dam": 10, "fatal": true, "rewards": "golem", "xp": 50}
 	],
 
 	"ruin": [
 		{"name": "Bat", "hp": 2, "dam": 2, "fatal": false, "rewards": "fruit", "xp": 5},
-		{"name": "Skeleton", "hp": 5, "dam": 10, "fatal": true, "rewards": "equippable tradable", "xp": 25},
-		{"name": "Phantom", "hp": 100, "dam": 15, "fatal": true, "rewards": "tradable", "xp": 100},
-		{"name": "Rock Golem", "hp": 40, "dam": 10, "fatal": true, "rewards": "tradable", "xp": 50}
+		{"name": "Skeleton", "hp": 5, "dam": 10, "fatal": true, "rewards": "skeleton", "xp": 25},
+		{"name": "Phantom", "hp": 100, "dam": 15, "fatal": true, "rewards": "spectre", "xp": 100},
+		{"name": "Rock Golem", "hp": 40, "dam": 10, "fatal": true, "rewards": "golem", "xp": 50}
 	],
 
 	"village": [
-		{"name": "Fiend", "hp": 20, "dam": 4, "fatal": false, "rewards": "consumable equippable tradable", "xp": 15},
-		{"name": "Feral Chicken", "hp": 5, "dam": 2, "fatal": false, "rewards": "meat", "xp": 5}
+		{"name": "Fiend", "hp": 20, "dam": 4, "fatal": false, "rewards": "bandit", "xp": 15},
+		{"name": "Feral Chicken", "hp": 5, "dam": 2, "fatal": false, "rewards": "chicken", "xp": 5}
 	],
 
 	"dev": [
-		{"name": "Phantom Bug", "hp": 26, "dam": 1, "fatal": false, "rewards": "tradable", "xp": 1000},
-		{"name": "Spaghetti Monster", "hp": 10, "dam": 20, "fatal": true, "rewards": "consumable", "xp": 10000},
-		{"name": "Fairy", "hp": 2, "dam": 0, "fatal": false, "rewards": "consumable tradable", "xp": 1000}
+		{"name": "Phantom Bug", "hp": 26, "dam": 1, "fatal": false, "rewards": "spectre", "xp": 1000},
+		{"name": "Spaghetti Monster", "hp": 10, "dam": 20, "fatal": true, "rewards": "spaghetti", "xp": 10000},
+		{"name": "Fairy", "hp": 2, "dam": 0, "fatal": false, "rewards": "spectre", "xp": 1000}
 	],
 
 	"boss": [
-		{"name": "Demon", "hp": 100, "dam": 30, "fatal": true, "rewards": "demon", "xp": 1000},
 		{"name": "Occultist Mage", "hp": 80, "dam": 20, "fatal": true, "rewards": "cultist", "xp": 300},
+		{"name": "Demon", "hp": 100, "dam": 30, "fatal": true, "rewards": "demon", "xp": 1000},
 		{"name": "Mutant", "hp": 120, "dam": 30, "fatal": true, "rewards": "mutant", "xp": 1500},
 		{"name": "Spectre Ultima", "hp": 500, "dam": 50, "fatal": true, "rewards": "spectre", "xp": 10000}
 	]
