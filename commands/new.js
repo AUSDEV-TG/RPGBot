@@ -20,14 +20,9 @@ module.exports.run = (client, message, args) => {
 		console.log("Error creating user.");
 		message.reply("Something went wrong... Please try again later.");
 	} else {
-		var items = client.gameFuncs.loadItems(client);
-		var consumables = items.consumable;
-		var equippables = items.equippable;
-		var tradables = items.tradable;
-
-		var apple = consumables[0];
-		var dagger = equippables[1];
-		var money = tradables[0];
+		var apple = client.items.consumable[0];
+		var dagger = client.items.equippable[1];
+		var money = client.items.tradable[0];
 		money.count = 10;
 		
 		// Writing json file of character data

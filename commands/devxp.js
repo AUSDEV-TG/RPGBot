@@ -24,7 +24,7 @@ module.exports.run = (client, message, args) => {
 	*/
 	try {
 		var xpVal = parseInt(args);
-		client.charFuncs.addXP(client, message, xpVal);	
+		client.charFuncs.addXP(client, message, null, xpVal);	
 	} catch (error) {
 		// If an error occurs, log the error message and notify the user that their command could not be processed.
 		console.log(error);
