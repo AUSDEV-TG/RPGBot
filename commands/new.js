@@ -60,13 +60,10 @@ module.exports.run = (client, message, args) => {
 		if (!profile) {
 			profile = {
 				name:	message.author,
-				achievements: [],
-				currentCharacter: character
+				achievements: []
 			};
-		} else {
-			profile.currentCharacter = character;
 		}
-
+		
 		message.reply(character.name + " (Age: " + character.age + ")  has been created!");
 		client.charFuncs.saveCharacter(client, message.author.id, character);
 		client.charFuncs.saveMap(client, message.author.id, map);
