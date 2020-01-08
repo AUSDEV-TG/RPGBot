@@ -157,8 +157,8 @@ module.exports = {
 					return i;
 			}
 		} else if (type == "tradable") {
-			for (var i = 0; i < character.inventory.consumable.length; i++) {
-				if (character.inventory.consumable[i].name === item.name) 
+			for (var i = 0; i < character.inventory.tradable.length; i++) {
+				if (character.inventory.tradable[i].name === item.name) 
 					return i;
 			}
 		}
