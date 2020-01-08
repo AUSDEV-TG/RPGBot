@@ -27,7 +27,7 @@ module.exports.run = (client, message, args) => {
 	Used to reload constant definitions that may be 
 	changed in development.
 	*/
-	if (args[0] === "-") {
+	if (args[0] == "-") {
 		try {
 			delete require.cache[require.resolve(`../functions/character-functions.js`)];
 			delete require.cache[require.resolve(`../functions/game-functions.js`)];

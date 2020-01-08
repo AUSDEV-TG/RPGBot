@@ -28,7 +28,7 @@ module.exports.run = (client, message) => {
     	reactions.camp, reactions.hike, reactions.fish, reactions.dive, 
     	reactions.hunt, reactions.gather, reactions.lumber];
 
-	if (map[character.posY][character.posX] === '⌂') {
+	if (map[character.posY][character.posX] == '⌂') {
 		var msg = client.config.block + "Village:\n" + reactions.shop + "-Shop\t" + reactions.property + "-Property\t" 
 			+ client.config.block;
 
@@ -103,7 +103,7 @@ module.exports.run = (client, message) => {
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
-				if (pageIndex === -1) return;
+				if (pageIndex == -1) return;
 										
 				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 				await messageReaction.remove(notbot);
@@ -115,7 +115,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 	
-	if (map[character.posY][character.posX] === '^') {
+	if (map[character.posY][character.posX] == '^') {
 		var msg = client.config.block + "Mountain:\n" + reactions.camp + "-Camp\t" + reactions.hike + "-Hike\t"
 			+ client.config.block;
 
@@ -149,7 +149,7 @@ module.exports.run = (client, message) => {
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
-				if (pageIndex === -1) return;
+				if (pageIndex == -1) return;
 										
 				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 				await messageReaction.remove(notbot);
@@ -161,7 +161,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 	
-	if (map[character.posY][character.posX] === '~') {
+	if (map[character.posY][character.posX] == '~') {
 		var msg = client.config.block + "Water:\n" + reactions.fish + "-Fish\t" + reactions.dive + "-Dive\t"
 			+ client.config.block;
 
@@ -195,7 +195,7 @@ module.exports.run = (client, message) => {
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
-				if (pageIndex === -1) return;
+				if (pageIndex == -1) return;
 												
 				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 				await messageReaction.remove(notbot);
@@ -207,7 +207,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 	
-	if (map[character.posY][character.posX] === '‡') {
+	if (map[character.posY][character.posX] == '‡') {
 		var msg = client.config.block + "Forest:\n" + reactions.hunt + "-Hunt\t" + reactions.gather  
 			+ "-Gather\t" + reactions.lumber + "-Lumber\t"
 			+ client.config.block;	
@@ -247,7 +247,7 @@ module.exports.run = (client, message) => {
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
-				if (pageIndex === -1) return;
+				if (pageIndex == -1) return;
 														
 				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 				await messageReaction.remove(notbot);

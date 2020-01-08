@@ -26,45 +26,45 @@ module.exports.run = (client, message, args) => {
 
 	// Parse the number argument, if it is undefined or NaN, notify the user.
     var num = parseInt(args[1]);
-    if (num === undefined || Number.isNaN(num) === true) 
+    if (num === undefined || Number.isNaN(num) == true) 
     	return message.reply("Please specify a direction and distance.");
 
 	// Move the character in the desired direction
-	if (args[0] === "north" && args[1] !== '') {
+	if (args[0] == "north" && args[1] != '') {
 		character.posY += parseInt(args[1]);
 		if (character.posY > 9) character.posY = 9;
-	} else if (args[0] === "east" && args[1] !== '') {
+	} else if (args[0] == "east" && args[1] != '') {
 		character.posX += parseInt(args[1]);
 		if (character.posX > 9) character.posX = 9;
-	} else if (args[0] === "south" && args[1] !== '') {
+	} else if (args[0] == "south" && args[1] != '') {
 		character.posY -= parseInt(args[1]);
 		if (character.posY < 0) character.posY = 0;
-	} else if (args[0] === "west" && args[1] !== '') {
+	} else if (args[0] == "west" && args[1] != '') {
 		character.posX -= parseInt(args[1]);
 		if (character.posX < 0) character.posX = 0;
 	}
 
-	if (mapSave.map[character.posY][character.posX] === '⌂') {
+	if (mapSave.map[character.posY][character.posX] == '⌂') {
 		//message.reply("Arrived at a village.");
 		monsters = monsters.village;
 	}
 	
-	if (mapSave.map[character.posY][character.posX] === '^') {
+	if (mapSave.map[character.posY][character.posX] == '^') {
 		//message.reply("Arrived at a mountain.");
 		monsters = monsters.mountain;
 	}
 	
-	if (mapSave.map[character.posY][character.posX] === '~') {
+	if (mapSave.map[character.posY][character.posX] == '~') {
 		//message.reply("In the water.");
 		monsters = monsters.water;
 	}
 
-	if (mapSave.map[character.posY][character.posX] === '‡') {
+	if (mapSave.map[character.posY][character.posX] == '‡') {
 		//message.reply("Arrived at a forest.");
 		monsters = monsters.forest;
 	}
 
-	if (mapSave.map[character.posY][character.posX] === '¿') {
+	if (mapSave.map[character.posY][character.posX] == '¿') {
 		//message.reply("Arrived at ruins.")
 		monsters = monsters.ruin;
 	}
@@ -78,7 +78,7 @@ module.exports.run = (client, message, args) => {
 	If an enemy is to be encountered, create another variable to be 
 	used to access a randomised monster from the pool of available monsters.
 	*/
-	if (Math.floor(Math.random() * 10) % 3 === 0 ) {
+	if (Math.floor(Math.random() * 10) % 3 == 0 ) {
 		var rand = Math.floor(Math.random() * monsters.length);
 
 		var monster = monsters[rand];

@@ -11,7 +11,7 @@ module.exports = (client, message) => {
 	if (message.author.bot) return;
 	
 	// Ignore messages not starting with prefix
-	if (message.content.indexOf(client.config.prefix) !== 0) return;
+	if (message.content.indexOf(client.config.prefix) != 0) return;
 
 	// Standard arg/command name definition
 	const args = message.content.slice(client.config.prefix.length).trim().split(/ +/g);

@@ -75,7 +75,7 @@ module.exports = {
 						map.map[x][y] = '‡';
 						break;
 				}
-				if (x === 0 || y === 0 || x === 9 || y === 9) map.map[x][y] = '~';
+				if (x == 0 || y == 0 || x == 9 || y == 9) map.map[x][y] = '~';
 			}
 		}
 		return map;

@@ -55,32 +55,41 @@ module.exports.run = (client, message) => {
 
 			if (messageReaction.emoji.name === reactions.up) {
 				selected--;
-				if (selected < 0 && selectedType === "consumable") selected = 0;
-				if (selected < 0 && selectedType === "equippable") {
+				if (selected < 0 && selectedType == "consumable") selected = 0;
+				else if (selected < 0 && selectedType == "equippable") {
 					selected = character.inventory.consumable.length - 1;
 					selectedType = "consumable";
+				}
+				else if (selected < 0 && selectedType == "tradable") {
+					selected = character.inventory.equippable.length - 1;
+					selectedType = "equippable";
 				}
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
 			if (messageReaction.emoji.name === reactions.down) {
 				selected++;
-				var totalItems = character.inventory.consumable.length + character.inventory.equippable.length - 2;
-				if (selected > character.inventory.consumable.length - 1 && selectedType === "consumable")  {
+				if (selected > character.inventory.consumable.length - 1 && selectedType == "consumable")  {
 					selected = 0;
 					selectedType = "equippable";
-				} else if (selected > totalItems) selected = totalItems;
+				}
+				else if (selected > character.inventory.equippable.length - 1 && selectedType == "equippable") {
+					selected = 0;
+					selectedType = "tradable";
+				} 
+				else if (selected > character.inventory.tradable.length - 1 && selectedType == "tradable") 
+					selected = character.inventory.tradable.length - 1;
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 	
 			if (messageReaction.emoji.name === reactions.use) {
 				var found = false;
 				for (var i = 0; i < character.inventory.consumable.length; i++) {
-					var temp = character.inventory.consumable[i].name;
+					var tempName = character.inventory.consumable[i].name;
 					var tempHeal = character.inventory.consumable[i].heal;
 					var selectedName = character.inventory.consumable[selected].name;
 								
-					if (temp.toUpperCase() === selectedName.toUpperCase()) {
+					if (tempName.toUpperCase() == selectedName.toUpperCase()) {
 						found = true;
 						character.inventory.consumable[i].count--;
 						if (character.inventory.consumable[i].count <= 0) {
@@ -88,7 +97,7 @@ module.exports.run = (client, message) => {
 						}
 										
 						client.charFuncs.heal(client, message.author.id, character, tempHeal);
-						message.reply("Used " + temp + ".");
+						message.reply("Used " + tempName + ".");
 						msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 					}
 				}
@@ -100,7 +109,7 @@ module.exports.run = (client, message) => {
 					// Create code to implement equipment systen
 					var found = false;
 					character.inventory.equippable.forEach(element => {
-						if (element.name.toUpperCase() === selectedName.toUpperCase()) {
+						if (element.name.toUpperCase() == selectedName.toUpperCase()) {
 							element.equipped = !element.equipped;
 							character.dam = element.equipped ? character.dam + element.dam 
 								: character.dam - element.dam;
@@ -116,7 +125,7 @@ module.exports.run = (client, message) => {
 			// Get the index of the page by button pressed
 			const pageIndex = buttons.indexOf(messageReaction.emoji.name);
 			// Return if emoji is irrelevant or the page doesnt exist (number too high)
-			if (pageIndex === -1) return;
+			if (pageIndex == -1) return;
 				
 			const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 			await messageReaction.remove(notbot);
@@ -135,7 +144,7 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	var tradableTemps = "";
 
 	for (var i = 0; i < consumable.length; i++) {
-		if (selectedType === "consumable" && consumable[i].name === character.inventory.consumable[selected].name) {
+		if (selectedType === "consumable" && consumable[i].name == character.inventory.consumable[selected].name) {
 			consumableTemps += ">\t" + consumable[i].count + "\t" + consumable[i].name
 				+ "\t+" + consumable[i].heal + "HP\tValue: " + consumable[i].val + "\n";
 		} else {
@@ -145,7 +154,7 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	}		
 	
 	for (var i = 0; i < equippable.length; i++) {
-		if (selectedType === "equippable" && equippable[i].name === character.inventory.equippable[selected].name) {
+		if (selectedType === "equippable" && equippable[i].name == character.inventory.equippable[selected].name) {
 			equippableTemps += ">\t" + equippable[i].count  + "\t" + equippable[i].name
 				+ "\tDam: " + equippable[i].dam
 				+ "\tEquipped: " + equippable[i].equipped + "\tValue: " + equippable[i].val +"\n";
@@ -157,7 +166,7 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	}
 	
 	for (var i = 0; i < tradable.length; i++) {
-		if (selectedType === "tradable" && tradable[i].name === character.inventory.tradable[selected].name) {
+		if (selectedType === "tradable" && tradable[i].name == character.inventory.tradable[selected].name) {
 			tradableTemps += ">\t" + tradable[i].count + "\t" + tradable[i].name
 				+ "\tValue: " + tradable[i].val;
 		} else {
