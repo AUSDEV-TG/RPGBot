@@ -72,9 +72,9 @@ module.exports.getStats = (client, message, character) => {
 
 	var msg = "";
 	msg = client.config.block + "ARM\n" + character.name + "\n\nLevel " + character.level
-		+ "\nXP: " + character.xp.toFixed(2) + "/" + character.xpCap + "\nHealth: "
-		+ character.health.toFixed(2) + "/" + character.maxHealth + "\tMana: "
-		+ character.mana.toFixed(2) + "/" + character.maxMana + "\nDamage: "
+		+ "\nXP: " + character.xp.toFixed(2) + "/" + character.xpCap.toFixed(2) + "\nHealth: "
+		+ character.health.toFixed(2) + "/" + character.maxHealth.toFixed(2) + "\tMana: "
+		+ character.mana.toFixed(2) + "/" + character.maxMana.toFixed(2) + "\nDamage: "
 		+ character.dam + "\nAge: " + character.age + "\nAt: "
 		+ (character.posX + 1) + ", " + (character.posY + 1)
 		+ client.config.block;
