@@ -211,7 +211,17 @@ module.exports = {
 	},
 
 	camp: function (client, message, character) {
-		message.reply("WIP... Try again later");
+		client.charFuncs.heal(client, message.author.id, character, 10);
+		message.reply(character.name + " camped out and healed for 10HP.");
+		client.charFuncs.addAchievement(client, message, "Happy Camper");
+
+		if (Math.floor(Math.random() * 10) % 3 == 0) {
+			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
+			var rand = Math.floor(Math.random() * client.monsters.forest.length);
+
+			// Run the initialise combat function to begin combat using the random forest monster.
+			module.exports.engageCombat(client, message, character, client.monsters.forest[rand]);
+		}
 	},
 
 	hike: function (client, message, character) {
@@ -221,6 +231,15 @@ module.exports = {
 	fish: function (client, message, character) {
 		client.charFuncs.addItem(client, message, character, client.items.consumable[2], "consumable", 5);
 		message.reply("Caught 1 " + character, client.items.consumable[2].name + ". +5XP.");
+		client.charFuncs.addAchievement(client, message, "First Fish");
+
+		if (Math.floor(Math.random() * 10) % 4 == 0) {
+			// Initialise the variable rand with a floored random number based upon the length of the water array contained in the monsters.json file.
+			var rand = Math.floor(Math.random() * client.monsters.water.length);
+
+			// Run the initialise combat function to begin combat using the random water monster.
+			module.exports.engageCombat(client, message, character, client.monsters.water[rand]);
+		}
 	},
 
 	dive: function (client, message, character) {
@@ -228,12 +247,30 @@ module.exports = {
 	},
 
 	hunt: function (client, message, character) {
-		message.reply("WIP... Try again later");
+		message.reply(character.name + " is looking for game...");
+
+		if (Math.floor(Math.random() * 10) % 3 == 0) {
+			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
+			var rand = Math.floor(Math.random() * client.monsters.forest.length);
+
+			// Run the initialise combat function to begin combat using the random forest monster.
+			module.exports.engageCombat(client, message, character, client.monsters.forest[rand]);
+		} else {
+			message.reply("There is no game around at the moment.");
+		}
 	},
 
 	gather: function (client, message, character) {
 		client.charFuncs.addItem(client, message, character, client.items.consumable[0], "consumable", 2);
 		message.reply("Gathered 1 " + client.items.consumable[0].name + ". +2XP.");
+	
+		if (Math.floor(Math.random() * 10) % 5 == 0) {
+			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
+			var rand = Math.floor(Math.random() * client.monsters.forest.length);
+
+			// Run the initialise combat function to begin combat using the random forest monster.
+			module.exports.engageCombat(client, message, character, client.monsters.forest[rand]);
+		}
 	},
 
 	lumber: function (client, message, character) {

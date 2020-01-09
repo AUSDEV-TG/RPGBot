@@ -165,7 +165,7 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 
 	for (var i = 0; i < equippable.length; i++) {
 		if (selectedType === "equippable" && equippable[i].name == character.inventory.equippable[selected].name) {
-			equippableTemps += ">\t" + module.exports.padNumber(equippable[i].count) + "\t" + equippable[i].name.pedEnd(20, " ")
+			equippableTemps += ">\t" + module.exports.padNumber(equippable[i].count) + "\t" + equippable[i].name.padEnd(20, " ")
 				+ "Value: " + module.exports.padNumber(equippable[i].val)
 				+ "\tDam: " + equippable[i].dam
 				+ "\tEquipped: " + equippable[i].equipped + "\n";

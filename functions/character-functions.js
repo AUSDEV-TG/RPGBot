@@ -121,6 +121,21 @@ module.exports = {
 		return profile;
 	},
 
+	addAchievement: function (client, message, achievement) {
+		let profile = module.exports.loadProfile(client, message.author.id);
+		
+		profile.achievements.forEach(element => {
+			if (element.name == achievement) {
+				return;
+			} else {
+				message.reply("Achieved: " + achievement + "!");
+			}
+		});
+
+		profile.achievements.push(achievement);
+		module.exports.saveProfile(client, message.author.id, profile);
+	},
+
 	heal: function (client, id, character, heal) {
 		character.health += heal;
 		if (character.health > character.maxHealth) character.health = character.maxHealth;
