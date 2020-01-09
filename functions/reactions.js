@@ -24,6 +24,8 @@ https://github.com/KMCGamer/usc_bot/blob/master/modules/reactions.js
 🥽 (dive): A command used on the water to explore the depths.
 🏹 (hunt): A command used in the forest to hunt game.
 🧺 (gather): A command used in the forest to gather items.
+🌲 (lumber): A command used in the forest to gather wood.
+🔄 (refresh): A command used in the stats command to refresh character stats.
 */
 
 module.exports = {

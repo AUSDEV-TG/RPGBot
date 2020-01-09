@@ -77,6 +77,8 @@ module.exports = {
 							if (!reward.heal && !reward.dam) {
 								client.charFuncs.addItem(client, message, character, reward, "tradable", gainedXP);
 							}
+
+							message.reply(character.name + " got " + reward.count + " " + reward.name + ".");
 						});
 
 						if (!rewards) {

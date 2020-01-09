@@ -19,6 +19,8 @@ module.exports.run = (client, message) => {
 		return message.reply("You must create a character to use that command.");
 	}
 
+	buttons = [client.reactions.refresh];
+
 	var msg = module.exports.getStats(client, character);
 
 	message.channel.send(msg).then(async (msg) => {
@@ -60,12 +62,21 @@ module.exports.run = (client, message) => {
 }
 
 module.exports.getStats = (client, character) => {
+	try {
+		character = client.charFuncs.loadCharacter(client, message.author.id);
+	} catch (error) {
+		console.log(error);
+		return message.reply("You must create a character to use that command.");
+	}
+
 	var msg = "";
 	msg = client.config.block + "ARM\n" + character.name + "\n\nLevel " + character.level
-		+ "\nXP: " + character.xp + "/" + character.xpCap + "\nHealth: " + character.health + "/"
-		+ character.maxHealth + "\tMana: " + character.mana + "/" + character.maxMana
-		+ "\nDamage: " + character.dam + "\nAge: " + character.age + "\nAt: "
-		+ (character.posX + 1) + ", " + (character.posY + 1) + client.config.block;
+		+ "\nXP: " + character.xp.toFixed(2) + "/" + character.xpCap + "\nHealth: "
+		+ character.health.toFixed(2) + "/" + character.maxHealth + "\tMana: "
+		+ character.mana.toFixed(2) + "/" + character.maxMana + "\nDamage: "
+		+ character.dam + "\nAge: " + character.age + "\nAt: "
+		+ (character.posX + 1) + ", " + (character.posY + 1)
+		+ client.config.block;
 
 	return msg;
 }
