@@ -125,7 +125,7 @@ module.exports = {
 		let profile = module.exports.loadProfile(client, message.author.id);
 		
 		profile.achievements.forEach(element => {
-			if (element.name == achievement) {
+			if (element == achievement) {
 				return;
 			} else {
 				message.reply("Achieved: " + achievement + "!");

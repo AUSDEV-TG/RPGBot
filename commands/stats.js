@@ -21,7 +21,7 @@ module.exports.run = (client, message) => {
 
 	buttons = [client.reactions.refresh];
 
-	var msg = module.exports.getStats(client, character);
+	var msg = module.exports.getStats(client, null, character);
 
 	message.channel.send(msg).then(async (msg) => {
 		// React to the message with the refresh button
@@ -41,7 +41,7 @@ module.exports.run = (client, message) => {
 			}
 
 			if (messageReaction.emoji.name === client.reactions.refresh) {
-				msg.edit(module.exports.getStats(client, character));
+				msg.edit(module.exports.getStats(client, message, character));
 			}
 
 			// Get the index of the page by button pressed
@@ -61,12 +61,13 @@ module.exports.run = (client, message) => {
 	message.delete();
 }
 
-module.exports.getStats = (client, character) => {
-	try {
-		character = client.charFuncs.loadCharacter(client, message.author.id);
-	} catch (error) {
-		console.log(error);
-		return message.reply("You must create a character to use that command.");
+module.exports.getStats = (client, message, character) => {
+	if (message != null) {
+		try {
+			character = client.charFuncs.loadCharacter(client, message.author.id);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	var msg = "";

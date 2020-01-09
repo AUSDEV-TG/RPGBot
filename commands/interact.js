@@ -51,11 +51,11 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.shop) {
-					client.gameFuncs.shop(client, message);
+					client.gameFuncs.shop(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.property) {
-					client.gameFuncs.property(client, message);
+					client.gameFuncs.property(client, message, character);
 				}
 
 				// Get the index of the page by button pressed
@@ -96,7 +96,7 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.explore) {
-					client.gameFuncs.explore(client, message);
+					client.gameFuncs.explore(client, message, character);
 				}
 
 				// Get the index of the page by button pressed
@@ -138,11 +138,11 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.camp) {
-					client.gameFuncs.camp(client, message);
+					client.gameFuncs.camp(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.hike) {
-					client.gameFuncs.hike(client, message);
+					client.gameFuncs.hike(client, message, character);
 				}
 
 				// Get the index of the page by button pressed
@@ -184,11 +184,11 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.fish) {
-					client.gameFuncs.fish(client, message);
+					client.gameFuncs.fish(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.dive) {
-					client.gameFuncs.dive(client, message);
+					client.gameFuncs.dive(client, message, character);
 				}
 
 				// Get the index of the page by button pressed
@@ -232,15 +232,15 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.hunt) {
-					client.gameFuncs.hunt(client, message);
+					client.gameFuncs.hunt(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.gather) {
-					client.gameFuncs.gather(client, message);
+					client.gameFuncs.gather(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.lumber) {
-					client.gameFuncs.lumber(client, message);
+					client.gameFuncs.lumber(client, message, character);
 				}
 
 				// Get the index of the page by button pressed
