@@ -151,10 +151,6 @@ module.exports.run = (client, message) => {
 			await messageReaction.remove(notbot);
 		});
 	}).catch(err => {
-<<<<<<< HEAD
-=======
-		console.log(err)
->>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 		msg.edit("There was an error");
 		return;
 	});

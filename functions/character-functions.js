@@ -121,7 +121,6 @@ module.exports = {
 		return profile;
 	},
 
-<<<<<<< HEAD
 	addAchievement: function (client, message, achievement) {
 		let profile = module.exports.loadProfile(client, message.author.id);
 		
@@ -137,8 +136,6 @@ module.exports = {
 		module.exports.saveProfile(client, message.author.id, profile);
 	},
 
-=======
->>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 	heal: function (client, id, character, heal) {
 		character.health += heal;
 		if (character.health > character.maxHealth) character.health = character.maxHealth;
