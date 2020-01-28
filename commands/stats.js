@@ -53,11 +53,10 @@ module.exports.run = (client, message) => {
 			await messageReaction.remove(notbot);
 		});
 	}).catch(err => {
-		console.log(err)
+		console.log(err);
 		msg.edit("There was an error");
 		return;
 	});
-
 	message.delete();
 }
 
