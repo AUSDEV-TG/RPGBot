@@ -6,7 +6,10 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "enmap": "^5.2.4",
+<<<<<<< HEAD
     "jshint": "^2.11.0-rc1",
+=======
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
     "lodash": "^4.17.15",
     "shelljs": "^0.8.3"
   },

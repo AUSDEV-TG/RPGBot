@@ -88,7 +88,11 @@ module.exports.run = (client, message) => {
 						var tempName = character.inventory.consumable[i].name;
 						var tempHeal = character.inventory.consumable[i].heal;
 						var selectedName = character.inventory.consumable[selected].name;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 						if (tempName.toUpperCase() == selectedName.toUpperCase()) {
 							found = true;
 							character.inventory.consumable[i].count--;
@@ -96,7 +100,11 @@ module.exports.run = (client, message) => {
 								character.inventory.consumable.splice(i, 1);
 								selected--;
 							}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 							client.charFuncs.heal(client, message.author.id, character, tempHeal);
 							message.reply("Used " + tempName + ".");
 							msg.edit(module.exports.getInvent(client, character, selected, selectedType));
@@ -155,16 +163,25 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 
 	for (var i = 0; i < consumable.length; i++) {
 		if (selectedType === "consumable" && consumable[i].name == character.inventory.consumable[selected].name) {
+<<<<<<< HEAD
 			consumableTemps += ">\t" + module.exports.padNumber(consumable[i].count) + "\t" + consumable[i].name.padEnd(20, " ")
 				+ "Value: " + module.exports.padNumber(consumable[i].val) + "\t+" + consumable[i].heal + "HP" + "\n";
 		} else {
 			consumableTemps += " \t" + module.exports.padNumber(consumable[i].count) + "\t" + consumable[i].name.padEnd(20, " ")
 				+ "Value: " + module.exports.padNumber(consumable[i].val) + "\t+" + consumable[i].heal + "HP" + "\n";
+=======
+			consumableTemps += ">\t" + module.exports.padCount(consumable[i].count) + "\t" + consumable[i].name
+				+ "\t+" + consumable[i].heal + "HP\tValue: " + consumable[i].val + "\n";
+		} else {
+			consumableTemps += " \t" + module.exports.padCount(consumable[i].count) + "\t" + consumable[i].name
+				+ "\t+" + consumable[i].heal + "HP\tValue: " + consumable[i].val + "\n";
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 		}
 	}
 
 	for (var i = 0; i < equippable.length; i++) {
 		if (selectedType === "equippable" && equippable[i].name == character.inventory.equippable[selected].name) {
+<<<<<<< HEAD
 			equippableTemps += ">\t" + module.exports.padNumber(equippable[i].count) + "\t" + equippable[i].name.padEnd(20, " ")
 				+ "Value: " + module.exports.padNumber(equippable[i].val)
 				+ "\tDam: " + equippable[i].dam
@@ -174,16 +191,33 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 				+ "Value: " + module.exports.padNumber(equippable[i].val)
 				+ "\tDam: " + equippable[i].dam
 				+ "\tEquipped: " + equippable[i].equipped + "\n";
+=======
+			equippableTemps += ">\t" + module.exports.padCount(equippable[i].count) + "\t" + equippable[i].name
+				+ "\tDam: " + equippable[i].dam
+				+ "\tEquipped: " + equippable[i].equipped + "\tValue: " + equippable[i].val + "\n";
+		} else {
+			equippableTemps += " \t" + module.exports.padCount(equippable[i].count) + "\t" + equippable[i].name
+				+ "\tDam: " + equippable[i].dam
+				+ "\tEquipped: " + equippable[i].equipped + "\tValue: " + equippable[i].val + "\n";
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 		}
 	}
 
 	for (var i = 0; i < tradable.length; i++) {
 		if (selectedType === "tradable" && tradable[i].name == character.inventory.tradable[selected].name) {
+<<<<<<< HEAD
 			tradableTemps += ">\t" + module.exports.padNumber(tradable[i].count) + "\t" + tradable[i].name.padEnd(20, " ")
 				+ "Value: " + module.exports.padNumber(tradable[i].val) + "\n";
 		} else {
 			tradableTemps += " \t" + module.exports.padNumber(tradable[i].count) + "\t" + tradable[i].name.padEnd(20, " ")
 				+ "Value: " + module.exports.padNumber(tradable[i].val) + "\n";
+=======
+			tradableTemps += ">\t" + module.exports.padCount(tradable[i].count) + "\t" + tradable[i].name
+				+ "\tValue: " + tradable[i].val + "\n";
+		} else {
+			tradableTemps += " \t" + module.exports.padCount(tradable[i].count) + "\t" + tradable[i].name
+				+ "\tValue: " + tradable[i].val + "\n";
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 		}
 	}
 
@@ -199,6 +233,11 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	return invent;
 };
 
+<<<<<<< HEAD
 module.exports.padNumber = (number) => {
 	return number > 9 ? "" + number : "0" + number;
+=======
+module.exports.padCount = (count) => {
+	return count > 9 ? "" + count : "0" + count;
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 };

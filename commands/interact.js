@@ -51,11 +51,19 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.shop) {
+<<<<<<< HEAD
 					client.gameFuncs.shop(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.property) {
 					client.gameFuncs.property(client, message, character);
+=======
+					client.gameFuncs.shop(client, message);
+				}
+
+				if (messageReaction.emoji.name === client.reactions.property) {
+					client.gameFuncs.property(client, message);
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 				}
 
 				// Get the index of the page by button pressed
@@ -96,7 +104,11 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.explore) {
+<<<<<<< HEAD
 					client.gameFuncs.explore(client, message, character);
+=======
+					client.gameFuncs.explore(client, message);
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 				}
 
 				// Get the index of the page by button pressed
@@ -138,11 +150,19 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.camp) {
+<<<<<<< HEAD
 					client.gameFuncs.camp(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.hike) {
 					client.gameFuncs.hike(client, message, character);
+=======
+					client.gameFuncs.camp(client, message);
+				}
+
+				if (messageReaction.emoji.name === client.reactions.hike) {
+					client.gameFuncs.hike(client, message);
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 				}
 
 				// Get the index of the page by button pressed
@@ -184,11 +204,19 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.fish) {
+<<<<<<< HEAD
 					client.gameFuncs.fish(client, message, character);
 				}
 
 				if (messageReaction.emoji.name === client.reactions.dive) {
 					client.gameFuncs.dive(client, message, character);
+=======
+					client.gameFuncs.fish(client, message);
+				}
+
+				if (messageReaction.emoji.name === client.reactions.dive) {
+					client.gameFuncs.dive(client, message);
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 				}
 
 				// Get the index of the page by button pressed
@@ -232,6 +260,7 @@ module.exports.run = (client, message) => {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.hunt) {
+<<<<<<< HEAD
 					client.gameFuncs.hunt(client, message, character);
 				}
 
@@ -241,6 +270,17 @@ module.exports.run = (client, message) => {
 
 				if (messageReaction.emoji.name === client.reactions.lumber) {
 					client.gameFuncs.lumber(client, message, character);
+=======
+					client.gameFuncs.hunt(client, message);
+				}
+
+				if (messageReaction.emoji.name === client.reactions.gather) {
+					client.gameFuncs.gather(client, message);
+				}
+
+				if (messageReaction.emoji.name === client.reactions.lumber) {
+					client.gameFuncs.lumber(client, message);
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 				}
 
 				// Get the index of the page by button pressed

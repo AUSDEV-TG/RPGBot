@@ -19,6 +19,7 @@ module.exports.run = (client, message) => {
 		return message.reply("You must create a character to use that command.");
 	}
 
+<<<<<<< HEAD
 	buttons = [client.reactions.refresh];
 
 	var msg = module.exports.getStats(client, null, character);
@@ -79,4 +80,12 @@ module.exports.getStats = (client, message, character) => {
 		+ client.config.block;
 
 	return msg;
+=======
+	message.reply(client.config.block + "ARM\n" + character.name + "\n\nLevel " + character.level
+		+ "\nXP: " + character.xp + "/" + character.xpCap + "\nHealth: " + character.health + "/"
+		+ character.maxHealth + "\tMana: " + character.mana + "/" + character.maxMana
+		+ "\nDamage: " + character.dam + "\nAge: " + character.age + "\nAt: "
+		+ (character.posX + 1) + ", " + (character.posY + 1) + client.config.block);
+	message.delete();
+>>>>>>> a431db11e4a36d9d8bcdc43ff519d5eab795b108
 }
