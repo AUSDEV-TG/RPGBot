@@ -18,7 +18,7 @@ module.exports.run = (client, message) => {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 		var mapSave = client.charFuncs.loadMap(client, message.author.id);
 	} catch (error) {
-		console.log(error);
+		message.react(client.reactions.error);
 		return message.reply("You must create a character to use that command.");
 	}
 

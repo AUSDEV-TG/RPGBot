@@ -48,6 +48,7 @@ module.exports.run = (client, message, args) => {
 			message.reply("Hard reload successful!");
 		} catch (error) {
 			console.log(error);
+			message.react(client.reactions.error);
 		}
 	} else {
 		// Loop through the arguments and reload each command mentioned
@@ -65,6 +66,7 @@ module.exports.run = (client, message, args) => {
 				message.reply(`${commandName} has been reloaded.`);
 			} catch (error) {
 				console.log(error);
+				message.react(client.reactions.error);
 			}
 		}
 	}

@@ -23,8 +23,8 @@ module.exports.run = (client, message) => {
             message.reply(messagesDeleted + " messages deleted.");
             message.delete(10000).catch();
         }).catch(err => {
-            console.log("Error with bulk delete.");
             console.log(err);
+            message.react(client.reactions.error);
         });
     }
 }

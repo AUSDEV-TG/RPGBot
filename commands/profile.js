@@ -18,8 +18,8 @@ module.exports.run = (client, message, args) => {
 	try {
 		var profile = client.charFuncs.loadProfile(client, message.author.id);
 	} catch (error) {
-		console.log(error);
-		return message.reply("You must have played RPGBot before you use that command.");
+		message.react(client.reactions.error);
+		return message.reply("You must have played RPGBot before you can use this command.");
 	}
 
 	message.reply(client.config.block + "ARM\n" + profile.name + "\n\nAchievements:\n" +

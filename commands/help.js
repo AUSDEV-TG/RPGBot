@@ -115,6 +115,9 @@ module.exports.run = (client, message, args) => {
 			const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 			await messageReaction.remove(notbot);
 		});
-	}).catch(err => console.log(err));
+	}).catch(err => {
+		console.log(err);
+		message.react(client.reactions.error);
+	});
 	message.delete();
 };

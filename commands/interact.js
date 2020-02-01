@@ -16,7 +16,7 @@ module.exports.run = (client, message) => {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 		var mapSave = client.charFuncs.loadMap(client, message.author.id);
 	} catch (error) {
-		console.log(error);
+		message.react(client.reactions.error);
 		return message.reply("You must create a character to use that command.");
 	}
 
@@ -177,7 +177,7 @@ module.exports.run = (client, message) => {
 
 			collector.on('collect', async (messageReaction) => {
 				// If the x button is pressed, remove the message.
-				if (messageReaction.emoji.name === reactions.x) {
+				if (messageReaction.emoji.name === client.reactions.x) {
 					msg.delete(); // Delete the message
 					collector.stop(); // Get rid of the collector.
 					return;

@@ -15,9 +15,11 @@ module.exports = {
 };
 
 module.exports.run = (client, message, args) => {
-	if (args == '') return message.reply("Must have parameters for character... Usage: **~new** charactername characterage");
+	if (args == '') 
+		return message.reply("Must have parameters for character... Usage: **~new** charactername characterage");
+		
 	if (client.shell.exec('./bash/create-usr.sh ' + message.author.id).code !== 0) {
-		console.log("Error creating user.");
+		message.react(client.reactions.error);
 		message.reply("Something went wrong... Please try again later.");
 	} else {
 		var apple = client.items.consumable[0];

@@ -21,7 +21,7 @@ module.exports.run = (client, message) => {
 	the command.
 	*/
 	if (message.author.id !== client.config.devID)
-		return message.reply("Insufficient Permissions.");
+		return message.react(client.reactions.restricted);
 	else {
 		message.reply("Terminating...");
 		message.delete();

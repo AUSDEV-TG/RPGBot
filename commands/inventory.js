@@ -15,7 +15,7 @@ module.exports.run = (client, message) => {
 	try {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 	} catch (error) {
-		console.log(error);
+		message.react(client.reactions.error);
 		return message.reply("You must create a character to use that command.");
 	}
 
@@ -136,7 +136,10 @@ module.exports.run = (client, message) => {
 			const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
 			await messageReaction.remove(notbot);
 		});
-	}).catch(err => console.log(err));
+	}).catch(err => {
+		console.log(err);
+		message.react(client.reactions.error);
+	});
 	message.delete();
 }
 

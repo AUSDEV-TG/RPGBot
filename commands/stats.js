@@ -15,7 +15,7 @@ module.exports.run = (client, message) => {
 	try {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 	} catch (error) {
-		console.log(error);
+		message.react(client.reactions.error);
 		return message.reply("You must create a character to use that command.");
 	}
 
@@ -54,6 +54,7 @@ module.exports.run = (client, message) => {
 		});
 	}).catch(err => {
 		console.log(err);
+		message.react(client.reactions.error);
 		msg.edit("There was an error");
 		return;
 	});
@@ -65,7 +66,7 @@ module.exports.getStats = (client, message, character) => {
 		try {
 			character = client.charFuncs.loadCharacter(client, message.author.id);
 		} catch (error) {
-			console.log(error);
+			message.react(client.reactions.error);
 		}
 	}
 

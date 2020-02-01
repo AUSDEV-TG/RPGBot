@@ -19,7 +19,7 @@ module.exports.run = (client, message, args) => {
 		var character = client.charFuncs.loadCharacter(client, message.author.id);
 		var mapSave = client.charFuncs.loadMap(client, message.author.id);
 	} catch (error) {
-		console.log(error);
+		message.react(client.reactions.error);
 		return message.reply("You must create a character to use that command.");
 	}
 
@@ -27,6 +27,7 @@ module.exports.run = (client, message, args) => {
 
 	// Parse the number argument, if it is undefined or NaN, notify the user.
 	var num = parseInt(args[1]);
+	
 	if (num === undefined || Number.isNaN(num) == true)
 		return message.reply("Please specify a direction and distance.");
 
@@ -46,27 +47,22 @@ module.exports.run = (client, message, args) => {
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '⌂') {
-		//message.reply("Arrived at a village.");
 		monsters = client.monsters.village;
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '^') {
-		//message.reply("Arrived at a mountain.");
 		monsters = client.monsters.mountain;
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '~') {
-		//message.reply("In the water.");
 		monsters = client.monsters.water;
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '‡') {
-		//message.reply("Arrived at a forest.");
 		monsters = client.monsters.forest;
 	}
 
 	if (mapSave.map[character.posY][character.posX] == '¿') {
-		//message.reply("Arrived at ruins.")
 		monsters = client.monsters.ruin;
 	}
 

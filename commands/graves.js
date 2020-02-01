@@ -21,11 +21,11 @@ module.exports.run = (client, message) => {
 		/* 
 		Errors that occur in this block will be 
 		caused by either: 
-		a user has never had an account or
-		their only character is alive.
+			- a user has never had an account
+			- their only character is alive
 		*/
 		console.log(error);
-		message.react(reactions.error);
+		message.react(client.reactions.error);
 		message.reply("You can't use this command until a character dies.");
 		return;
 	}

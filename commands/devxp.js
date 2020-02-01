@@ -16,7 +16,7 @@ module.exports = {
 module.exports.run = (client, message, args) => {
 	// If the user is not the developer return a message letting the user know they are unable to use the command.
 	if (message.author.id !== client.config.devID)
-		return message.reply("Insufficient permissions.");
+		return message.react(client.reactions.restricted);
 
 	/*
 	Try to parse the arguments into an integer, if no errors occured, 
@@ -28,7 +28,7 @@ module.exports.run = (client, message, args) => {
 	} catch (error) {
 		// If an error occurs, log the error message and notify the user that their command could not be processed.
 		console.log(error);
-		message.reply(client.config.errorMsg);
+		message.react(client.reactions.error);
 	}
 	message.delete();
 }

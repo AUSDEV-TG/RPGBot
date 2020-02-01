@@ -23,8 +23,12 @@ module.exports.run = (client, message, args) => {
 	script arguments, if the script fails for any reason, 
 	notify the user.
 	*/
-	if (message.author.id !== client.config.devID) return message.reply("Insufficient Permissions.");
-	if (args == '') return message.reply("Must have parameters todo");
+	if (message.author.id !== client.config.devID) 
+		return message.react(client.reactions.restricted);
+
+	if (args == '') 
+		return message.reply("Todo must have a description.");
+
 	if (client.shell.exec('./bash/todo_creator.sh ' + Array.prototype.join.call(args, ' ')).code !== 0) {
 		console.log("Error creating todo.");
 		message.reply("Something went wrong... Please try again later.");
