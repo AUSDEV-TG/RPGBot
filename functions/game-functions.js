@@ -230,7 +230,7 @@ module.exports = {
 
 	fish: function (client, message, character) {
 		client.charFuncs.addItem(client, message, character, client.items.consumable[2], "consumable", 5);
-		message.reply("Caught 1 " + character, client.items.consumable[2].name + ". +5XP.");
+		message.reply("Caught a " + client.items.consumable[2].name + ". +5XP.");
 		client.charFuncs.addAchievement(client, message, "First Fish");
 
 		if (Math.floor(Math.random() * 10) % 4 == 0) {
@@ -262,7 +262,7 @@ module.exports = {
 
 	gather: function (client, message, character) {
 		client.charFuncs.addItem(client, message, character, client.items.consumable[0], "consumable", 2);
-		message.reply("Gathered 1 " + client.items.consumable[0].name + ". +2XP.");
+		message.reply("Gathered a " + client.items.consumable[0].name + ". +2XP.");
 	
 		if (Math.floor(Math.random() * 10) % 5 == 0) {
 			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.

@@ -22,9 +22,13 @@ module.exports.run = (client, message, args) => {
 		return message.reply("You must have played RPGBot before you can use this command.");
 	}
 
-	message.reply(client.config.block + "ARM\n" + profile.name + "\n\nAchievements:\n" +
-		module.exports.getAchievements(profile) +
-		client.config.block);
+	if (args[0] == "-d" && message.author.id === client.config.devID) {
+		client.charFuncs.deleteProfile(client, message.author.id);
+	} else {
+		message.reply(client.config.block + "ARM\n" + profile.name + "\n\nAchievements:\n" +
+			module.exports.getAchievements(profile) +
+			client.config.block);
+	}
 };
 
 module.exports.getAchievements = (profile) => {

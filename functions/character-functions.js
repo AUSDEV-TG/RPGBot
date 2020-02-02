@@ -121,16 +121,27 @@ module.exports = {
 		return profile;
 	},
 
+	deleteProfile: function (client, id) {
+		if (client.shell.exec('./bash/del-profile.sh ' + id).code !== 0)
+			console.log("Error deleting profile.");
+		else
+			console.log("Profile deleted.");
+	},
+
 	addAchievement: function (client, message, achievement) {
 		let profile = module.exports.loadProfile(client, message.author.id);
-		
+
+		var found = false;
+
 		profile.achievements.forEach(element => {
-			if (element == achievement) {
-				return;
-			} else {
-				message.reply("Achieved: " + achievement + "!");
-			}
+			if (element == achievement) 
+				found = true;
 		});
+
+		if (found == false)
+			return;
+		else
+			message.reply("Achieved: " + achievement + "!");
 
 		profile.achievements.push(achievement);
 		module.exports.saveProfile(client, message.author.id, profile);
@@ -182,7 +193,6 @@ module.exports = {
 
 	searchItems: function (client, character, item, type) {
 		if (type == "consumable") {
-			console.log(type);
 			for (var i = 0; i < character.inventory.consumable.length; i++) {
 				if (character.inventory.consumable[i].name === item.name)
 					return i;
