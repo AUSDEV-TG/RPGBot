@@ -138,7 +138,7 @@ module.exports = {
 				found = true;
 		});
 
-		if (found == false)
+		if (found == true)
 			return;
 		else
 			message.reply("Achieved: " + achievement + "!");
