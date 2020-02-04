@@ -35,7 +35,7 @@ module.exports.run = (client, message) => {
 		commands.push(value);
 	});
 
-	var msg = module.exports.getMap(client, character, map);
+	var msg = module.exports.getMap(client, character, map, temp);
 
 	message.channel.send(msg).then(async (msg) => {
 		// Display number buttons
@@ -66,7 +66,7 @@ module.exports.run = (client, message) => {
 				if (character.posX < 0) character.posX = 0;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map));
+				msg.edit(module.exports.getMap(client, character, map, temp));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.right) {
@@ -76,7 +76,7 @@ module.exports.run = (client, message) => {
 				if (character.posX > 9) character.posX = 9;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map));
+				msg.edit(module.exports.getMap(client, character, map, temp));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.up) {
@@ -86,7 +86,7 @@ module.exports.run = (client, message) => {
 				if (character.posY > 9) character.posY = 9;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map));
+				msg.edit(module.exports.getMap(client, character, map, temp));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.down) {
@@ -96,7 +96,7 @@ module.exports.run = (client, message) => {
 				if (character.posY < 0) character.posY = 0;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map));
+				msg.edit(module.exports.getMap(client, character, map, temp));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.interact) {
@@ -118,7 +118,7 @@ module.exports.run = (client, message) => {
 	message.delete();
 }
 
-module.exports.getMap = (client, character, map) => {
+module.exports.getMap = (client, character, map, temp) => {
 	var msg = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
 		+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
 		+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
