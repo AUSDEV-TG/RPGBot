@@ -15,11 +15,14 @@ module.exports = {
 
 module.exports.run = (client, message) => {
     if (message.channel.type == 'text') {
+        // Fetch messages from the channel
         message.channel.fetchMessages().then(messages => {
+            // Filter only RPGBot messages for deletion
             const rpgBotMessages = messages.filter(msg => msg.author.bot && msg.author.username == "RPGBot");
             message.channel.bulkDelete(rpgBotMessages);
             messagesDeleted = rpgBotMessages.array().length;
 
+            // Let the user know how many messages were deleted.
             message.reply(messagesDeleted + " messages deleted.");
             message.delete(10000).catch();
         }).catch(err => {

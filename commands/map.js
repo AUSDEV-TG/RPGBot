@@ -35,14 +35,7 @@ module.exports.run = (client, message) => {
 		commands.push(value);
 	});
 
-	var msg = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
-		+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
-		+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
-		+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
-		+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
-		+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
-		+ map[1].join(' ') + "\n"
-		+ map[0].join(' ') + client.config.block;
+	var msg = module.exports.getMap(client, character, map);
 
 	message.channel.send(msg).then(async (msg) => {
 		// Display number buttons
@@ -73,15 +66,7 @@ module.exports.run = (client, message) => {
 				if (character.posX < 0) character.posX = 0;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				var newMap = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
-					+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
-					+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
-					+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
-					+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
-					+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
-					+ map[1].join(' ') + "\n"
-					+ map[0].join(' ') + client.config.block;
-				msg.edit(newMap);
+				msg.edit(module.exports.getMap(client, character, map));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.right) {
@@ -91,15 +76,7 @@ module.exports.run = (client, message) => {
 				if (character.posX > 9) character.posX = 9;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				var newMap = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
-					+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
-					+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
-					+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
-					+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
-					+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
-					+ map[1].join(' ') + "\n"
-					+ map[0].join(' ') + client.config.block;
-				msg.edit(newMap);
+				msg.edit(module.exports.getMap(client, character, map));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.up) {
@@ -109,15 +86,7 @@ module.exports.run = (client, message) => {
 				if (character.posY > 9) character.posY = 9;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				var newMap = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
-					+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
-					+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
-					+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
-					+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
-					+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
-					+ map[1].join(' ') + "\n"
-					+ map[0].join(' ') + client.config.block;
-				msg.edit(newMap);
+				msg.edit(module.exports.getMap(client, character, map));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.down) {
@@ -127,15 +96,7 @@ module.exports.run = (client, message) => {
 				if (character.posY < 0) character.posY = 0;
 				temp = map[character.posY][character.posX];
 				map[character.posY][character.posX] = '☼';
-				var newMap = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
-					+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
-					+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
-					+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
-					+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
-					+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
-					+ map[1].join(' ') + "\n"
-					+ map[0].join(' ') + client.config.block;
-				msg.edit(newMap);
+				msg.edit(module.exports.getMap(client, character, map));
 			}
 
 			if (messageReaction.emoji.name === client.reactions.interact) {
@@ -155,4 +116,17 @@ module.exports.run = (client, message) => {
 		return;
 	});
 	message.delete();
+}
+
+module.exports.getMap = (client, character, map) => {
+	var msg = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
+		+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
+		+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
+		+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
+		+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
+		+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
+		+ map[1].join(' ') + "\n"
+		+ map[0].join(' ') + client.config.block;
+
+	return msg;
 }
