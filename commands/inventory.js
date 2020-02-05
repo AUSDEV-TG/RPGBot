@@ -23,6 +23,7 @@ module.exports.run = (client, message) => {
 		client.reactions.up, client.reactions.down,
 		client.reactions.use, client.reactions.equip,];
 
+	// Define the default position of the cursor
 	var selected = 0;
 	var selectedType = "consumable";
 
@@ -52,6 +53,7 @@ module.exports.run = (client, message) => {
 				return;
 			}
 
+			// Clicking the up reaction moves the cursor up
 			if (messageReaction.emoji.name === client.reactions.up) {
 				selected--;
 				if (selected < 0 && selectedType == "consumable") selected = 0;
@@ -66,6 +68,7 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
+			// Clicking the down reaction moves the cursor down
 			if (messageReaction.emoji.name === client.reactions.down) {
 				selected++;
 				if (selected > character.inventory.consumable.length - 1 && selectedType == "consumable") {
@@ -81,6 +84,7 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
+			// Clicking the cyclone reaction will use the selected consumable
 			if (messageReaction.emoji.name === client.reactions.use) {
 				if (selectedType == "consumable") {
 					var found = false;
@@ -96,7 +100,6 @@ module.exports.run = (client, message) => {
 								selected--;
 							}
 							client.charFuncs.heal(client, message.author.id, character, tempHeal);
-							message.reply("Used " + tempName + ".");
 							msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 						}
 					}
@@ -106,6 +109,7 @@ module.exports.run = (client, message) => {
 				}
 			}
 
+			// Clicking the arrow heading down reaction will equip an equippable
 			if (messageReaction.emoji.name === client.reactions.equip) {
 				if (selectedType == "equippable") {
 					var selectedName = character.inventory.equippable[selected].name;
@@ -118,7 +122,6 @@ module.exports.run = (client, message) => {
 								: character.dam - element.dam;
 							found = true;
 							client.charFuncs.saveCharacter(client, message.author.id, character);
-							message.reply((element.equipped ? "Equipped " : "Unequipped ") + selectedName + ".");
 							msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 						}
 					});
@@ -143,6 +146,7 @@ module.exports.run = (client, message) => {
 	message.delete();
 }
 
+// Function to compile character inventory data into a formatted string
 module.exports.getInvent = (client, character, selected, selectedType) => {
 	var consumable = character.inventory.consumable;
 	var equippable = character.inventory.equippable;
@@ -200,6 +204,7 @@ module.exports.getInvent = (client, character, selected, selectedType) => {
 	return invent;
 };
 
+// Function to pad a number with a prefix of 0 if it is below 10
 module.exports.padNumber = (number) => {
 	return number > 9 ? "" + number : "0" + number;
 };

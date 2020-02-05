@@ -18,6 +18,7 @@ module.exports.run = (client, message, args) => {
 	if (args == '') 
 		return message.reply("Must have parameters for character... Usage: **~new** charactername characterage");
 		
+	// Attempt to create a user directory, if it fails, the directory already exists
 	if (client.shell.exec('./bash/create-usr.sh ' + message.author.id).code !== 0) {
 		message.react(client.reactions.error);
 		message.reply("Something went wrong... Please try again later.");
@@ -27,7 +28,7 @@ module.exports.run = (client, message, args) => {
 		var money = client.items.tradable[0];
 		money.count = 10;
 		
-		// Writing json file of character data
+		// Create some base character data
 		var character = {
 			name:		args[0],
 			level:		1,
@@ -49,6 +50,7 @@ module.exports.run = (client, message, args) => {
 			dead: false
 		};
 
+		// Generate a map
 		var map = client.charFuncs.generateMap(client);
 
 		var profile;
@@ -67,6 +69,8 @@ module.exports.run = (client, message, args) => {
 		}
 
 		message.reply(character.name + " (Age: " + character.age + ")  has been created!");
+		
+		// Save character, map and profile
 		client.charFuncs.saveCharacter(client, message.author.id, character);
 		client.charFuncs.saveMap(client, message.author.id, map);
 		client.charFuncs.saveProfile(client, message.author.id, profile);

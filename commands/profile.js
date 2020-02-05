@@ -15,6 +15,7 @@ module.exports = {
 };
 
 module.exports.run = (client, message, args) => {
+	// Try to load the profile, if an error occurs, notify the user.
 	try {
 		var profile = client.charFuncs.loadProfile(client, message.author.id);
 	} catch (error) {
@@ -23,14 +24,17 @@ module.exports.run = (client, message, args) => {
 	}
 
 	if (args[0] == "-d" && message.author.id === client.config.devID) {
+		// Debugging argument to delete the user profile.
 		client.charFuncs.deleteProfile(client, message.author.id);
 	} else {
+		// Send a message containing all the user achievements.
 		message.reply(client.config.block + "ARM\n" + profile.name + "\n\nAchievements:\n" +
 			module.exports.getAchievements(profile) +
 			client.config.block);
 	}
 };
 
+// Function to compile the user achievements into a formatted string.
 module.exports.getAchievements = (profile) => {
 	var achievements = "";
 	profile.achievements.forEach(achievement => {

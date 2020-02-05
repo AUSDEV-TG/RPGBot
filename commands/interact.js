@@ -21,11 +21,14 @@ module.exports.run = (client, message) => {
 	}
 
 	var map = mapSave.map;
+
+	// Initialise the constant buttons with all the interaction reactions
 	const buttons = [
 		client.reactions.shop, client.reactions.property, client.reactions.explore,
 		client.reactions.camp, client.reactions.hike, client.reactions.fish,
 		client.reactions.dive, client.reactions.hunt, client.reactions.gather, client.reactions.lumber];
 
+	// Character is at a village
 	if (map[character.posY][character.posX] == '⌂') {
 		var msg = client.config.block + "Village:\n" + client.reactions.shop
 			+ "-Shop\t" + client.reactions.property + "-Property\t"
@@ -50,13 +53,13 @@ module.exports.run = (client, message) => {
 					return;
 				}
 
-				if (messageReaction.emoji.name === client.reactions.shop) {
+				// Clicking the shop reaction will start the shop feature
+				if (messageReaction.emoji.name === client.reactions.shop)
 					client.gameFuncs.shop(client, message, character);
-				}
 
-				if (messageReaction.emoji.name === client.reactions.property) {
+				// Clicking the property reaction will start the property shop feature
+				if (messageReaction.emoji.name === client.reactions.property)
 					client.gameFuncs.property(client, message, character);
-				}
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
@@ -73,6 +76,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 
+	// Character is at a ruin
 	if (map[character.posY][character.posX] == '¿') {
 		var msg = client.config.block + "Ruin:\n" + client.reactions.explore + "-Explore\t"
 			+ client.config.block;
@@ -95,9 +99,9 @@ module.exports.run = (client, message) => {
 					return;
 				}
 
-				if (messageReaction.emoji.name === client.reactions.explore) {
+				// Clicking the explore reaction will start the explore feature
+				if (messageReaction.emoji.name === client.reactions.explore) 
 					client.gameFuncs.explore(client, message, character);
-				}
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
@@ -114,6 +118,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 
+	// Character is at a mountain
 	if (map[character.posY][character.posX] == '^') {
 		var msg = client.config.block + "Mountain:\n" + client.reactions.camp + "-Camp\t" + client.reactions.hike + "-Hike\t"
 			+ client.config.block;
@@ -137,13 +142,13 @@ module.exports.run = (client, message) => {
 					return;
 				}
 
-				if (messageReaction.emoji.name === client.reactions.camp) {
+				// Clicking the camp reaction will start the camp feature
+				if (messageReaction.emoji.name === client.reactions.camp) 
 					client.gameFuncs.camp(client, message, character);
-				}
 
-				if (messageReaction.emoji.name === client.reactions.hike) {
+				// Clicking the hike reaction will start the hike feature
+				if (messageReaction.emoji.name === client.reactions.hike) 
 					client.gameFuncs.hike(client, message, character);
-				}
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
@@ -160,6 +165,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 
+	// Character is at some water
 	if (map[character.posY][character.posX] == '~') {
 		var msg = client.config.block + "Water:\n" + client.reactions.fish + "-Fish\t" + client.reactions.dive + "-Dive\t"
 			+ client.config.block;
@@ -183,13 +189,13 @@ module.exports.run = (client, message) => {
 					return;
 				}
 
-				if (messageReaction.emoji.name === client.reactions.fish) {
+				// Clicking the fish reaction will start the fishing feature
+				if (messageReaction.emoji.name === client.reactions.fish) 
 					client.gameFuncs.fish(client, message, character);
-				}
 
-				if (messageReaction.emoji.name === client.reactions.dive) {
+				// Clicking the diving mask reaction will start the diving feature
+				if (messageReaction.emoji.name === client.reactions.dive) 
 					client.gameFuncs.dive(client, message, character);
-				}
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
@@ -206,6 +212,7 @@ module.exports.run = (client, message) => {
 		});
 	}
 
+	// Character is in a forest
 	if (map[character.posY][character.posX] == '‡') {
 		var msg = client.config.block + "Forest:\n" + client.reactions.hunt + "-Hunt\t" + client.reactions.gather
 			+ "-Gather\t" + client.reactions.lumber + "-Lumber\t"
@@ -231,14 +238,15 @@ module.exports.run = (client, message) => {
 					return;
 				}
 
-				if (messageReaction.emoji.name === client.reactions.hunt) {
+				// Clicking the bow reaction will start the hunting feature
+				if (messageReaction.emoji.name === client.reactions.hunt) 
 					client.gameFuncs.hunt(client, message, character);
-				}
 
-				if (messageReaction.emoji.name === client.reactions.gather) {
+				// Clicking the basket reaction will start the gathering feature
+				if (messageReaction.emoji.name === client.reactions.gather) 
 					client.gameFuncs.gather(client, message, character);
-				}
 
+				// Clicking the tree reaction will start the lumber feature
 				if (messageReaction.emoji.name === client.reactions.lumber) {
 					client.gameFuncs.lumber(client, message, character);
 				}

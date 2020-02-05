@@ -25,7 +25,7 @@ module.exports.run = (client, message) => {
 
 	message.channel.send(msg).then(async (msg) => {
 		// React to the message with the refresh button
-		await msg.react(client.reactions.refresh);
+		await msg.react(buttons[0]);
 
 		await msg.react(client.reactions.x);
 		msg.delete(60000).catch();
@@ -40,6 +40,7 @@ module.exports.run = (client, message) => {
 				return;
 			}
 
+			// Clicking the refresh reaction will refresh the stats message.
 			if (messageReaction.emoji.name === client.reactions.refresh) {
 				msg.edit(module.exports.getStats(client, message, character));
 			}
@@ -61,7 +62,9 @@ module.exports.run = (client, message) => {
 	message.delete();
 }
 
+// Function to compile the user stats into a formatted string.
 module.exports.getStats = (client, message, character) => {
+	// If the message is not null, force the reloading of the character.
 	if (message != null) {
 		try {
 			character = client.charFuncs.loadCharacter(client, message.author.id);

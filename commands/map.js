@@ -26,16 +26,21 @@ module.exports.run = (client, message) => {
 	client.reactions.up, client.reactions.down, client.reactions.interact];
 
 	var map = mapSave.map;
+
+	// Create a temporary variable to store the char that the character is on
 	var temp = map[character.posY][character.posX];
-	map[character.posY][character.posX] = '☼';
+
+	// Replace the char in at the character's position with the section char
+	map[character.posY][character.posX] = '§';
 
 	var commands = [];
 
+	// Get all of the commands from the commands enmap and place them in an array for easier access
 	client.commands.forEach((value, key, map) => {
 		commands.push(value);
 	});
 
-	var msg = module.exports.getMap(client, character, map, temp);
+	var msg = module.exports.getFormattedMap(client, character, map, temp);
 
 	message.channel.send(msg).then(async (msg) => {
 		// Display number buttons
@@ -59,46 +64,43 @@ module.exports.run = (client, message) => {
 				return;
 			}
 
+			// If the user reacts left, move the character left
 			if (messageReaction.emoji.name === client.reactions.left) {
 				client.commands.get('move').run(client, message, ["west", 1]);
 				map[character.posY][character.posX] = temp;
 				character.posX--;
 				if (character.posX < 0) character.posX = 0;
-				temp = map[character.posY][character.posX];
-				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map, temp));
+				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
+			// If the user reacts right, move the character right
 			if (messageReaction.emoji.name === client.reactions.right) {
 				client.commands.get('move').run(client, message, ["east", 1]);
 				map[character.posY][character.posX] = temp;
 				character.posX++;
 				if (character.posX > 9) character.posX = 9;
-				temp = map[character.posY][character.posX];
-				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map, temp));
+				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
+			// If the user reacts up, move the character up
 			if (messageReaction.emoji.name === client.reactions.up) {
 				client.commands.get('move').run(client, message, ["north", 1]);
 				map[character.posY][character.posX] = temp;
 				character.posY++;
 				if (character.posY > 9) character.posY = 9;
-				temp = map[character.posY][character.posX];
-				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map, temp));
+				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
+			// If the user reacts down, move the character down
 			if (messageReaction.emoji.name === client.reactions.down) {
 				client.commands.get('move').run(client, message, ["south", 1]);
 				map[character.posY][character.posX] = temp;
 				character.posY--;
 				if (character.posY < 0) character.posY = 0;
-				temp = map[character.posY][character.posX];
-				map[character.posY][character.posX] = '☼';
-				msg.edit(module.exports.getMap(client, character, map, temp));
+				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
+			// If the user reacts with the hand emoji, run the interact command
 			if (messageReaction.emoji.name === client.reactions.interact) {
 				client.commands.get('interact').run(client, message);
 			}
@@ -118,7 +120,11 @@ module.exports.run = (client, message) => {
 	message.delete();
 }
 
-module.exports.getMap = (client, character, map, temp) => {
+// Function to compile the map data into a formatted string.
+module.exports.getFormattedMap = (client, character, map, temp) => {
+	temp = map[character.posY][character.posX];
+	map[character.posY][character.posX] = '§';
+
 	var msg = character.name + " at pos(x:" + (character.posX + 1) + ", y:"
 		+ (character.posY + 1) + ") On " + temp + "\n" + client.config.block
 		+ map[9].join(' ') + "\n" + map[8].join(' ') + "\n"
