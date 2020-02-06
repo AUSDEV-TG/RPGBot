@@ -1,8 +1,21 @@
 # RPGBot
 
-A discord bot that allows members of a server to play a text-based RPG.
+A discord bot that allows members of a server to play a text-based RPG.<br/>
+Developed using the discord.js library.<br/>
+Not built with intention of being used as a public discord bot.<br/>
+Innovations on the bot are encouraged.<br/>
+Fork or pinch the code as you please; however, I would love to see  improvements!
 
-#### Recipe for config.json:
+### Short-term goals:
+
+* Develop a functional co-op system.
+
+### Long-term goals:
+
+* Run the bot on a dedicated server (not a RPi).
+* Multi-Thread the bot (necessary conversion from node).
+
+### Recipe for config.json:
 ```json
 {
     "token": "YOUR_TOKEN_GOES_HERE",
