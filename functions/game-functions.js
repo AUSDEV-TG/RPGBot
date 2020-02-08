@@ -139,11 +139,11 @@ module.exports = {
 		if (rewardType == "squirrel") {
 			rewards = new Array(2);
 			rewards[0] = client.items.consumable[3]; // Steak
-			rewards[1] = client.items.tradable[1]; // Squirrel Pelt
+			rewards[1] = client.items.tradable[2]; // Squirrel Pelt
 		} else if (rewardType == "wolf") {
 			rewards = new Array(2);
 			rewards[0] = client.items.consumable[3]; // Steak
-			rewards[1] = client.items.tradable[2]; // Wolf Pelt
+			rewards[1] = client.items.tradable[3]; // Wolf Pelt
 		} else if (rewardType == "bandit") {
 			rewards = new Array(3);
 			rewards[0] = client.items.consumable[5]; // Potion
@@ -158,17 +158,17 @@ module.exports = {
 		} else if (rewardType == "shark") {
 			rewards = new Array(2);
 			rewards[0] = client.items.consumable[2]; // Fish
-			rewards[1] = client.items.tradable[4]; // Shark Tooth
+			rewards[1] = client.items.tradable[5]; // Shark Tooth
 		} else if (rewardType == "goat") {
 			rewards = new Array(2);
 			rewards[0] = client.items.consumable[3]; // Steak
-			rewards[1] = client.items.tradable[3]; // Goat Horn
+			rewards[1] = client.items.tradable[4]; // Goat Horn
 		} else if (rewardType == "golem") {
 			rewards = new Array(4);
-			rewards[0] = client.items.tradable[5]; // Pearl
-			rewards[1] = client.items.tradable[6]; // Silver Bar
-			rewards[2] = client.items.tradable[7]; // Gold Bar
-			rewards[3] = client.items.tradable[8]; // Diamond Bar
+			rewards[0] = client.items.tradable[6]; // Pearl
+			rewards[1] = client.items.tradable[7]; // Silver Bar
+			rewards[2] = client.items.tradable[8]; // Gold Bar
+			rewards[3] = client.items.tradable[9]; // Diamond Bar
 		} else if (rewardType == "fruit") {
 			rewards = new Array(1);
 			rewards[0] = client.items.consumable[0]; // Apple
@@ -177,7 +177,7 @@ module.exports = {
 			rewards[0] = client.items.equippable[2]; // Bone Club
 		} else if (rewardType == "spectre") {
 			rewards = new Array(1);
-			rewards[0] = client.items.tradable[9]; // Ectoplasm
+			rewards[0] = client.items.tradable[10]; // Ectoplasm
 		} else if (rewardType == "chicken") {
 			rewards = new Array(1);
 			rewards[0] = client.items.consumable[3]; // Steak
@@ -219,7 +219,7 @@ module.exports = {
 			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
 			var rand = Math.floor(Math.random() * client.monsters.forest.length);
 
-			// Run the initialise combat function to begin combat using the random forest monster.
+			// Run the engageCombat function to begin combat using the random forest monster.
 			module.exports.engageCombat(client, message, character, client.monsters.forest[rand]);
 		}
 	},
@@ -237,7 +237,7 @@ module.exports = {
 			// Initialise the variable rand with a floored random number based upon the length of the water array contained in the monsters.json file.
 			var rand = Math.floor(Math.random() * client.monsters.water.length);
 
-			// Run the initialise combat function to begin combat using the random water monster.
+			// Run the engageCombat function to begin combat using the random water monster.
 			module.exports.engageCombat(client, message, character, client.monsters.water[rand]);
 		}
 	},
@@ -253,7 +253,7 @@ module.exports = {
 			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
 			var rand = Math.floor(Math.random() * client.monsters.forest.length);
 
-			// Run the initialise combat function to begin combat using the random forest monster.
+			// Run the engageCombat function to begin combat using the random forest monster.
 			module.exports.engageCombat(client, message, character, client.monsters.forest[rand]);
 		} else {
 			message.reply("There is no game around at the moment.");
@@ -268,12 +268,19 @@ module.exports = {
 			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
 			var rand = Math.floor(Math.random() * client.monsters.forest.length);
 
-			// Run the initialise combat function to begin combat using the random forest monster.
+			// Run the engageCombat function to begin combat using the random forest monster.
 			module.exports.engageCombat(client, message, character, client.monsters.forest[rand]);
 		}
 	},
 
 	lumber: function (client, message, character) {
-		message.reply("WIP... Try again later");
+		client.charFuncs.addItem(client, message, character, client.items.tradable[1], "consumable", 5);
+		message.reply(character.name + " cut down a tree.");
+		client.charFuncs.addAchievement(client, message, "Lumberjack");
+
+		if (Math.floor(Math.random() * 10) % 3 == 0) {
+			// Run the engageCombat function to begin combat with a rabid squirrel.
+			module.exports.engageCombat(client, message, character, client.monsters.forest[0]);
+		}
 	}
 }

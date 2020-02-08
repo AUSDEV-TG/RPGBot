@@ -18,7 +18,7 @@ Fork or pinch the code as you please; however, I would love to see  improvements
 ### Recipe for config.json:
 ```json
 {
-    "token": "YOUR_TOKEN_GOES_HERE",
+    "token": "YOUR_BOT_TOKEN_GOES_HERE",
     "prefix": "~",
     "devID": "YOUR_ACCOUNT_SNOWFLAKE_GOES_HERE",
     "block": "```",

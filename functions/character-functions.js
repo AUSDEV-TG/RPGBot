@@ -134,7 +134,7 @@ module.exports = {
 		var found = false;
 
 		profile.achievements.forEach(element => {
-			if (element == achievement) 
+			if (element == achievement)
 				found = true;
 		});
 

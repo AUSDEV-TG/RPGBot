@@ -23,7 +23,8 @@
 	],
 
 	"tradable": [
-		{"name": "Money" , "val": 1, "count": 1},
+		{"name": "Money", "val": 1, "count": 1},
+		{"name": "Wood", "val": 5, "count": 1},
 		{"name": "Squirrel Pelt", "val": 10, "count": 1},
 		{"name": "Wolf Pelt", "val": 15, "count": 1},
 		{"name": "Goat Horn", "val": 15, "count": 1},

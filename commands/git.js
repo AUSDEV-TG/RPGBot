@@ -30,4 +30,6 @@ module.exports.run = (client, message) => {
             }
         }
     });
+
+    message.delete();
 }
