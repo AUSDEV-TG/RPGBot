@@ -28,10 +28,7 @@ module.exports.run = (client, message) => {
 	var map = mapSave.map;
 
 	// Create a temporary variable to store the char that the character is on
-	var temp = map[character.posY][character.posX];
-
-	// Replace the char in at the character's position with the section char
-	map[character.posY][character.posX] = '§';
+	var temp;
 
 	var commands = [];
 
@@ -123,6 +120,8 @@ module.exports.run = (client, message) => {
 // Function to compile the map data into a formatted string.
 module.exports.getFormattedMap = (client, character, map, temp) => {
 	temp = map[character.posY][character.posX];
+
+	// Replace the char in at the character's position with the section char
 	map[character.posY][character.posX] = '§';
 
 	var msg = character.name + " at pos(x:" + (character.posX + 1) + ", y:"

@@ -10,11 +10,12 @@ module.exports = {
 	combat between and character and a monster.
 	*/
 	engageCombat: function (client, message, character, monster) {
+		var tempMonster = monster;
 		var reactions = client.reactions;
 		const buttons = [reactions.attack, reactions.run,];
 		var run = false;
-		var msg = client.config.block + "A " + monster.name
-			+ "!" + "\tHP: " + monster.hp + "\tDam:" + monster.dam
+		var msg = client.config.block + "A " + tempMonster.name
+			+ "!" + "\tHP: " + tempMonster.hp + "\tDam:" + tempMonster.dam
 			+ "\nWhat will " + character.name + " do?\n" + client.reactions.attack + "-attack\t" + client.reactions.run
 			+ "-run\t" + client.config.block;
 
@@ -27,17 +28,17 @@ module.exports = {
 				throw new Error('Time-Out');
 			}).catch(err => {
 				console.log(err);
-				if (monster.hp > 0 && run === false) {
-					if (monster.fatal == true) {
+				if (tempMonster.hp > 0 && run === false) {
+					if (tempMonster.fatal == true) {
 						message.reply(client.config.block + character.name
-							+ " couldn't defend against the " + monster.name
+							+ " couldn't defend against the " + tempMonster.name
 							+ " and was killed...\nTook " + character.health + " HP damage." + client.config.block);
 						client.charFuncs.takeDamage(client, message, message.author.id, character, character.health);
 					} else {
-						if (monster.dam != 0) {
-							var dam = monster.dam * 2.5;
+						if (tempMonster.dam != 0) {
+							var dam = tempMonster.dam * 2.5;
 							message.reply(client.config.block + character.name
-								+ "'s Reaction time failed them...\n" + monster.name
+								+ "'s Reaction time failed them...\n" + tempMonster.name
 								+ " became enraged, thrashed " + character.name
 								+ " and fled. Took " + dam.toFixed(2) + " HP damage." + client.config.block);
 							client.charFuncs.takeDamage(client, message, message.author.id, character, dam.toFixed(2));
@@ -51,19 +52,19 @@ module.exports = {
 
 			collector.on('collect', async (messageReaction) => {
 				if (messageReaction.emoji.name === reactions.attack) {
-					monster.hp -= character.dam;
-					if (monster.hp <= 0) {
+					tempMonster.hp -= character.dam;
+					if (tempMonster.hp <= 0) {
 						msg.edit(client.config.block + character.name
-							+ " killed the " + monster.name + ". +"
-							+ monster.xp + "XP." + client.config.block);
+							+ " killed the " + tempMonster.name + ". +"
+							+ tempMonster.xp + "XP." + client.config.block);
 
-						// Get rewards from the monster and add them to inventory
-						var rewards = module.exports.getRewards(client, monster.rewards);
+						// Get rewards from the tempMonster and add them to inventory
+						var rewards = module.exports.getRewards(client, tempMonster.rewards);
 
 						var gainedXP;
 
 						if (rewards.length != 0)
-							gainedXP = monster.xp / rewards.length;
+							gainedXP = tempMonster.xp / rewards.length;
 
 						rewards.forEach(reward => {
 							if (typeof reward.heal !== 'undefined') {
@@ -82,25 +83,25 @@ module.exports = {
 						});
 
 						if (!rewards) {
-							client.charFuncs.addXp(client, message, character, monster.xp);
+							client.charFuncs.addXp(client, message, character, tempMonster.xp);
 						}
 
 						msg.delete(2000).catch();
 						collector.stop();
 					} else {
-						if (monster.dam != 0) {
-							monster.dam *= 0.8;
+						if (tempMonster.dam != 0) {
+							tempMonster.dam *= 0.8;
 							msg.edit(client.config.block + character.name
-								+ " injured the " + monster.name
-								+ " but it attacked back. Took " + monster.dam.toFixed(2) + " HP damage.\nIt now has "
-								+ monster.hp + "HP left"
+								+ " injured the " + tempMonster.name
+								+ " but it attacked back. Took " + tempMonster.dam.toFixed(2) + " HP damage.\nIt now has "
+								+ tempMonster.hp + "HP left"
 								+ client.reactions.attack + "-attack\t"
 								+ client.reactions.run + "-run\t"
 								+ client.config.block);
-							client.charFuncs.takeDamage(client, message, message.author.id, character, monster.dam.toFixed(2));
+							client.charFuncs.takeDamage(client, message, message.author.id, character, tempMonster.dam.toFixed(2));
 						} else {
 							msg.edit(client.config.block + character.name
-								+ " injured the " + monster.name + ".\n"
+								+ " injured the " + tempMonster.name + ".\n"
 								+ client.reactions.attack + "-attack\t"
 								+ client.reactions.run + "-run\t"
 								+ client.config.block);
@@ -110,11 +111,11 @@ module.exports = {
 
 				if (messageReaction.emoji.name === reactions.run) {
 					run = true;
-					if (monster.dam != 0) {
+					if (tempMonster.dam != 0) {
 						msg.edit(client.config.block + "The "
-							+ monster.name + " hit you but you managed to escape. Took "
-							+ monster.dam.toFixed(2) + " HP damage." + client.config.block);
-						client.charFuncs.takeDamage(client, message, message.author.id, character, monster.dam.toFixed(2));
+							+ tempMonster.name + " hit you but you managed to escape. Took "
+							+ tempMonster.dam.toFixed(2) + " HP damage." + client.config.block);
+						client.charFuncs.takeDamage(client, message, message.author.id, character, tempMonster.dam.toFixed(2));
 					} else {
 						msg.edit(client.config.block + character.name
 							+ " has escaped." + client.config.block);
@@ -243,7 +244,28 @@ module.exports = {
 	},
 
 	dive: function (client, message, character) {
-		message.reply("WIP... Try again later");
+		message.reply(character.name + " is diving into the depths...");
+		client.charFuncs.addAchievement(client, message, "Scuba Diver");
+
+		var rand = Math.floor(Math.random() * 10);
+
+		if (rand % 2 == 0) {
+			client.charFuncs.addItem(client, message, character, client.items.tradable[5], "tradable", 10);
+			message.reply(character.name + " found a Shark Tooth!");
+		} else if (rand % 4 == 0) {
+			client.charFuncs.addItem(client, message, character, client.items.tradable[6], "tradable", 10);
+			message.reply(character.name + " found a Pearl!");
+		} else {
+			message.reply("There is nothing in the depths...");
+		}
+
+		if (Math.floor(Math.random() * 10) % 4 == 0) {
+			// Assign the variable rand with a floored random number based upon the length of the water array contained in the monsters.json file.
+			rand = Math.floor(Math.random() * client.monsters.water.length);
+
+			// Run the engageCombat function to begin combat using the random water monster.
+			module.exports.engageCombat(client, message, character, client.monsters.water[rand]);
+		}
 	},
 
 	hunt: function (client, message, character) {
@@ -274,7 +296,7 @@ module.exports = {
 	},
 
 	lumber: function (client, message, character) {
-		client.charFuncs.addItem(client, message, character, client.items.tradable[1], "consumable", 5);
+		client.charFuncs.addItem(client, message, character, client.items.tradable[1], "tradable", 5);
 		message.reply(character.name + " cut down a tree.");
 		client.charFuncs.addAchievement(client, message, "Lumberjack");
 
