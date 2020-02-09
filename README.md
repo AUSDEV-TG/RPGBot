@@ -15,6 +15,17 @@ Fork or pinch the code as you please; however, I would love to see  improvements
 * Run the bot on a dedicated server (not a RPi).
 * Multi-Thread the bot (necessary conversion from node).
 
+#### World Map!
+![](images/map-demo.gif)
+
+#### Fishing!
+![](images/fishing-demo.gif)
+
+#### Inventory System!
+![](images/inventory-demo.gif)
+
+and much more!
+
 ### Recipe for config.json:
 ```json
 {
