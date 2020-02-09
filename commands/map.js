@@ -67,6 +67,7 @@ module.exports.run = (client, message) => {
 				map[character.posY][character.posX] = temp;
 				character.posX--;
 				if (character.posX < 0) character.posX = 0;
+				temp = map[character.posY][character.posX];
 				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
@@ -76,6 +77,7 @@ module.exports.run = (client, message) => {
 				map[character.posY][character.posX] = temp;
 				character.posX++;
 				if (character.posX > 9) character.posX = 9;
+				temp = map[character.posY][character.posX];
 				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
@@ -85,6 +87,7 @@ module.exports.run = (client, message) => {
 				map[character.posY][character.posX] = temp;
 				character.posY++;
 				if (character.posY > 9) character.posY = 9;
+				temp = map[character.posY][character.posX];
 				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
@@ -94,6 +97,7 @@ module.exports.run = (client, message) => {
 				map[character.posY][character.posX] = temp;
 				character.posY--;
 				if (character.posY < 0) character.posY = 0;
+				temp = map[character.posY][character.posX];
 				msg.edit(module.exports.getFormattedMap(client, character, map, temp));
 			}
 
@@ -119,8 +123,6 @@ module.exports.run = (client, message) => {
 
 // Function to compile the map data into a formatted string.
 module.exports.getFormattedMap = (client, character, map, temp) => {
-	temp = map[character.posY][character.posX];
-
 	// Replace the char in at the character's position with the section char
 	map[character.posY][character.posX] = '§';
 

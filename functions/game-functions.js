@@ -226,7 +226,15 @@ module.exports = {
 	},
 
 	hike: function (client, message, character) {
-		message.reply("WIP... Try again later");
+		message.reply(character.name + " took a hike up the mountain...");
+
+		if (Math.floor(Math.random() * 10) % 4 == 0) {
+			// Assign the variable rand with a floored random number based upon the length of the mountain array contained in the monsters.json file.
+			rand = Math.floor(Math.random() * client.monsters.mountain.length);
+
+			// Run the engageCombat function to begin combat using the random mountain monster.
+			module.exports.engageCombat(client, message, character, client.monsters.mountain[rand]);
+		}
 	},
 
 	fish: function (client, message, character) {

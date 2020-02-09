@@ -25,6 +25,6 @@ module.exports.run = (client, message) => {
 	*/
 	var map = client.charFuncs.generateMap(client, message.author.id);
 	client.charFuncs.saveMap(client, message.author.id, map);
-	message.reply("Map successfully regenerated");
+	message.reply("Map successfully regenerated.");
 	message.delete();
 }
