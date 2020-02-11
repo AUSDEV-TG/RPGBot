@@ -200,7 +200,239 @@ module.exports = {
 	},
 
 	shop: function (client, message, character) {
-		message.reply("WIP... Try again later");
+		var shopHeaders = ["Buy", "Sell"];
+		var selectedIndex = 0;
+
+		const buttons = [client.reactions.up, client.reactions.down, client.reactions.enter,
+		client.reactions.money];
+
+		var msg = module.exports.getShopMenuHeaders(client, character, shopHeaders, selectedIndex);
+
+		message.channel.send(msg).then(async (msg) => {
+			// Display number buttons
+			await msg.react(buttons[0]);
+			await msg.react(buttons[1]);
+			await msg.react(buttons[2]);
+
+			await msg.react(client.reactions.x);
+			msg.delete(90000).catch();
+
+			// Create collector to listen for button click
+			const collector = msg.createReactionCollector((reaction, user) => user !== client.user && user === message.author);
+
+			collector.on('collect', async (messageReaction) => {
+				// If the x button is pressed, remove the message.
+				if (messageReaction.emoji.name === client.reactions.x) {
+					msg.delete(); // Delete the message
+					collector.stop(); // Get rid of the collector.
+					return;
+				}
+
+				if (messageReaction.emoji.name === client.reactions.up) {
+					if (selectedIndex > 0) {
+						selectedIndex--;
+						msg.edit(module.exports.getShopMenuHeaders(client, character, shopHeaders, selectedIndex));
+					}
+				}
+
+				if (messageReaction.emoji.name === client.reactions.down) {
+					if (selectedIndex < shopHeaders.length - 1) {
+						selectedIndex++;
+						msg.edit(module.exports.getShopMenuHeaders(client, character, shopHeaders, selectedIndex));
+					}
+				}
+
+				if (messageReaction.emoji.name === client.reactions.enter) {
+					if (selectedIndex == 0) {
+						msg.delete(); // Delete the message
+						collector.stop(); // Get rid of the collector.
+
+						var consumables = [client.items.consumable[0], client.items.consumable[2],
+							client.items.consumable[3], client.items.consumable[4], client.items.consumable[5],
+							client.items.consumable[6], client.items.consumable[7], client.items.consumable[8]];
+
+						var equippables = [client.items.equippable[0], client.items.equippable[1],
+							client.items.equippable[2], client.items.equippable[3], client.items.equippable[4],
+							client.items.equippable[5]];
+
+						var tradables = [client.items.tradable[1], client.items.tradable[2], client.items.tradable[3],
+							client.items.tradable[4], client.items.tradable[5], client.items.tradable[6],
+							client.items.tradable[7], client.items.tradable[8], client.items.tradable[9],
+							client.items.tradable[10]];
+
+						selectedIndex = 0;
+						var selectedType = "consumable";
+
+						var buyMsg = module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType);
+
+						message.channel.send(buyMsg).then(async (buyMsg) => {
+							// Display number buttons
+							await buyMsg.react(buttons[0]);
+							await buyMsg.react(buttons[1]);
+							await buyMsg.react(buttons[3]);
+
+							await buyMsg.react(client.reactions.x);
+							buyMsg.delete(90000).catch();
+
+							// Create collector to listen for button click
+							const collector = buyMsg.createReactionCollector((reaction, user) => user !== client.user && user === message.author);
+
+							collector.on('collect', async (messageReaction) => {
+								// If the x button is pressed, remove the message.
+								if (messageReaction.emoji.name === client.reactions.x) {
+									buyMsg.delete(); // Delete the message
+									collector.stop(); // Get rid of the collector.
+									return;
+								}
+
+
+								if (messageReaction.emoji.name === client.reactions.up) {
+									selectedIndex--;
+									if (selectedIndex < 0 && selectedType == "consumable") selectedIndex = 0;
+									else if (selectedIndex < 0 && selectedType == "equippable") {
+										selectedIndex = consumables.length - 1;
+										selectedType = "consumable";
+									}
+									else if (selectedIndex < 0 && selectedType == "tradable") {
+										selectedIndex = equippables.length - 1;
+										selectedType = "equippable";
+									}
+
+									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+								}
+
+								if (messageReaction.emoji.name === client.reactions.down) {
+									selectedIndex++;
+									if (selectedIndex > consumables.length - 1 && selectedType == "consumable") {
+										selected = 0;
+										selectedType = "equippable";
+									}
+									else if (selectedIndex > equippables.length - 1 && selectedType == "equippable") {
+										selected = 0;
+										selectedType = "tradable";
+									}
+									else if (selectedIndex > tradables.length - 1 && selectedType == "tradable")
+										selected = tradables.length - 1;
+
+									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+								}
+
+								if (messageReaction.emoji.name === client.reactions.money) {
+									var purchasedItem;
+
+									if (selectedType == "consumable")
+										purchasedItem = client.items.consumable[selectedIndex];
+									else if (selectedType == "equippable")
+										purchasedItem = client.items.equippable[selectedIndex];
+									else if (selectedType == "tradable")
+										purchasedItem = client.items.tradable[selectedIndex];
+
+									var characterMoneyIndex;
+
+									for (var i = 0; i < character.inventory.tradable; i++) {
+										if (character.inventory.tradable[i].name == "Money") {
+											characterMoneyIndex = i;
+										}
+									}
+
+									if (characterMoneyIndex != null) {
+										if (purchasedItem.value > character.inventory.tradable[characterMoneyIndex].count) {
+											message.reply(character + " does not have enough money.");
+										} else {
+											character.inventory.tradable[characterMoneyIndex].count -= purchasedItem.value;
+											client.charFuncs.addItem(client, message, character, purchasedItem, selectedType, 0);
+										}
+									}
+								}
+
+								// Get the index of the page by button pressed
+								const pageIndex = buttons.indexOf(messageReaction.emoji.name);
+								// Return if emoji is irrelevant or the page doesnt exist (number too high)
+								if (pageIndex == -1) return;
+
+								const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
+								await messageReaction.remove(notbot);
+							});
+						}).catch(err => console.log(err));
+					} else if (selectedIndex == 1) {
+						msg.reply("WIP... Try again later.");
+					}
+				}
+
+				// Get the index of the page by button pressed
+				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
+				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				if (pageIndex == -1) return;
+
+				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
+				await messageReaction.remove(notbot);
+			});
+		}).catch(err => console.log(err));
+	},
+
+	getShopMenuHeaders: function (client, character, headers, selectedIndex) {
+		var msg = client.config.block + "Welcome to the village shop.\n" +
+			"What would " + character.name + " like to do?\n\n";
+
+		if (headers != null) {
+			for (var i = 0; i < headers.length; i++) {
+				if (i == selectedIndex)
+					msg += ">   " + headers[i] + "\n";
+				else
+					msg += "\t" + headers[i] + "\n";
+			}
+		}
+
+		msg += client.config.block;
+		return msg;
+	},
+
+	getBuyMenu: function (client, consumables, equippables, tradables, selectedIndex, selectedType) {
+		var msg = client.config.block + "Items available:\n\n";
+
+		// Must add important item stats to this string formatting block
+
+		if (consumables != null) {
+			msg += "Consumables\n\n";
+			for (var i = 0; i < consumables.length; i++) {
+				if (i == selectedIndex && selectedType == "consumable")
+					msg += ">   " + consumables[i].name + "\tCosts: " +  consumables[i].val + " Gold.\n";
+				else
+					msg += "\t" + consumables[i].name + "\tCosts: " +  consumables[i].val + " Gold.\n";
+			}
+			msg += "\n";
+		} else {
+			msg += "No consumables available.\n\n";
+		}
+
+		if (equippables != null) {
+			msg += "Equippables\n\n";
+			for (var i = 0; i < equippables.length; i++) {
+				if (i == selectedIndex && selectedType == "equippable")
+					msg += ">   " + equippables[i].name + "\tCosts: " + equippables[i].val + " Gold.\n";
+				else
+					msg += "\t" + equippables[i].name + "\tCosts: " + equippables[i].val + " Gold.\n";
+			}
+			msg += "\n";
+		} else {
+			msg += "No equippables available.\n\n";
+		}
+
+		if (tradables != null) {
+			msg += "Tradables\n\n";
+			for (var i = 0; i < tradables.length; i++) {
+				if (i == selectedIndex && selectedType == "tradable")
+					msg += ">   " + tradables[i].name + "\tCosts: " + tradables[i].val + " Gold.\n";
+				else
+					msg += "\t" + tradables[i].name + "\tCosts: " + tradables[i].val + " Gold.\n";
+			}
+			msg += "\n";
+		} else {
+			msg += "No tradables available.\n\n";
+		}
+
+		msg += client.config.block;
+		return msg;
 	},
 
 	property: function (client, message, character) {
@@ -293,7 +525,7 @@ module.exports = {
 	gather: function (client, message, character) {
 		client.charFuncs.addItem(client, message, character, client.items.consumable[0], "consumable", 2);
 		message.reply("Gathered a " + client.items.consumable[0].name + ". +2XP.");
-	
+
 		if (Math.floor(Math.random() * 10) % 5 == 0) {
 			// Initialise the variable rand with a floored random number based upon the length of the forest array contained in the monsters.json file.
 			var rand = Math.floor(Math.random() * client.monsters.forest.length);

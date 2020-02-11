@@ -26,6 +26,8 @@ https://github.com/KMCGamer/usc_bot/blob/master/modules/reactions.js
 🧺 (gather): A command used in the forest to gather items.
 🌲 (lumber): A command used in the forest to gather wood.
 🔄 (refresh): A command used in the stats command to refresh character stats.
+↩️ (enter): A command used in some menus.
+💰 (money): A command used for buying and selling in shop menus.
 */
 
 module.exports = {
@@ -64,5 +66,7 @@ module.exports = {
   hunt: '🏹',
   gather: '🧺',
   lumber: '🌲',
-  refresh: '🔄'
+  refresh: '🔄',
+  enter: '↩️',
+  money: '💰'
 };
