@@ -304,15 +304,15 @@ module.exports = {
 								if (messageReaction.emoji.name === client.reactions.down) {
 									selectedIndex++;
 									if (selectedIndex > consumables.length - 1 && selectedType == "consumable") {
-										selected = 0;
+										selectedIndex = 0;
 										selectedType = "equippable";
 									}
 									else if (selectedIndex > equippables.length - 1 && selectedType == "equippable") {
-										selected = 0;
+										selectedIndex = 0;
 										selectedType = "tradable";
 									}
 									else if (selectedIndex > tradables.length - 1 && selectedType == "tradable")
-										selected = tradables.length - 1;
+										selectedIndex = tradables.length - 1;
 
 									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
@@ -321,11 +321,11 @@ module.exports = {
 									var purchasedItem;
 
 									if (selectedType == "consumable")
-										purchasedItem = client.items.consumable[selectedIndex];
+										purchasedItem = consumables[selectedIndex];
 									else if (selectedType == "equippable")
-										purchasedItem = client.items.equippable[selectedIndex];
+										purchasedItem = equippables[selectedIndex];
 									else if (selectedType == "tradable")
-										purchasedItem = client.items.tradable[selectedIndex];
+										purchasedItem = tradables[selectedIndex];
 
 									var characterMoneyIndex;
 

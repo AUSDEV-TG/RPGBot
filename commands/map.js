@@ -28,7 +28,7 @@ module.exports.run = (client, message) => {
 	var map = mapSave.map;
 
 	// Create a temporary variable to store the char that the character is on
-	var temp;
+	var temp = map[character.posY][character.posX];
 
 	var commands = [];
 
@@ -132,8 +132,8 @@ module.exports.getFormattedMap = (client, character, map, temp) => {
 		+ map[7].join(' ') + "\n" + map[6].join(' ') + "\n"
 		+ map[5].join(' ') + "\n" + map[4].join(' ') + "\n"
 		+ map[3].join(' ') + "\n" + map[2].join(' ') + "\n"
-		+ map[1].join(' ') + "\n"
-		+ map[0].join(' ') + client.config.block;
+		+ map[1].join(' ') + "\n" + map[0].join(' ') 
+		+ client.config.block;
 
 	return msg;
 }
