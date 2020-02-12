@@ -312,6 +312,7 @@ module.exports = {
 										selectedIndex = 0;
 										selectedType = "equippable";
 									}
+									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.down) {
@@ -337,6 +338,7 @@ module.exports = {
 										selectedType = "tradable";
 									} else if (selectedType == "tradable")
 										selectedIndex = tradables.length - 1;
+									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.money) {

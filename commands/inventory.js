@@ -81,6 +81,7 @@ module.exports.run = (client, message) => {
 					selected = 0;
 					selectedType = "equippable";
 				}
+				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
 			// Clicking the down reaction moves the cursor down
@@ -108,6 +109,7 @@ module.exports.run = (client, message) => {
 					selectedType = "tradable";
 				} else if (selectedType == "tradable")
 					selected = character.inventory.tradable.length - 1;
+				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
 			// Clicking the cyclone reaction will use the selected consumable
