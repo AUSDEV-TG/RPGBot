@@ -21,7 +21,8 @@ module.exports.run = (client, message) => {
 
 	const buttons = [
 		client.reactions.up, client.reactions.down,
-		client.reactions.use, client.reactions.equip,];
+		client.reactions.use, client.reactions.equip,
+		client.reactions.doubleup, client.reactions.doubledown];
 
 	// Define the default position of the cursor
 	var selected = 0;
@@ -33,7 +34,9 @@ module.exports.run = (client, message) => {
 		// Display buttons
 
 		await msg.react(buttons[0]);
+		await msg.react(buttons[4]);
 		await msg.react(buttons[1]);
+		await msg.react(buttons[5]);
 		await msg.react(buttons[2]);
 		await msg.react(buttons[3]);
 
@@ -68,6 +71,18 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
+			if (messageReaction.emoji.name === client.reactions.doubleup) {
+				if (selectedType == "consumable")
+					selected = 0;
+				else if (selectedType == "equippable") {
+					selected = 0;
+					selectedType = "consumable";
+				} else if (selectedType == "tradable") {
+					selected = 0;
+					selectedType = "equippable";
+				}
+			}
+
 			// Clicking the down reaction moves the cursor down
 			if (messageReaction.emoji.name === client.reactions.down) {
 				selected++;
@@ -82,6 +97,17 @@ module.exports.run = (client, message) => {
 				else if (selected > character.inventory.tradable.length - 1 && selectedType == "tradable")
 					selected = character.inventory.tradable.length - 1;
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
+			}
+
+			if (messageReaction.emoji.name === client.reactions.doubledown) {
+				if (selectedType == "consumable") {
+					selected = 0;
+					selectedType = "equippable";
+				} else if (selectedType == "equippable") {
+					selected = 0;
+					selectedType = "tradable";
+				} else if (selectedType == "tradable")
+					selected = character.inventory.tradable.length - 1;
 			}
 
 			// Clicking the cyclone reaction will use the selected consumable

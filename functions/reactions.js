@@ -14,6 +14,8 @@ https://github.com/KMCGamer/usc_bot/blob/master/modules/reactions.js
 ⤵️ (equip): A command used in the inventory system to equip an equippable.
 ⚔️ (attack): A command used in the combat system to attack an enemy.
 🏃 (run): A command used in the combat system to run from an enemy.
+⏫ (doubleup): A command used to navigate some menus with haste.
+⏬ (doubledown): A command used to navigate some menus with haste.
 🖐 (interact): A command used to interact with the world.
 🛒 (shop): A command used in a village to buy new items.
 🏡 (property): A command used in a village to buy property.
@@ -55,6 +57,8 @@ module.exports = {
   down: '⬇️',
   left: '⬅️',
   right: '➡️',
+  doubleup: '⏫',
+  doubledown: '⏬',
   interact: '🖐',
   shop: '🛒',
   property: '🏡',

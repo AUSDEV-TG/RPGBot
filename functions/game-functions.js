@@ -204,7 +204,7 @@ module.exports = {
 		var selectedIndex = 0;
 
 		const buttons = [client.reactions.up, client.reactions.down, client.reactions.enter,
-		client.reactions.money];
+			client.reactions.money, client.reactions.doubleup, client.reactions.doubledown];
 
 		var msg = module.exports.getShopMenuHeaders(client, character, shopHeaders, selectedIndex);
 
@@ -268,7 +268,9 @@ module.exports = {
 						message.channel.send(buyMsg).then(async (buyMsg) => {
 							// Display number buttons
 							await buyMsg.react(buttons[0]);
+							await buyMsg.react(buttons[4]);
 							await buyMsg.react(buttons[1]);
+							await buyMsg.react(buttons[5]);
 							await buyMsg.react(buttons[3]);
 
 							await buyMsg.react(client.reactions.x);
@@ -285,7 +287,6 @@ module.exports = {
 									return;
 								}
 
-
 								if (messageReaction.emoji.name === client.reactions.up) {
 									selectedIndex--;
 									if (selectedIndex < 0 && selectedType == "consumable") selectedIndex = 0;
@@ -301,20 +302,41 @@ module.exports = {
 									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
+								if (messageReaction.emoji.name === client.reactions.doubleup) {
+									if (selectedType == "consumable")
+										selectedIndex = 0;
+									else if (selectedType == "equippable") {
+										selectedIndex = 0;
+										selectedType = "consumable";
+									} else if (selectedType == "tradable") {
+										selectedIndex = 0;
+										selectedType = "equippable";
+									}
+								}
+
 								if (messageReaction.emoji.name === client.reactions.down) {
 									selectedIndex++;
 									if (selectedIndex > consumables.length - 1 && selectedType == "consumable") {
 										selectedIndex = 0;
 										selectedType = "equippable";
-									}
-									else if (selectedIndex > equippables.length - 1 && selectedType == "equippable") {
+									} else if (selectedIndex > equippables.length - 1 && selectedType == "equippable") {
 										selectedIndex = 0;
 										selectedType = "tradable";
-									}
-									else if (selectedIndex > tradables.length - 1 && selectedType == "tradable")
+									} else if (selectedIndex > tradables.length - 1 && selectedType == "tradable")
 										selectedIndex = tradables.length - 1;
 
 									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+								}
+
+								if (messageReaction.emoji.name === client.reactions.doubledown) {
+									if (selectedType == "consumable") {
+										selectedIndex = 0;
+										selectedType = "equippable";
+									} else if (selectedType == "equippable") {
+										selectedIndex = 0;
+										selectedType = "tradable";
+									} else if (selectedType == "tradable")
+										selectedIndex = tradables.length - 1;
 								}
 
 								if (messageReaction.emoji.name === client.reactions.money) {
@@ -396,9 +418,9 @@ module.exports = {
 			msg += "Consumables\n\n";
 			for (var i = 0; i < consumables.length; i++) {
 				if (i == selectedIndex && selectedType == "consumable")
-					msg += ">   " + consumables[i].name + "\tCosts: " +  consumables[i].val + " Gold.\n";
+					msg += ">   " + consumables[i].name + "\tCosts: " + consumables[i].val + " Gold.\n";
 				else
-					msg += "\t" + consumables[i].name + "\tCosts: " +  consumables[i].val + " Gold.\n";
+					msg += "\t" + consumables[i].name + "\tCosts: " + consumables[i].val + " Gold.\n";
 			}
 			msg += "\n";
 		} else {
