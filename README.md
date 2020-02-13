@@ -9,6 +9,9 @@ Fork or pinch the code as you please; however, I would love to see  improvements
 ### Short-term goals:
 
 * Develop a functional co-op system.
+* Develop a functional questing system.
+* Rebuild character creation.
+* Improve the efficiency of many functions.
 
 ### Long-term goals:
 
