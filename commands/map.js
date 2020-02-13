@@ -23,7 +23,7 @@ module.exports.run = (client, message) => {
 	}
 
 	const buttons = [client.reactions.left, client.reactions.right,
-	client.reactions.up, client.reactions.down, client.reactions.interact];
+		client.reactions.up, client.reactions.down, client.reactions.interact];
 
 	var map = mapSave.map;
 

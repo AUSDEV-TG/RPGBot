@@ -204,7 +204,7 @@ module.exports = {
 		var selectedIndex = 0;
 
 		const buttons = [client.reactions.up, client.reactions.down, client.reactions.enter,
-			client.reactions.money, client.reactions.doubleup, client.reactions.doubledown];
+			client.reactions.money, client.reactions.doubleUp, client.reactions.doubleDown];
 
 		var msg = module.exports.getShopMenuHeaders(client, character, shopHeaders, selectedIndex);
 
@@ -302,7 +302,7 @@ module.exports = {
 									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
-								if (messageReaction.emoji.name === client.reactions.doubleup) {
+								if (messageReaction.emoji.name === client.reactions.doubleUp) {
 									if (selectedType == "consumable")
 										selectedIndex = 0;
 									else if (selectedType == "equippable") {
@@ -329,7 +329,7 @@ module.exports = {
 									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
-								if (messageReaction.emoji.name === client.reactions.doubledown) {
+								if (messageReaction.emoji.name === client.reactions.doubleDown) {
 									if (selectedType == "consumable") {
 										selectedIndex = 0;
 										selectedType = "equippable";

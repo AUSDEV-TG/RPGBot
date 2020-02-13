@@ -22,7 +22,7 @@ module.exports.run = (client, message) => {
 	const buttons = [
 		client.reactions.up, client.reactions.down,
 		client.reactions.use, client.reactions.equip,
-		client.reactions.doubleup, client.reactions.doubledown];
+		client.reactions.doubleUp, client.reactions.doubleDown];
 
 	// Define the default position of the cursor
 	var selected = 0;
@@ -71,7 +71,7 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
-			if (messageReaction.emoji.name === client.reactions.doubleup) {
+			if (messageReaction.emoji.name === client.reactions.doubleUp) {
 				if (selectedType == "consumable")
 					selected = 0;
 				else if (selectedType == "equippable") {
@@ -100,7 +100,7 @@ module.exports.run = (client, message) => {
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
-			if (messageReaction.emoji.name === client.reactions.doubledown) {
+			if (messageReaction.emoji.name === client.reactions.doubleDown) {
 				if (selectedType == "consumable") {
 					selected = 0;
 					selectedType = "equippable";
