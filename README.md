@@ -12,6 +12,7 @@ Fork or pinch the code as you please; however, I would love to see  improvements
 * Develop a functional questing system.
 * Rebuild character creation.
 * Improve the efficiency of many functions.
+* Re-balance leveling and stats.
 
 ### Long-term goals:
 

@@ -59,7 +59,7 @@ module.exports.run = (client, message, args) => {
 				if (!client.commands.has(commandName)) return message.reply("That command doesn't exist");
 				// The path is relative the the *current folder*, so just ./filename.js
 				delete require.cache[require.resolve(`./${commandName}.js`)];
-				// Also need to delete and reload the command from the client.commands Enmao
+				// Also need to delete and reload the command from the client.commands Enmap
 				client.commands.delete(commandName);
 				const props = require(`./${commandName}.js`);
 				client.commands.set(commandName, props);

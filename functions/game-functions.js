@@ -126,11 +126,11 @@ module.exports = {
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				// Return if emoji is irrelevant or the page doesn't exist (number too high)
 				if (pageIndex == -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => console.log(err));
 	},
@@ -260,10 +260,17 @@ module.exports = {
 							client.items.tradable[7], client.items.tradable[8], client.items.tradable[9],
 							client.items.tradable[10]];
 
+						var characterMoneyIndex;
+
+						for (var i = 0; i < character.inventory.tradable; i++) {
+							if (character.inventory.tradable[i].name == "Money")
+								characterMoneyIndex = i;
+						}
+
 						selectedIndex = 0;
 						var selectedType = "consumable";
 
-						var buyMsg = module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType);
+						var buyMsg = module.exports.getBuyMenu(client, character, characterMoneyIndex, consumables, equippables, tradables, selectedIndex, selectedType);
 
 						message.channel.send(buyMsg).then(async (buyMsg) => {
 							// Display number buttons
@@ -298,8 +305,7 @@ module.exports = {
 										selectedIndex = equippables.length - 1;
 										selectedType = "equippable";
 									}
-
-									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+									buyMsg.edit(module.exports.getBuyMenu(client, character, characterMoneyIndex, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.doubleUp) {
@@ -312,7 +318,7 @@ module.exports = {
 										selectedIndex = 0;
 										selectedType = "equippable";
 									}
-									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+									buyMsg.edit(module.exports.getBuyMenu(client, character, characterMoneyIndex, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.down) {
@@ -326,7 +332,7 @@ module.exports = {
 									} else if (selectedIndex > tradables.length - 1 && selectedType == "tradable")
 										selectedIndex = tradables.length - 1;
 
-									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+									buyMsg.edit(module.exports.getBuyMenu(client, character, characterMoneyIndex, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.doubleDown) {
@@ -338,7 +344,7 @@ module.exports = {
 										selectedType = "tradable";
 									} else if (selectedType == "tradable")
 										selectedIndex = tradables.length - 1;
-									buyMsg.edit(module.exports.getBuyMenu(client, consumables, equippables, tradables, selectedIndex, selectedType));
+									buyMsg.edit(module.exports.getBuyMenu(client, character, characterMoneyIndex, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.money) {
@@ -351,14 +357,6 @@ module.exports = {
 									else if (selectedType == "tradable")
 										purchasedItem = tradables[selectedIndex];
 
-									var characterMoneyIndex;
-
-									for (var i = 0; i < character.inventory.tradable; i++) {
-										if (character.inventory.tradable[i].name == "Money") {
-											characterMoneyIndex = i;
-										}
-									}
-
 									if (characterMoneyIndex != null) {
 										if (purchasedItem.value > character.inventory.tradable[characterMoneyIndex].count) {
 											message.reply(character + " does not have enough money.");
@@ -367,6 +365,7 @@ module.exports = {
 											client.charFuncs.addItem(client, message, character, purchasedItem, selectedType, 0);
 										}
 									}
+									buyMsg.edit(module.exports.getBuyMenu(client, character, characterMoneyIndex, consumables, equippables, tradables, selectedIndex, selectedType));
 								}
 
 								// Get the index of the page by button pressed
@@ -374,8 +373,8 @@ module.exports = {
 								// Return if emoji is irrelevant or the page doesnt exist (number too high)
 								if (pageIndex == -1) return;
 
-								const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-								await messageReaction.remove(notbot);
+								const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+								await messageReaction.remove(notBot);
 							});
 						}).catch(err => console.log(err));
 					} else if (selectedIndex == 1) {
@@ -388,8 +387,8 @@ module.exports = {
 				// Return if emoji is irrelevant or the page doesnt exist (number too high)
 				if (pageIndex == -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => console.log(err));
 	},
@@ -411,8 +410,8 @@ module.exports = {
 		return msg;
 	},
 
-	getBuyMenu: function (client, consumables, equippables, tradables, selectedIndex, selectedType) {
-		var msg = client.config.block + "Items available:\n\n";
+	getBuyMenu: function (client, character, moneyIndex, consumables, equippables, tradables, selectedIndex, selectedType) {
+		var msg = client.config.block + "Items available:\t\t" + character.name + " owns " + ((moneyIndex != null) ? character.inventory.tradable[moneyIndex].count : 0) + " Gold.\n\n";
 
 		// Must add important item stats to this string formatting block
 

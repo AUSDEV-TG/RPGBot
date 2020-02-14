@@ -27,8 +27,8 @@ module.exports = {
 
 	loadCharacter: function (client, id) {
 		var path = "/media/el-rat/USB/saves/" + id + "/character.json";
-		let rawdata = client.fs.readFileSync(path);
-		let character = JSON.parse(rawdata);
+		let rawData = client.fs.readFileSync(path);
+		let character = JSON.parse(rawData);
 		return character;
 	},
 
@@ -97,8 +97,8 @@ module.exports = {
 
 	loadMap: function (client, id) {
 		var path = "/media/el-rat/USB/saves/" + id + "/map.json";
-		let rawdata = client.fs.readFileSync(path);
-		let map = JSON.parse(rawdata);
+		let rawData = client.fs.readFileSync(path);
+		let map = JSON.parse(rawData);
 		return map;
 	},
 
@@ -116,8 +116,8 @@ module.exports = {
 
 	loadProfile: function (client, id) {
 		var path = "/media/el-rat/USB/saves/" + id + "/profile.json";
-		let rawdata = client.fs.readFileSync(path);
-		let profile = JSON.parse(rawdata);
+		let rawData = client.fs.readFileSync(path);
+		let profile = JSON.parse(rawData);
 		return profile;
 	},
 
@@ -279,8 +279,8 @@ module.exports = {
 
 	loadGrave: function (client, id) {
 		var path = "/media/el-rat/USB/saves/" + id + "/grave.json";
-		let rawdata = client.fs.readFileSync(path);
-		let grave = JSON.parse(rawdata);
+		let rawData = client.fs.readFileSync(path);
+		let grave = JSON.parse(rawData);
 		console.log(grave);
 		return grave;
 	}

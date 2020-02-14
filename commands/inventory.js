@@ -141,7 +141,6 @@ module.exports.run = (client, message) => {
 			if (messageReaction.emoji.name === client.reactions.equip) {
 				if (selectedType == "equippable") {
 					var selectedName = character.inventory.equippable[selected].name;
-					// Create code to implement equipment systen
 					var found = false;
 					character.inventory.equippable.forEach(element => {
 						if (element.name.toUpperCase() == selectedName.toUpperCase()) {
@@ -161,11 +160,11 @@ module.exports.run = (client, message) => {
 
 			// Get the index of the page by button pressed
 			const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-			// Return if emoji is irrelevant or the page doesnt exist (number too high)
+			// Return if emoji is irrelevant or the page doesn't exist (number too high)
 			if (pageIndex == -1) return;
 
-			const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-			await messageReaction.remove(notbot);
+			const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+			await messageReaction.remove(notBot);
 		});
 	}).catch(err => {
 		console.log(err);

@@ -19,7 +19,7 @@ module.exports.run = (client, message, args) => {
 		return message.react(client.reactions.restricted);
 
 	/*
-	Try to parse the arguments into an integer, if no errors occured, 
+	Try to parse the arguments into an integer, if no errors occurred, 
 	use the addXP function to add experience points to a character save.
 	*/
 	try {

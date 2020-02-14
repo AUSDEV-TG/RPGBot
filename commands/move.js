@@ -70,7 +70,7 @@ module.exports.run = (client, message, args) => {
 	client.charFuncs.saveCharacter(client, message.author.id, character);
 
 	/* 
-	Create a random chance (≈ .33% chance of occuring) to determine 
+	Create a random chance (≈ .33% chance of occurring) to determine 
 	whether the character will encounter an enemy.
 	If an enemy is to be encountered, create another variable to be 
 	used to access a randomised monster from the pool of available monsters.

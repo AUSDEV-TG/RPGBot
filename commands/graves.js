@@ -46,7 +46,7 @@ module.exports.run = (client, message) => {
 	// Create a local variable to store an array of 'character' objects stored in graves.json.
 	graves = graves.characters;
 
-	// Convert the character death times from UNIX timstamps to relative timestamps depending on the runtime environment of node.
+	// Convert the character death times from UNIX timestamps to relative timestamps depending on the runtime environment of node.
 	for (var i = 0; i < graves.length; i++) {
 		graves[i].date = new Date(graves[i].date);
 	}
@@ -107,14 +107,14 @@ module.exports.run = (client, message) => {
 
 			// Get the index of the page by button pressed
 			const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-			// Return if emoji is irrelevant or the page doesnt exist (number too high)
+			// Return if emoji is irrelevant or the page doesn't exist (number too high)
 			if (pageIndex == -1 || !pages[pageIndex]) return;
 
 			// Edit the message to show the new page.
 			msg.edit(pages[pageIndex]);
 
-			const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-			await messageReaction.remove(notbot);
+			const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+			await messageReaction.remove(notBot);
 		});
 	}).catch(err => console.log(err));
 	message.delete();

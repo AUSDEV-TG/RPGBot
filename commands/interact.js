@@ -63,11 +63,11 @@ module.exports.run = (client, message) => {
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				// Return if emoji is irrelevant or the page doesn't exist (number too high)
 				if (pageIndex === -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => {
 			console.log(err)
@@ -105,11 +105,11 @@ module.exports.run = (client, message) => {
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				// Return if emoji is irrelevant or the page doesn't exist (number too high)
 				if (pageIndex == -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => {
 			console.log(err)
@@ -152,11 +152,11 @@ module.exports.run = (client, message) => {
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				// Return if emoji is irrelevant or the page doesn't exist (number too high)
 				if (pageIndex == -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => {
 			console.log(err)
@@ -199,11 +199,11 @@ module.exports.run = (client, message) => {
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				// Return if emoji is irrelevant or the page doesn't exist (number too high)
 				if (pageIndex == -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => {
 			console.log(err)
@@ -253,11 +253,11 @@ module.exports.run = (client, message) => {
 
 				// Get the index of the page by button pressed
 				const pageIndex = buttons.indexOf(messageReaction.emoji.name);
-				// Return if emoji is irrelevant or the page doesnt exist (number too high)
+				// Return if emoji is irrelevant or the page doesn't exist (number too high)
 				if (pageIndex == -1) return;
 
-				const notbot = messageReaction.users.filter(clientuser => clientuser !== client.user).first();
-				await messageReaction.remove(notbot);
+				const notBot = messageReaction.users.filter(clientUser => clientUser !== client.user).first();
+				await messageReaction.remove(notBot);
 			});
 		}).catch(err => {
 			console.log(err)
