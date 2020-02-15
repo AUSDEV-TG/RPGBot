@@ -191,6 +191,35 @@ module.exports = {
 			module.exports.addXP(client, message, character, xp);
 	},
 
+	removeItem: function (client, message, character, item, type, amount) {
+		var search = module.exports.searchItems(client, character, item, type);
+
+		if (type == "consumable") {
+			if (!Number.isNaN(search)) {
+				character.inventory.consumable[search].count -= amount;
+
+				if (character.inventory.consumable[search].count <= 0)
+					character.inventory.consumable.splice(search, 1);
+			}
+		} else if (type == "equippable") {
+			if (!Number.isNaN(search)) {
+				character.inventory.equippable[search].count -= amount;
+
+				if (character.inventory.equippable[search].count <= 0) 
+					character.inventory.equippable.splice(search, 1);
+			}
+		} else if (type == "tradable") {
+			if (!Number.isNaN(search)) {
+				character.inventory.tradable[search].count -= amount;
+
+				if (character.inventory.tradable[search].count <= 0) 
+					character.inventory.tradable.splice(search, 1);
+			}
+		}
+
+		module.exports.saveCharacter(client, message.author.id, character);
+	},
+
 	searchItems: function (client, character, item, type) {
 		if (type == "consumable") {
 			for (var i = 0; i < character.inventory.consumable.length; i++) {
