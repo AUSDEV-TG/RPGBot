@@ -236,7 +236,7 @@ module.exports = {
 				}
 
 				if (messageReaction.emoji.name === client.reactions.down) {
-					if (selectedIndex < shopHeaders.length - 1) {
+					if (selectedIndex < shopHeaders.length) {
 						selectedIndex++;
 						msg.edit(module.exports.getShopMenuHeaders(client, character, shopHeaders, selectedIndex));
 					}
@@ -246,12 +246,10 @@ module.exports = {
 					msg.delete(); // Delete the message
 					collector.stop(); // Get rid of the collector.
 
-					selectedIndex = 0;
 					var selectedType = "consumable";
 
 					var characterMoneyIndex;
-
-					for (var i = 0; i < character.inventory.tradable; i++) {
+					for (var i = 0; i < character.inventory.tradable.length; i++) {
 						if (character.inventory.tradable[i].name == "Money")
 							characterMoneyIndex = i;
 					}
@@ -378,6 +376,7 @@ module.exports = {
 							});
 						}).catch(err => console.log(err));
 					} else if (selectedIndex == 1) {
+						selectedIndex = 0;
 						var sellMsg = module.exports.getSellMenu(client, character, selectedIndex, selectedType);
 
 						message.channel.send(sellMsg).then(async (sellMsg) => {
@@ -413,6 +412,22 @@ module.exports = {
 										selectedIndex = character.inventory.equippable.length - 1;
 										selectedType = "equippable";
 									}
+
+									if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+										selectedIndex = 0;
+										selectedType = "equippable";
+									}
+									
+									if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+										selectedIndex = 0;
+										selectedType = "tradable";
+									}
+									
+									if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+										selectedIndex = 0;
+										selectedType = "consumable"
+									}
+
 									sellMsg.edit(module.exports.getSellMenu(client, character, selectedIndex, selectedType));
 								}
 
@@ -426,6 +441,22 @@ module.exports = {
 										selectedIndex = 0;
 										selectedType = "equippable";
 									}
+
+									if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+										selectedIndex = 0;
+										selectedType = "equippable";
+									}
+									
+									if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+										selectedIndex = 0;
+										selectedType = "tradable";
+									}
+									
+									if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+										selectedIndex = 0;
+										selectedType = "consumable"
+									}
+
 									sellMsg.edit(module.exports.getSellMenu(client, character, selectedIndex, selectedType));
 								}
 
@@ -440,6 +471,21 @@ module.exports = {
 									} else if (selectedIndex > character.inventory.tradable.length - 1 && selectedType == "tradable")
 										selectedIndex = character.inventory.tradable.length - 1;
 
+									if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+										selectedIndex = 0;
+										selectedType = "equippable";
+									}
+									
+									if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+										selectedIndex = 0;
+										selectedType = "tradable";
+									}
+									
+									if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+										selectedIndex = 0;
+										selectedType = "consumable"
+									}
+
 									sellMsg.edit(module.exports.getSellMenu(client, character, selectedIndex, selectedType));
 								}
 
@@ -452,23 +498,76 @@ module.exports = {
 										selectedType = "tradable";
 									} else if (selectedType == "tradable")
 										selectedIndex = character.inventory.tradable.length - 1;
+									
+									if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+										selectedIndex = 0;
+										selectedType = "equippable";
+									}
+									
+									if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+										selectedIndex = 0;
+										selectedType = "tradable";
+									}
+									
+									if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+										selectedIndex = 0;
+										selectedType = "consumable"
+									}
+
 									sellMsg.edit(module.exports.getSellMenu(client, character, selectedIndex, selectedType));
 								}
 
 								if (messageReaction.emoji.name === client.reactions.money) {
 									var selectedItem;
-									if (selectedType == "consumable")
+									if (selectedType == "consumable") {
 										selectedItem = character.inventory.consumable[selectedIndex];
-									else if (selectedType == "equippable")
-										selectedItem = character.inventory.equippable[selectedIndex];
-									else if (selectedType == "tradable")
-										selectedItem = character.inventory.tradable[selectedIndex];
+										character.inventory.consumable[selectedIndex].count--;
+										if (character.inventory.consumable[selectedIndex].count <= 0)
+											character.inventory.consumable.splice(selectedIndex, 1);
 
+										if (character.inventory.consumable.length == 0) {
+											selectedIndex = 0;
+											selectedType = "equippable";
+										} else if (character.inventory.equippable.length == 0) {
+											selectedIndex = 0;
+											selectedType = "tradable";
+										}
+									} else if (selectedType == "equippable") {
+										selectedItem = character.inventory.equippable[selectedIndex];
+										character.inventory.equippable[selectedIndex].count--;
+										if (character.inventory.equippable[selectedIndex].count <= 0)
+											character.inventory.equippable.splice(selectedIndex, 1);
+										
+										if (character.inventory.equippable.length == 0) {
+											selectedIndex = 0;
+											selectedType = "tradable";
+										}
+										
+										if (character.inventory.tradable.length == 0) {
+											selectedIndex = 0;
+											selectedType = "consumable";
+										}
+									} else if (selectedType == "tradable") {
+										selectedItem = character.inventory.tradable[selectedIndex];
+										character.inventory.tradable[selectedIndex].count--;
+										if (character.inventory.tradable[selectedIndex].count <= 0)
+											character.inventory.tradable.splice(selectedIndex, 1);
+									
+										if (character.inventory.tradable.length == 0) {
+											selectedIndex = 0;
+											selectedType = "consumable";
+										}
+										
+										if (character.inventory.consumable.length == 0) {
+											selectedIndex = 0;
+											selectedType = "equippable";
+										}
+									}
+									
 									selectedItem.count = 1;
 
 									character.inventory.tradable[characterMoneyIndex].count += module.exports.getSellValue(selectedItem);
-									client.charFuncs.removeItem(client, message, character, selectedItem, selectedType, 1);
-									character = client.charFuncs.loadCharacter(client, message.author.id);
+									client.charFuncs.saveCharacter(client, message.author.id, character);
 									sellMsg.edit(module.exports.getSellMenu(client, character, selectedIndex, selectedType));
 								}
 
@@ -616,7 +715,10 @@ module.exports = {
 	},
 
 	getSellValue: function (item) {
-		return parseInt(item.val * 0.8);
+		var modifier = 0.8;
+		if (item.name == "Money")
+			modifier = 1;
+		return parseInt(item.val * modifier);
 	},
 
 	property: function (client, message, character) {

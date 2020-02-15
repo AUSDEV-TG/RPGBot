@@ -68,6 +68,22 @@ module.exports.run = (client, message) => {
 					selected = character.inventory.equippable.length - 1;
 					selectedType = "equippable";
 				}
+
+				if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+					selected = 0;
+					selectedType = "equippable";
+				}
+				
+				if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+					selected = 0;
+					selectedType = "tradable";
+				}
+				
+				if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+					selected = 0;
+					selectedType = "consumable"
+				}
+
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
@@ -81,6 +97,22 @@ module.exports.run = (client, message) => {
 					selected = 0;
 					selectedType = "equippable";
 				}
+
+				if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+					selected = 0;
+					selectedType = "equippable";
+				}
+				
+				if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+					selected = 0;
+					selectedType = "tradable";
+				}
+				
+				if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+					selected = 0;
+					selectedType = "consumable"
+				}
+
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
@@ -97,6 +129,22 @@ module.exports.run = (client, message) => {
 				}
 				else if (selected > character.inventory.tradable.length - 1 && selectedType == "tradable")
 					selected = character.inventory.tradable.length - 1;
+
+				if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+					selected = 0;
+					selectedType = "equippable";
+				}
+					
+				if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+					selected = 0;
+					selectedType = "tradable";
+				}
+					
+				if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+					selected = 0;
+					selectedType = "consumable"
+				}
+
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
@@ -109,6 +157,22 @@ module.exports.run = (client, message) => {
 					selectedType = "tradable";
 				} else if (selectedType == "tradable")
 					selected = character.inventory.tradable.length - 1;
+
+				if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+					selected = 0;
+					selectedType = "equippable";
+				}
+					
+				if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+					selected = 0;
+					selectedType = "tradable";
+				}
+					
+				if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+					selected = 0;
+					selectedType = "consumable"
+				}
+					
 				msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 			}
 
@@ -128,6 +192,22 @@ module.exports.run = (client, message) => {
 								selected--;
 							}
 							client.charFuncs.heal(client, message.author.id, character, tempHeal);
+							
+							if (character.inventory.consumable.length == 0 && selectedType == "consumable") {
+								selected = 0;
+								selectedType = "equippable";
+							}
+							
+							if (character.inventory.equippable.length == 0 && selectedType == "equippable") {
+								selected = 0;
+								selectedType = "tradable";
+							}
+							
+							if (character.inventory.tradable.length == 0 && selectedType == "tradable") {
+								selected = 0;
+								selectedType = "consumable"
+							}
+
 							msg.edit(module.exports.getInvent(client, character, selected, selectedType));
 						}
 					}
