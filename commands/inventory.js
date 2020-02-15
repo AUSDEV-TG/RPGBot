@@ -28,6 +28,15 @@ module.exports.run = (client, message) => {
 	var selected = 0;
 	var selectedType = "consumable";
 
+	if (character.inventory.consumable.length == 0 && selectedType == "consumable") 
+		selectedType = "equippable";
+	
+	if (character.inventory.equippable.length == 0 && selectedType == "equippable") 
+		selectedType = "tradable";
+	
+	if (character.inventory.tradable.length == 0 && selectedType == "tradable") 
+		selectedType = "consumable"
+
 	var invent = module.exports.getInvent(client, character, selected, selectedType);
 
 	message.channel.send(invent).then(async (msg) => {

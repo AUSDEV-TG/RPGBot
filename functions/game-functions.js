@@ -377,6 +377,16 @@ module.exports = {
 						}).catch(err => console.log(err));
 					} else if (selectedIndex == 1) {
 						selectedIndex = 0;
+
+						if (character.inventory.consumable.length == 0 && selectedType == "consumable") 
+							selectedType = "equippable";
+						
+						if (character.inventory.equippable.length == 0 && selectedType == "equippable") 
+							selectedType = "tradable";
+						
+						if (character.inventory.tradable.length == 0 && selectedType == "tradable")
+							selectedType = "consumable"
+
 						var sellMsg = module.exports.getSellMenu(client, character, selectedIndex, selectedType);
 
 						message.channel.send(sellMsg).then(async (sellMsg) => {
