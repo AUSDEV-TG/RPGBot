@@ -33,7 +33,7 @@ module.exports = {
 						message.reply(client.config.block + character.name
 							+ " couldn't defend against the " + tempMonster.name
 							+ " and was killed...\nTook " + character.health + " HP damage." + client.config.block);
-						client.charFuncs.takeDamage(client, message, message.author.id, character, character.health);
+						client.charFuncs.takeDamage(client, message, character, character.health);
 					} else {
 						if (tempMonster.dam != 0) {
 							var dam = tempMonster.dam * 2.5;
@@ -41,7 +41,7 @@ module.exports = {
 								+ "'s Reaction time failed them...\n" + tempMonster.name
 								+ " became enraged, thrashed " + character.name
 								+ " and fled. Took " + dam.toFixed(2) + " HP damage." + client.config.block);
-							client.charFuncs.takeDamage(client, message, message.author.id, character, dam.toFixed(2));
+							client.charFuncs.takeDamage(client, message, character, dam.toFixed(2));
 						}
 					}
 				}
@@ -98,7 +98,7 @@ module.exports = {
 								+ client.reactions.attack + "-attack\t"
 								+ client.reactions.run + "-run\t"
 								+ client.config.block);
-							client.charFuncs.takeDamage(client, message, message.author.id, character, tempMonster.dam.toFixed(2));
+							client.charFuncs.takeDamage(client, message, character, tempMonster.dam.toFixed(2));
 						} else {
 							msg.edit(client.config.block + character.name
 								+ " injured the " + tempMonster.name + ".\n"
@@ -115,7 +115,7 @@ module.exports = {
 						msg.edit(client.config.block + "The "
 							+ tempMonster.name + " hit you but you managed to escape. Took "
 							+ tempMonster.dam.toFixed(2) + " HP damage." + client.config.block);
-						client.charFuncs.takeDamage(client, message, message.author.id, character, tempMonster.dam.toFixed(2));
+						client.charFuncs.takeDamage(client, message, character, tempMonster.dam.toFixed(2));
 					} else {
 						msg.edit(client.config.block + character.name
 							+ " has escaped." + client.config.block);

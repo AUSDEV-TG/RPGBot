@@ -23,7 +23,7 @@ module.exports.run = (client, message) => {
 	then save it to the user's account. After everything is done, delete the 
 	original command.
 	*/
-	var map = client.charFuncs.generateMap(client, message.author.id);
+	var map = client.charFuncs.generateMap();
 	client.charFuncs.saveMap(client, message.author.id, map);
 	message.reply("Map successfully regenerated.");
 	message.delete();

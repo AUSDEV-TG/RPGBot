@@ -51,7 +51,7 @@ module.exports.run = (client, message, args) => {
 		};
 
 		// Generate a map
-		var map = client.charFuncs.generateMap(client);
+		var map = client.charFuncs.generateMap();
 
 		var profile;
 
